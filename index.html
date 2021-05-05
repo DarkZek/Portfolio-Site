@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <meta content="utf-8" http-equiv="encoding">
+        <title>Marshall Scott</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+        <link href="/css/main.css" rel="stylesheet"></link>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"></i> 
+        <script>
+            var projects = [
+                {
+                    id: "flixrapp",
+                    name: "Flixrapp.com",
+                    image: "/img/Slideshow3_Rounded.png",
+                    url: "https://flixrapp.com/",
+                    description: "Flixr started as a frustration with managing tv show notifications for so many different streaming platforms. It collates data from online <b>API's</b> to provide one succinct user interface. It uses a custom passwordless authentication solution to accommodate onboarding.",
+                    content: "<h2>Flixrapp.com</h2><br><p>Flixr started as a frustration with managing new show notifications for so many different streaming platforms. I decided to solve that problem with a centralised repository for storing shows you've watched so that you can reminded each and every time a new seasons releases. It has since gained more functionality such as downloading wallpaper packs with screenshots from your content.</p><h3>Technology</h3><ul><li>mySQL</li><li>PHP 7.0</li><li>Laravel Framework</li><li>Nginx</li><li>Docker</li><li>Rust</li><li>Sendmail</li><li>VueJS</li></ul>",
+                    color: "#7782d2",
+                    tags: ["Vue.JS", "Docker", "Laravel", "mySQL"]
+                },
+                {
+                    id: "christmasevent2018",
+                    name: "UDC Christmas Event",
+                    image: "/img/Slideshow2.png",
+                    url: "https://portfolio.flixrapp.com/ChristmasEvent2018/index.html",
+                    description: "This christmas event was a Capture the Flag programming adventure made for the online community Unity Developer Community on <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It included SSH puzzles and web exploits based on the <b>Docker</b> platform for a secure and robust challenge platform for community members. ",
+                    content: "<h2>UDC Christmas Event</h2><br><p>This christmas event was a Capture the Flag programming challenge made for the online community on <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It was quite an adventure because it gave me an excuse to try out many different technologies and combine them into one polished product.</p><h3>Explorations</h3><ul><li><b>Docker</b><br><span>The challenge involved submitting a .java file, this meant my web server had to execute remote code in a safe fashion. For this I booted up a Java docker container to compile and run the jar file, reading the stack trace through the output string. This lead me to setting up a robust and modular system to run the entire system based off docker.</p></li>",
+                    color: "#ffb700",
+                    tags: ["Nginx", "Docker", "C#", "SSH"]
+                },
+                {
+                    id: "byteunwrapped",
+                    name: "Byte Unwrapped",
+                    image: "/img/Slideshow4.png", 
+                    url: "https://blog.flixrapp.com/",
+                    description: "My development blog where knowledge is spread, experiments are conducted, and progress is reported. It is made in <b>Wordpress</b> which supports comments, posts and an account system. Running on a linux server in my house, Byte Unwrapped is a communication portal to the world.",
+                    content: "<h2>Byte Unwrapped</h2><a>Hello, the blog is still new so this is WIP</a>",
+                    color: "#ee6400",
+                    tags: ["Wordpress", "Rust", "CSS"]
+                },
+            ];
+        </script>
+        <script src="/js/main.js"></script>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300&display=swap" rel="stylesheet"> 
+        <script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+    </head>
+    <body>
+        <div class="nav">
+            <div style="width: 280px;">
+                <h3 class="title" id="title">&#8203;</h3>
+            </div>
+            <div class="links">   
+                <a href="https://flixrapp.com/">Flixrapp</a>
+                <a href="https://blog.flixrapp.com/">Byte Unwrapped</a>
+                <a href="https://github.com/darkzek/rustcraft/">Rustcraft</a>
+            </div>
+            <div class="socials">
+                <a href="https://www.linkedin.com/in/marshall-scott-746989167/" class="fi fi-linkedin"></a>
+                <a href="https://github.com/darkzek/" class="fi fi-github"></a>
+                <a href="mailto:mashdowne@hotmail.co.nz" class="fi fi-email"></a>
+            </div>
+        </div>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="waves-svg">
+            <path fill="#f3f4f5" fill-opacity="1" d="M0,128L80,154.7C160,181,320,235,480,224C640,213,800,139,960,90.7C1120,43,1280,21,1360,10.7L1440,0L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+        </svg>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 project">
+                    <div class="project-image-container">
+                        <div class="project-image" onload="alert('test');this.classList.add('project-image-anim');"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                        <p class="description preloading">&#8203;<br>&#8203;<br>&#8203;<br>&#8203;</p>
+                    </div>
+                    <div class="tags"></div>
+                </div>
+                <div class="col-md-4 project"><br><br>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                        <p class="description preloading">&#8203;<br>&#8203;<br>&#8203;<br>&#8203;</p>
+                    </div>
+                    <div class="project-image-container">
+                        <div class="project-image"></div>
+                    </div>
+                    <div class="tags"></div>
+                </div>
+                <div class="col-md-4 project">
+                    <div class="project-image-container">
+                        <div class="project-image"></div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                        <p class="description preloading">&#8203;<br>&#8203;<br>&#8203;<br>&#8203;</p>
+                    </div>
+                    <div class="tags"></div>
+                </div>
+            </div>
+            <div id="background-click-catcher" class="invisible"></div>
+            <div class="card invisible container" id="site-displayer">
+                <div id="expanding"></div>
+                <div class="row" id="site-displayer-graphics">
+                    <div class="col-9">
+                        <div class="spinner-border" role="status"></div>
+                    </div>
+                    <div class="col-3" id="site-displayer-content"></div>
+                    <span class="close" aria-hidden="true" onclick="hide_site();">&times;</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="divider"></div>
+            <br>
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 contacts">
+                        <div class="row">
+                            <span onclick="window.open('https://github.com/darkzek/');">
+                                <a class="fi fi-github"></a>
+                                <b>GITHUB</b>
+                            </span>
+                            <p>Follow for open source projects like <a href="https://github.com/darkzek/chickenbot/" class="link">Chicken Bot</a> and <a href="https://github.com/DarkZek/golden-ratio-project" class="link">Golden Ratio Viewer</a></p>
+                        </div>
+                        <div class="row">
+                            <span onclick="window.open('https://gitlab.com/DarkZek/');">
+                                <a class="fi fi-gitlab"></a>
+                                <b>GITLAB</b>
+                            </span>
+                            <p>Follow for open source projects like <a href="https://gitlab.com/DarkZek/AshcollAutoLogin/-/tree/Initialize" class="link">Initialize</a> or <a href="https://gitlab.com/DarkZek/thiscord" class="link">Thiscord</a></p>
+                        </div>
+                        <div class="row">
+                            <span onclick="window.open('https://www.linkedin.com/in/marshall-scott-746989167/');">
+                                <a class="fi fi-linkedin"></a>
+                                <b>LINKEDIN</b>
+                            </span>
+                            <p>Connect with me on LinkedIn</p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                    </div>
+                    <div class="col-md-8 contactme">
+                        <div class="row">
+                            <div class="col-3">
+                                <img src="./img/dots.svg">
+                            </div>
+                            <div class="col-9">
+                                <br>
+                                <h2>Have a project in mind?</h2>
+                                <br>
+                                <a href="mailto:mashdowne@hotmail.co.nz" class="btn btn-primary">Get in touch</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <h6 class="copyright">© Marshall Scott. All Rights Reserved</h6>
+        </div>
+    </body>
+</html>
