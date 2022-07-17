@@ -1,35 +1,43 @@
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
 function show_site(project, e) {
 
+    // No site to show
+    if (project.url == null) {
+        return;
+    }
+
     // If ctrl or mobile then just open a new tab
-    if (e != null && (e.ctrlKey || /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+    if (e != null && (e.ctrlKey || isMobile())) {
         window.open(project.url);
         return;
     }
 
     // Set background
-    window.setTimeout (function() {
-        document.getElementById("site-displayer").style["background-color"] = project.color;
-        document.getElementById("site-displayer-graphics").classList.remove("invisible");
-    }, 300);
-    window.setTimeout (function() {
-        document.getElementById("expanding").classList.remove("expanding");
-    }, 1100);
-    document.getElementById("expanding").classList.add("expanding");
-
-
-    let siteDisplayer = document.getElementById("site-displayer");
-    let clickCatcher = document.getElementById("background-click-catcher");
-    siteDisplayer.classList.remove("invisible");
-    clickCatcher.classList.remove("invisible");
-
+    showSiteFrame(project.color);
+    
+    // Set styles based on project
     document.getElementById("site-displayer-graphics").classList.add("invisible");
     document.getElementById("site-displayer").style["background-color"] = "transparent";
     document.getElementById("expanding").style["background-color"] = project.color;
     document.getElementById("site-displayer-content").innerHTML = "<br>" + project.content + "<br>";
 
+    // Updates
+    updateSiteFrameIframe(project);
+
+    // Change url
+    window.history.replaceState("", "Marshall Scott", "#" + project.id);
+
+    // Stop scrolling
+    document.documentElement.style.overflowY = "hidden";
+}
+
+function updateSiteFrameIframe(project) {
     // Change iframe src if it's not already loaded iframe.
     var iframe = document.getElementById("site-displayer-iframe");
-    
+
     if (iframe != null && iframe.src == project.url) {
         iframe.style.opacity = "inherit";
         iframe.style.visibility = "inherit";
@@ -44,10 +52,32 @@ function show_site(project, e) {
             iframe.style.visibility = "inherit";
         }
     }
+}
 
-    window.history.replaceState("", "Marshall Scott", "#" + project.id);
-    document.body.style.overflow = "hidden";
-    window.scrollTo(0,0)
+function showSiteFrame(color) {
+    let siteDisplayer = document.getElementById("site-displayer");
+    let clickCatcher = document.getElementById("background-click-catcher");
+    siteDisplayer.classList.remove("invisible");
+    clickCatcher.classList.remove("invisible");
+
+    showSiteFrameContent(color);
+}
+
+// Makes the site div content visible on the screen
+function showSiteFrameContent(color) {
+    // Schedule the div vto get styled and contents visible.
+    window.setTimeout (function() {
+        document.getElementById("site-displayer").style["background-color"] = color;
+        document.getElementById("site-displayer-graphics").classList.remove("invisible");
+    }, 300);
+
+    // Stop expanding animation
+    window.setTimeout (function() {
+        document.getElementById("expanding").classList.remove("expanding");
+    }, 1100);
+
+    // Start expanding
+    document.getElementById("expanding").classList.add("expanding");
 }
 
 function update_iframe(url) {
@@ -75,16 +105,68 @@ function hide_site() {
     }
     document.body.style.overflow = "inherit";
     window.history.replaceState("", "Marshall Scott", "/");
+    document.documentElement.style.overflowY = "auto";
+}
+
+function loadVideo(slide, project) {
+    // Disable video for mobile clients
+    if (isMobile()) {
+        project.video = null;
+    }
+
+    if (project.video != null) {
+        let video = slide.getElementsByClassName("video")[0];
+
+        // Get width and height
+        let width = video.offsetWidth;
+        let height = video.offsetHeight;
+
+        let resolution = null;
+
+        for (let i in project.video_sizes) {
+            let res = project.video_sizes[i];
+
+            if (res[0] > width && res[1] > height) {
+                resolution = res;
+                break;
+            }
+        }
+
+        // Pick biggest
+        if (resolution == null) {
+            resolution = project.video_sizes[project.video_sizes.length - 1];
+        }
+
+        video.src = project.video + "_" + resolution[0] + "x" + resolution[1] + ".mp4";
+        //video.width = resolution[0];
+        //video.height = resolution[1];
+
+        // Make video centered
+        let playerSize = video.parentElement.clientHeight - video.parentElement;
+        video.style["margin-top"] = playerSize + 'px';
+
+        slide.addEventListener("mouseenter", function() {
+            video.play();
+        });
+        
+        slide.addEventListener("mouseleave", function() {
+            video.pause();
+        });
+    }
 }
 
 window.onload = function() {
+    // Setup the on load click catcher
     document.getElementById("background-click-catcher").onmousedown = hide_site;
 
+    // Loop over all slides
     var slides = document.getElementsByClassName("project");
     
-    for (var i = 0; i < projects.length; i++) {
+    for (var i = 0; i < slides.length; i++) {
         var slide = slides[i];
         var project = projects[i];
+
+        loadVideo(slide, project);
 
         var title = slide.getElementsByClassName("title")[0];
         
@@ -102,8 +184,10 @@ window.onload = function() {
 
         // Generate tags
         var tags = slide.getElementsByClassName("tags")[0];
-        for (var tag in project.tags) {
-            tags.innerHTML += "<a class=\"tag\" style=\"background-color: " + project.color + ";\">" + project.tags[tag] + "</a>";
+        if (tags != null) {
+            for (var tag in project.tags) {
+                tags.innerHTML += "<a class=\"tag\" style=\"background-color: " + project.color + ";\">" + project.tags[tag] + "</a>";
+            }
         }
 
         // Seperate into new function so, as project changes during the for loop so when the callback runs later we always open the last projects url
@@ -129,7 +213,7 @@ window.onload = function() {
         })(project, slide);
     }
 
-    // Load project page on page load
+    // Load project page on page load if url specifies
     for (i in projects) {
         let project = projects[i];
         if ("#" + project.id == window.location.hash) {
@@ -145,7 +229,7 @@ window.onload = function() {
         if (name != "") {
             window.setTimeout (typeName, Math.random() * 250);
         } else {
-            document.getElementById("title").style["padding-right"] = "10px";
+            document.getElementById("title").style["border-right"] = "none";
         }
     };
     // Start typing name 500ms after load

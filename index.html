@@ -6,29 +6,72 @@
         <meta content="utf-8" http-equiv="encoding">
         <title>Marshall Scott</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-        <link href="/css/main.css" rel="stylesheet"></link>
+        <link href="/css/main.css" rel="stylesheet">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css"></i> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css">
         <script>
             var projects = [
                 {
                     id: "flixrapp",
                     name: "Flixrapp.com",
-                    image: "/img/Slideshow3_Rounded.png",
+                    image: "/img/Flixr.png",
                     url: "https://flixrapp.com/",
-                    description: "Flixr started as a frustration with managing tv show notifications for so many different streaming platforms. It collates data from online <b>API's</b> to provide one succinct user interface. It uses a custom passwordless authentication solution to accommodate onboarding.",
-                    content: "<h2>Flixrapp.com</h2><br><p>Flixr started as a frustration with managing new show notifications for so many different streaming platforms. I decided to solve that problem with a centralised repository for storing shows you've watched so that you can reminded each and every time a new seasons releases. It has since gained more functionality such as downloading wallpaper packs with screenshots from your content.</p><h3>Technology</h3><ul><li>mySQL</li><li>PHP 7.0</li><li>Laravel Framework</li><li>Nginx</li><li>Docker</li><li>Rust</li><li>Sendmail</li><li>VueJS</li></ul>",
+                    url_tyle: "local",
+                    description: "Flixr started as a frustration with managing tv show notifications for so many different streaming platforms. It collates data from online <b>API's</b> to provide one succinct user interface. It uses a custom password-less authentication solution to accommodate on-boarding.",
+                    content: "<h2>Flixrapp.com</h2><br><p>Flixr started as a frustration with managing new show notifications for so many different streaming platforms. I decided to solve that problem with a centralised repository for storing shows you've watched so that you can reminded each and every time a new seasons releases. It has since gained more functionality such as downloading wallpaper packs with screenshots from your content.</p><h3>Tech Used</h3><ul><li>mySQL</li><li>PHP 7.0</li><li>Laravel Framework</li><li>Nginx</li><li>Docker</li><li>Rust</li><li>Sendmail</li><li>VueJS</li></ul>",
                     color: "#7782d2",
                     tags: ["Vue.JS", "Docker", "Laravel", "mySQL"]
                 },
                 {
-                    id: "christmasevent2018",
-                    name: "UDC Christmas Event",
+                    id: "rustcraft",
+                    name: "RustCraft",
+                    image: "/img/RustCraftScreenshot.png", 
+                    url: "./rustcraft/index.html",
+                    url_tyle: "local",
+                    description: "RustCraft is a from scratch modern alternative to the official minecraft client. Written in Rust and using wgpu-rs it focuses on delivering high performance voxel rendering. It features an Entity Component System <b>(ECS) based rendering system</b>, threaded networking, mesh building, asset management, render engine and AABB physics engine providing blazing fast performance.",
+                    content: "<h2>RustCraft</h2><a>RustCraft is a from scratch alternative minecraft client. Written in Rust and wgpu-rs (webgpu/vulkan/directx wrapper) it focuses on delivering high performance voxel rendering.</a><br><br><h4>Progress</h4><a>The project contains a threaded Minecraft 1.15.2 <b>network protocol parser</b>, an AABB <b>physics engine</b>, custom <b>mesh building</b> solution, <b>asset management</b> / texture atlas building, custom implementation of <b>Minecraft blocks</b> along with a <b>User Interface</b> solution.",
+                    color: "#ef323d",
+                    video: "./rustcraft/video_nointro",
+                    // Ordered from smallest to largest
+                    video_sizes: [[720, 576], [1080, 720], [1920, 1080]],
+                    tags: ["ECS", "Rendering", "Rust", "Networking"]
+                },
+                {
+                    id: "christmasevent2021",
+                    name: "UDC Christmas Event 2021",
+                    image: "/img/UDCChallenge2021.png",
+                    url: "./ChristmasEvent2021/index.html",
+                    url_tyle: "local",
+                    description: "This christmas event is an upcoming Capture the Flag programming adventure made for the online community Unity Developer Community using mainly <b>C Sharp</b>. It includes a Discord Bot, Networking challenges based on the <b>Docker</b> platform. It releases <i>December 2021</i>",
+                    content: "<h2>UDC Christmas Event</h2>This christmas event is an upcoming Capture the Flag programming adventure made for the online community Unity Developer Community using mainly <b>C Sharp</b>. It includes a Discord Bot, Networking challenges based on the <b>Docker</b> platform.<br><br>Releases <i>December 2021</i>",
+                    color: "#64b82c",
+                    video: "./ChristmasEvent2021/video",
+                    // Ordered from smallest to largest
+                    video_sizes: [[720, 405], [1000, 562], [1920, 1080]],
+                    tags: ["Nginx", "Docker", "C#", "SSH"]
+                },
+                {
+                    id: "aliensareattacking",
+                    name: "Aliens Are Attacking",
+                    image: "/img/Aliens_Are_Attacking.png",
+                    url: "/aliens_are_attacking/WebGL/index.html",
+                    description: "Flixr started as a frustration with managing tv show notifications for s many different streaming platforms. It collates data from online <b>API's</b> to provide one succinct user interface. It uses a custom password-less authentication solution to accommodate on-boarding.",
+                    content: "<h2>Aliens Are Attacking</h2><br><p>This is a game made in collaboration using the <b>Unity</b> game engine in C# for a Game Jam held online in early 2019. I formed a team with <a href=\"https://jameskellie.dev/\" target=\"_blank\">James Kellie</a> to enter, the theme being selected to be <b>Destruction</b>!<br><br>We eagerly created a prototype of the idea, then collaboratively designed the art and added more functionality to the scene. This gave us just enough time to build an executable of the game in time for submission!<br><br>This project taught me about working in a team environment as well as provided a lot of fun joining and programming with other software developers!</p><a href=\"https://simplyjpk.itch.io/aliens-are-attacking\" target=\"_blank\">Check it out on itch.io</a>",
+                    color: "#4d4d4d",
+                    video: "./aliens_are_attacking/video",
+                    // Ordered from smallest to largest
+                    video_sizes: [[600, 600]],
+                    tags: ["Vue.JS", "Docker", "Laravel", "mySQL"]
+                },
+                {
+                    id: "christmasevent2019",
+                    name: "UDC Christmas Event 2019",
                     image: "/img/Slideshow2.png",
-                    url: "https://portfolio.flixrapp.com/ChristmasEvent2018/index.html",
-                    description: "This christmas event was a Capture the Flag programming adventure made for the online community Unity Developer Community on <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It included SSH puzzles and web exploits based on the <b>Docker</b> platform for a secure and robust challenge platform for community members. ",
+                    url: "/ChristmasEvent2019/index.html",
+                    url_tyle: "local",
+                    description: "This christmas event was a Capture the Flag challenge for the online community UDC at <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It included SSH puzzles,  web exploits are more!",
                     content: "<h2>UDC Christmas Event</h2><br><p>This christmas event was a Capture the Flag programming challenge made for the online community on <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It was quite an adventure because it gave me an excuse to try out many different technologies and combine them into one polished product.</p><h3>Explorations</h3><ul><li><b>Docker</b><br><span>The challenge involved submitting a .java file, this meant my web server had to execute remote code in a safe fashion. For this I booted up a Java docker container to compile and run the jar file, reading the stack trace through the output string. This lead me to setting up a robust and modular system to run the entire system based off docker.</p></li>",
                     color: "#ffb700",
                     tags: ["Nginx", "Docker", "C#", "SSH"]
@@ -38,11 +81,23 @@
                     name: "Byte Unwrapped",
                     image: "/img/Slideshow4.png", 
                     url: "https://blog.flixrapp.com/",
-                    description: "My development blog where knowledge is spread, experiments are conducted, and progress is reported. It is made in <b>Wordpress</b> which supports comments, posts and an account system. Running on a linux server in my house, Byte Unwrapped is a communication portal to the world.",
-                    content: "<h2>Byte Unwrapped</h2><a>Hello, the blog is still new so this is WIP</a>",
+                    description: "My development blog where knowledge is spread, experiments are conducted, and progress is reported. It is made in <b>Wordpress</b> which supports comments, posts and an account system. Running on a Linux server in my house, Byte Unwrapped is a communication portal to the world.",
+                    content: "<h2>Byte Unwrapped</h2><p>My development blog where knowledge is spread, experiments are conducted, and progress is reported. It is made in <b>Wordpress</b> which supports comments, posts and an account system.<br><br>It contains content from my University courses as well as personal projects.</p>",
                     color: "#ee6400",
                     tags: ["Wordpress", "Rust", "CSS"]
                 },
+                {
+                    id: "christmasevent2018",
+                    name: "UDC Christmas Event 2018",
+                    image: "/img/ChristmasEvent2018.png",
+                    url: "/ChristmasEvent2018/index.html",
+                    url_tyle: "local",
+                    description: "This christmas event was a Capture the Flag challenge for the online community UDC at <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It included SSH puzzles,  web exploits are more!",
+                    content: "<h2>UDC Christmas Event</h2><br><p>This christmas event was a Capture the Flag programming challenge made for the online community on <a href=\"https://discord.gg/bu3bbby\" target=\"_blank\">Discord</a>. It was quite an adventure because it gave me an excuse to try out many different technologies and combine them into one polished product.</p><h3>Explorations</h3><ul><li><b>Docker</b><br><span>The challenge involved connecting to a ssh server, this meant my web server had to execute remote login in a safe fashion. For this I booted up an ubuntu docker container to login to. This lead me to setting up a robust and modular system to run the entire system based off docker.</p></li>",
+                    color: "#72a2c9",
+                    tags: ["Nginx", "Docker", "C#", "SSH"]
+                },
+
             ];
         </script>
         <script src="/js/main.js"></script>
@@ -61,9 +116,9 @@
                 <a href="https://github.com/darkzek/rustcraft/">Rustcraft</a>
             </div>
             <div class="socials">
-                <a href="https://www.linkedin.com/in/marshall-scott-746989167/" class="fi fi-linkedin"></a>
-                <a href="https://github.com/darkzek/" class="fi fi-github"></a>
-                <a href="mailto:mashdowne@hotmail.co.nz" class="fi fi-email"></a>
+                <a href="https://www.linkedin.com/in/marshall-scott-746989167/" class="fi fi-linkedin" target="_blank"></a>
+                <a href="https://github.com/darkzek/" class="fi fi-github" target="_blank"></a>
+                <a href="mailto:mashdowne@hotmail.co.nz" class="fi fi-email" target="_blank"></a>
             </div>
         </div>
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" preserveAspectRatio="none" class="waves-svg">
@@ -71,9 +126,14 @@
         </svg>
         <div class="container">
             <div class="row">
-                <div class="col-md-4 project">
+                <div class="col-lg project">
+                    <br>
                     <div class="project-image-container">
-                        <div class="project-image" onload="alert('test');this.classList.add('project-image-anim');"></div>
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3 class="title preloading">&#8203;</h3>
@@ -81,19 +141,28 @@
                     </div>
                     <div class="tags"></div>
                 </div>
-                <div class="col-md-4 project"><br><br>
+                <div class="col-lg-5 project big-project">
+                    <div class="project-image-container">
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
+                    </div>
                     <div class="project-info">
                         <h3 class="title preloading">&#8203;</h3>
                         <p class="description preloading">&#8203;<br>&#8203;<br>&#8203;<br>&#8203;</p>
                     </div>
-                    <div class="project-image-container">
-                        <div class="project-image"></div>
-                    </div>
                     <div class="tags"></div>
                 </div>
-                <div class="col-md-4 project">
+                <div class="col-lg project">
+                    <br>
                     <div class="project-image-container">
-                        <div class="project-image"></div>
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
                     </div>
                     <div class="project-info">
                         <h3 class="title preloading">&#8203;</h3>
@@ -102,6 +171,86 @@
                     <div class="tags"></div>
                 </div>
             </div>
+            <br><br>
+            <div class="row">
+                <h4 class="text-center other-projects">OTHER PROJECTS</h4>
+            </div>
+            <div class="row">
+
+                <div class="col-lg project small-project">
+                    <div class="project-image-container">
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                    </div>
+                </div>
+
+                <div class="col-lg project small-project">
+                    <div class="project-image-container">
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                    </div>
+                </div>
+
+                <div class="col-lg project small-project">
+                    <div class="project-image-container">
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                    </div>
+                </div>
+
+                <div class="col-lg project small-project">
+                    <div class="project-image-container">
+                        <div class="project-image">
+                            <video
+                            opacity: 0; muted loop class="video">
+                            </video>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="title preloading">&#8203;</h3>
+                    </div>
+                </div>
+            </div>
+            <script>
+                // If aspect ratio supported
+                if(!('aspect-ratio' in document.body.style))
+                {
+                    // Listens to resize events and updates the height to match
+                    let observer = new ResizeObserver(entries => {
+                        entries.forEach(entry => {
+                            entry.target.style["height"] = (entry.contentRect.width / 1.805) + "px";
+                        });
+                    });
+
+                    let images = document.getElementsByClassName("project-image");
+
+                    for (let item of images) {
+                        // Set starting height
+                        item.style["height"] = (item.clientWidth / 1.805) + "px";
+
+                        // Change height when size updates
+                        observer.observe(item);
+                    };
+                }
+            </script>
             <div id="background-click-catcher" class="invisible"></div>
             <div class="card invisible container" id="site-displayer">
                 <div id="expanding"></div>

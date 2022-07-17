@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="200mm"
+   height="100mm"
+   viewBox="0 0 200 100"
+   version="1.1"
+   id="svg8"
+   inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"
+   sodipodi:docname="coming_soon.svg"
+   inkscape:export-filename="/home/darkzek/personal/ChristmasEvent2021/coming_soon.png"
+   inkscape:export-xdpi="127"
+   inkscape:export-ydpi="127">
+  <defs
+     id="defs2">
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter923">
+      <feFlood
+         flood-opacity="0.415686"
+         flood-color="rgb(0,0,0)"
+         result="flood"
+         id="feFlood913" />
+      <feComposite
+         in="SourceGraphic"
+         in2="flood"
+         operator="in"
+         result="composite1"
+         id="feComposite915" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1.8"
+         result="blur"
+         id="feGaussianBlur917" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset919" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite921" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter1223">
+      <feFlood
+         flood-opacity="0.4"
+         flood-color="rgb(88,88,88)"
+         result="flood"
+         id="feFlood1213" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1215" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1.8"
+         result="blur"
+         id="feGaussianBlur1217" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset1219" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1221" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter1235">
+      <feFlood
+         flood-opacity="0.4"
+         flood-color="rgb(88,88,88)"
+         result="flood"
+         id="feFlood1225" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1227" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1.8"
+         result="blur"
+         id="feGaussianBlur1229" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset1231" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1233" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter1247">
+      <feFlood
+         flood-opacity="0.4"
+         flood-color="rgb(88,88,88)"
+         result="flood"
+         id="feFlood1237" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite1239" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="1.8"
+         result="blur"
+         id="feGaussianBlur1241" />
+      <feOffset
+         dx="0"
+         dy="0"
+         result="offset"
+         id="feOffset1243" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite1245" />
+    </filter>
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.4"
+     inkscape:cx="389.3107"
+     inkscape:cy="128.66429"
+     inkscape:document-units="mm"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1881"
+     inkscape:window-height="1050"
+     inkscape:window-x="1959"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-197)">
+    <path
+       style="fill:#64b82c;fill-opacity:1;stroke:none;stroke-width:0.28908864px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;filter:url(#filter923)"
+       d="m 51.615536,205.52977 c -19.149368,1.70089 -52.33883764,18.33184 -44.8934806,35.71874 7.4453586,17.38691 6.0916566,28.34822 6.0916566,28.34822 0,0 -4.5123376,27.59226 36.098703,17.95387 40.611037,-9.63839 64.300805,-20.97768 79.417145,-11.52828 15.11633,9.44941 48.95886,16.44197 56.62984,5.85864 7.67097,-10.58334 12.63454,-29.67114 -12.86016,-36.47471 -25.49472,-6.80357 -10.37839,-26.08035 -10.37839,-26.08035 0,0 13.53702,-20.22173 -34.29376,-11.52828 -47.830781,8.69345 -50.286858,-3.07766 -75.811554,-2.26785 z"
+       id="path815"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscsscscsc" />
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot817"
+       style="fill:black;fill-opacity:1;stroke:none;font-family:'Comfy Christmas';font-style:normal;font-weight:normal;font-size:40px;line-height:1.25;letter-spacing:0px;word-spacing:0px;-inkscape-font-specification:'Comfy Christmas';font-stretch:normal;font-variant:normal"><flowRegion
+         id="flowRegion819"><rect
+           id="rect821"
+           width="155"
+           height="100"
+           x="140"
+           y="122.95276" /></flowRegion><flowPara
+         id="flowPara823"></flowPara></flowRoot>    <flowRoot
+       xml:space="preserve"
+       id="flowRoot825"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:1.25;font-family:'Comfy Christmas';-inkscape-font-specification:'Comfy Christmas';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;filter:url(#filter1247)"
+       transform="matrix(0.26458333,0,0,0.26458333,-4.9136905,191.33036)"><flowRegion
+         id="flowRegion827"
+         style="fill:#ffffff;fill-opacity:1;"><rect
+           id="rect829"
+           width="472.85715"
+           height="148.57143"
+           x="125.71429"
+           y="103.66705"
+           style="fill:#ffffff;fill-opacity:1;" /></flowRegion><flowPara
+         id="flowPara831">CHRISTMAS EVENT</flowPara></flowRoot>    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:17.01918793px;line-height:1.25;font-family:'Comfy Christmas';-inkscape-font-specification:'Comfy Christmas';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.42547968;filter:url(#filter1235)"
+       x="29.702164"
+       y="250.96693"
+       id="text835"><tspan
+         sodipodi:role="line"
+         id="tspan833"
+         x="29.702164"
+         y="250.96693"
+         style="stroke-width:0.42547968;fill:#ffffff;fill-opacity:1;">2021</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10.58333302px;line-height:1.25;font-family:'Comfy Christmas';-inkscape-font-specification:'Comfy Christmas';letter-spacing:0px;word-spacing:0px;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:0.26458332;filter:url(#filter1223)"
+       x="75.595238"
+       y="264.87201"
+       id="text839"><tspan
+         sodipodi:role="line"
+         id="tspan837"
+         x="75.595238"
+         y="264.87201"
+         style="stroke-width:0.26458332;fill:#ffffff;fill-opacity:1;">COMING SOON</tspan></text>
+  </g>
+</svg>
