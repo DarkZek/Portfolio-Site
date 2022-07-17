@@ -120,7 +120,8 @@ function hideSite() {
 }
 
 function loadVideo(slide, project) {
-    console.log("loadVideo(" + slide.id + ", AS BELOW)")
+    console.log("loadVideo(AS BELOW #1, AS BELOW #2)")
+    console.log(slide)
     console.log(project)
     // Disable video for mobile clients
     if (isMobile()) {
