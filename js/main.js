@@ -2,7 +2,9 @@ function isMobile() {
     return /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-function show_site(project, e) {
+// Calls subfunctions that display a `project`. Where `e` is the event that may or may not have caused this action
+function showSite(project, e) {
+    console.log("showSite(" + project + "," + e + ")")
 
     // No site to show
     if (project.url == null) {
@@ -11,7 +13,7 @@ function show_site(project, e) {
 
     // If ctrl or mobile then just open a new tab
     if (e != null && (e.ctrlKey || isMobile())) {
-        window.open(project.url);
+        window.open(project.url).focus();
         return;
     }
 
@@ -35,14 +37,17 @@ function show_site(project, e) {
 }
 
 function updateSiteFrameIframe(project) {
+    console.log("updateSiteFrameIframe(" + project + ")")
     // Change iframe src if it's not already loaded iframe.
     var iframe = document.getElementById("site-displayer-iframe");
 
-    if (iframe != null && iframe.src == project.url) {
+    if (iframe != null && iframe.src === project.url) {
+        // Show it visibly
         iframe.style.opacity = "inherit";
         iframe.style.visibility = "inherit";
     } else {
-        iframe = update_iframe(project.url);
+        // Start 
+        iframe = updateIFrame(project.url);
 
         iframe.style.visibility = "hidden";
         iframe.style.opacity = "0";
@@ -65,6 +70,7 @@ function showSiteFrame(color) {
 
 // Makes the site div content visible on the screen
 function showSiteFrameContent(color) {
+    console.log("showSiteFrameContent(" + color + ")")
     // Schedule the div vto get styled and contents visible.
     window.setTimeout (function() {
         document.getElementById("site-displayer").style["background-color"] = color;
@@ -80,9 +86,11 @@ function showSiteFrameContent(color) {
     document.getElementById("expanding").classList.add("expanding");
 }
 
-function update_iframe(url) {
+// Update the iframes src
+function updateIFrame(url) {
+    console.log("updateIFrame(" + url + ")")
     var iframe = document.getElementById("site-displayer-iframe");
-    if (iframe != null && iframe.url == url) { return iframe; }
+    if (iframe != null && iframe.url === url) { return iframe; }
     if (iframe != null) { iframe.remove(); }
 
     var iframe = document.createElement("iframe");
@@ -93,7 +101,8 @@ function update_iframe(url) {
     return iframe;
 }
 
-function hide_site() {
+function hideSite() {
+    console.log("hideSite()")
     let siteDisplayer = document.getElementById("site-displayer");
     let clickCatcher = document.getElementById("background-click-catcher");
 
@@ -109,6 +118,7 @@ function hide_site() {
 }
 
 function loadVideo(slide, project) {
+    console.log("loadVideo(" + slide + ", " + project + ")")
     // Disable video for mobile clients
     if (isMobile()) {
         project.video = null;
@@ -157,7 +167,7 @@ function loadVideo(slide, project) {
 
 window.onload = function() {
     // Setup the on load click catcher
-    document.getElementById("background-click-catcher").onmousedown = hide_site;
+    document.getElementById("background-click-catcher").onmousedown = hideSite;
 
     // Loop over all slides
     var slides = document.getElementsByClassName("project");
@@ -193,13 +203,13 @@ window.onload = function() {
         // Seperate into new function so, as project changes during the for loop so when the callback runs later we always open the last projects url
         (function(_proj, _slide) {
             _slide.onclick = function(i) {
-                show_site(_proj, i);
+                showSite(_proj, i);
             };
 
             // Load image
             let img = new Image();
             img.addEventListener("load", () => {
-                _slide.getElementsByClassName("project-image")[0].style["background-image"] = "url("+_proj.image+")";
+                _slide.getElementsByClassName("project-image")[0].style["background-image"] = "url("+ _proj.image +")";
                 _slide.getElementsByClassName("project-image")[0].classList.add("loaded");
             });
             img.src = _proj.image;
@@ -207,7 +217,7 @@ window.onload = function() {
             // Listen to hovers on the project
             _slide.onmouseover = function() {
                 if (document.getElementById("site-displayer-iframe") == null || document.getElementById("site-displayer-iframe").src != _proj.url) {
-                    update_iframe(_proj.url);
+                    updateIFrame(_proj.url);
                 }
             };
         })(project, slide);
@@ -216,8 +226,9 @@ window.onload = function() {
     // Load project page on page load if url specifies
     for (i in projects) {
         let project = projects[i];
-        if ("#" + project.id == window.location.hash) {
-            show_site(project);
+        if ("#" + project.id === window.location.hash) {
+            console.log(project)
+            showSite(project);
         }
     }
 
@@ -241,6 +252,6 @@ window.onload = function() {
 document.addEventListener("keydown", function(event) {
     const key = event.key; // Or const {key} = event; in ES6+
     if (key === "Escape") {
-        hide_site();
+        hideSite();
     }
 });
