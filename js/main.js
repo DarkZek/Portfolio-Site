@@ -4,7 +4,8 @@ function isMobile() {
 
 // Calls subfunctions that display a `project`. Where `e` is the event that may or may not have caused this action
 function showSite(project, e) {
-    console.log("showSite(" + project + "," + e + ")")
+    console.log("showSite(AS BELOW," + e + ")")
+    console.log(project)
 
     // No site to show
     if (project.url == null) {
@@ -37,7 +38,8 @@ function showSite(project, e) {
 }
 
 function updateSiteFrameIframe(project) {
-    console.log("updateSiteFrameIframe(" + project + ")")
+    console.log("updateSiteFrameIframe(AS BELOW)")
+    console.log(project)
     // Change iframe src if it's not already loaded iframe.
     var iframe = document.getElementById("site-displayer-iframe");
 
