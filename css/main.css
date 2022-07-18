@@ -400,3 +400,7 @@ body, html {
         opacity: 0;
     }
 }
+
+#background-click-catcher {
+    background-color: rgba(0,0,0,0.15)
+}
