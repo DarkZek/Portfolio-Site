@@ -1,11 +1,11 @@
+var selectedProject = null;
+
 function isMobile() {
     return /Android|webOS|iPhone|iPad|Mac|Macintosh|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 // Calls subfunctions that display a `project`. Where `e` is the event that may or may not have caused this action
 function showSite(project, e) {
-    console.log("showSite(AS BELOW," + e + ")")
-    console.log(project)
 
     // No site to show
     if (project.url == null) {
@@ -35,11 +35,12 @@ function showSite(project, e) {
 
     // Stop scrolling
     document.documentElement.style.overflowY = "hidden";
+
+    selectedProject = project;
 }
 
 function updateSiteFrameIframe(project) {
-    console.log("updateSiteFrameIframe(AS BELOW)")
-    console.log(project)
+    
     // Change iframe src if it's not already loaded iframe.
     var iframe = document.getElementById("site-displayer-iframe");
 
@@ -72,7 +73,6 @@ function showSiteFrame(color) {
 
 // Makes the site div content visible on the screen
 function showSiteFrameContent(color) {
-    console.log("showSiteFrameContent(" + color + ")")
     // Schedule the div vto get styled and contents visible.
     window.setTimeout (function() {
         document.getElementById("site-displayer").style["background-color"] = color;
@@ -90,7 +90,9 @@ function showSiteFrameContent(color) {
 
 // Update the iframes src
 function updateIFrame(url) {
-    console.log("updateIFrame(" + url + ")")
+    // Don't update iframe while its shown!
+    if (selectedProject != null) { return; }
+
     var iframe = document.getElementById("site-displayer-iframe");
     if (iframe != null && iframe.url === url) { return iframe; }
     if (iframe != null) { iframe.remove(); }
@@ -104,7 +106,6 @@ function updateIFrame(url) {
 }
 
 function hideSite() {
-    console.log("hideSite()")
     let siteDisplayer = document.getElementById("site-displayer");
     let clickCatcher = document.getElementById("background-click-catcher");
 
@@ -117,12 +118,10 @@ function hideSite() {
     document.body.style.overflow = "inherit";
     window.history.replaceState("", "Marshall Scott", "/");
     document.documentElement.style.overflowY = "auto";
+    selectedProject = null;
 }
 
 function loadVideo(slide, project) {
-    console.log("loadVideo(AS BELOW #1, AS BELOW #2)")
-    console.log(slide)
-    console.log(project)
     // Disable video for mobile clients
     if (isMobile()) {
         project.video = null;
@@ -231,7 +230,6 @@ window.onload = function() {
     for (i in projects) {
         let project = projects[i];
         if ("#" + project.id === window.location.hash) {
-            console.log(project)
             showSite(project);
         }
     }
