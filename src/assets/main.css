@@ -39,14 +39,6 @@ body, html {
   text-decoration: underline;
 }
 
-.curve-shadow {
-  background: linear-gradient(0deg, rgba(20,20,20,0) 0%, rgb(60, 60, 60) 20%, rgb(104, 104, 104) 30%, rgb(104, 104, 104) 77%, rgba(0,0,0,0) 100%);
-  position: absolute;
-  top: 70vh;
-  width: 100vw;
-  height: 500px;
-}
-
 .tag {
   color: white !important;
   cursor: pointer;

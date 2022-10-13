@@ -323,14 +323,6 @@ body, html {
     opacity: 1;
 }
 
-.tags {
-    opacity: 0;
-    transition: 0.1s ease-in opacity;
-}
-.project:hover .tags {
-    opacity: 1;
-}
-
 .tag {
     color: white !important;
     cursor: pointer;

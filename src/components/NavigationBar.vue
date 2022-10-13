@@ -1,7 +1,7 @@
 <template>
     <div class="nav">
         <div style="width: 280px;">
-            <h3 class="title" id="title">&#8203;</h3>
+            <h3 class="title" id="title"></h3>
         </div>
         <div class="links">
             <a href="https://flixrapp.com/">Flixrapp</a>
@@ -9,15 +9,31 @@
             <a href="https://github.com/darkzek/rustcraft/">Rustcraft</a>
         </div>
         <div class="socials">
-            <video src="./img/linkedin.webm"></video>
-            <a href="https://www.linkedin.com/in/marshall-scott-746989167/" class="fi fi-linkedin" target="_blank"></a>
-            <a href="https://github.com/darkzek/" class="fi fi-github" target="_blank"></a>
+            <VideoIcon src="./img/linkedin" link="https://www.linkedin.com/in/marshall-scott-746989167/" class="icon"></VideoIcon>
+            <VideoIcon src="./img/github" link="https://github.com/darkzek/" class="icon"></VideoIcon>
             <a href="mailto:mashdowne@hotmail.co.nz" class="fi fi-email" target="_blank"></a>
         </div>
     </div>
 </template>
 
-<style>
+<script lang="ts">
+
+import VideoIcon from "./VideoIcon.vue";
+
+export default {
+    name: "NavigationBar",
+
+    components: {
+        VideoIcon
+    }
+};
+</script>
+
+<style scoped>
+
+.icon {
+  width: 45px;
+}
 
 /* Nav */
 
@@ -87,14 +103,17 @@
 
 /** Socials **/
 
-.nav .socials {
+.socials {
   position: absolute;
   right: 10vw;
+  display: flex;
+  flex-direction: row;
 }
 
-.socials video {
+.socials > div {
   width: 45px;
   height: 45px;
+  margin-left: 20px;
 }
 
 .waves-svg {

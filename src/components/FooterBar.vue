@@ -56,7 +56,7 @@
     </div>
 </template>
 
-<style>
+<style scoped>
 
 /* Mobile */
 @media (max-width: 600px) {
