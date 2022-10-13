@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta content="utf-8" http-equiv="encoding">
+    <title>Marshall Scott</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link href="/css/main.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pixi.js/5.1.3/pixi.min.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fontisto@v3.0.4/css/fontisto/fontisto.min.css">
+    <script>
+    </script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300&display=swap" rel="stylesheet">
+    <script src="//instant.page/5.1.0" type="module"
+        integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+</head>
+
+<body>
+    <div class="curve-shadow"></div>
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <h4 class="text-center other-projects">OTHER PROJECTS</h4>
+        </div>
+        <div class="row">
+
+            <div class="col-lg project small-project">
+                <div class="project-image-container">
+                    <div class="project-image">
+                        <video opacity: 0; muted loop class="video">
+                        </video>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="title preloading">&#8203;</h3>
+                </div>
+            </div>
+
+            <div class="col-lg project small-project">
+                <div class="project-image-container">
+                    <div class="project-image">
+                        <video opacity: 0; muted loop class="video">
+                        </video>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="title preloading">&#8203;</h3>
+                </div>
+            </div>
+
+            <div class="col-lg project small-project">
+                <div class="project-image-container">
+                    <div class="project-image">
+                        <video opacity: 0; muted loop class="video">
+                        </video>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="title preloading">&#8203;</h3>
+                </div>
+            </div>
+
+            <div class="col-lg project small-project">
+                <div class="project-image-container">
+                    <div class="project-image">
+                        <video opacity: 0; muted loop class="video">
+                        </video>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <h3 class="title preloading">&#8203;</h3>
+                </div>
+            </div>
+        </div>
+        <script>
+            // If aspect ratio supported
+            if (!('aspect-ratio' in document.body.style)) {
+                // Listens to resize events and updates the height to match
+                let observer = new ResizeObserver(entries => {
+                    entries.forEach(entry => {
+                        entry.target.style["height"] = (entry.contentRect.width / 1.805) + "px";
+                    });
+                });
+
+                let images = document.getElementsByClassName("project-image");
+
+                for (let item of images) {
+                    // Set starting height
+                    item.style["height"] = (item.clientWidth / 1.805) + "px";
+
+                    // Change height when size updates
+                    observer.observe(item);
+                };
+            }
+        </script>
+        <div id="background-click-catcher" class="invisible"></div>
+        <div class="card invisible container" id="site-displayer">
+            <div id="expanding"></div>
+            <div class="row" id="site-displayer-graphics">
+                <div class="col-9">
+                    <div class="spinner-border" role="status"></div>
+                </div>
+                <div class="col-3" id="site-displayer-content"></div>
+                <span class="close" aria-hidden="true" onclick="hide_site();">&times;</span>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
