@@ -5,11 +5,7 @@ import FooterBar from './components/FooterBar.vue'
 </script>
 
 <template>
-  <NavigationBar></NavigationBar>
-
   <RouterView />
-
-  <FooterBar></FooterBar>
 </template>
 
 <style scoped>
