@@ -4,6 +4,7 @@
     @mouseenter="play"
     @mouseleave="pause"
   >
+    <video src="/img/card.webm"></video>
     <div class="project-image-container">
       <div class="project-image" :style="`background-image: url(${project.image})`">
         <video muted loop class="video" ref="video" :src="videoResolution" :active="index==showingIndex"></video>
@@ -11,7 +12,7 @@
     </div>
     <div class="project-info">
       <h3 class="title" :style="`color: ${project.color};`">{{ project.name }}</h3>
-      <p class="description">{{ project.description }}</p>
+      <p class="description" v-html="project.description"></p>
     </div>
     <div class="tags">
       <div class="tag" v-for="tag in project.tags" v-bind:key="tag" :style="`background-color: ${project.color};`">
@@ -136,7 +137,7 @@ export default {
   font-size: 30px;;
 }
 
-video {
+.project video {
   width: 106%;
   margin-left: -3%;
   visibility: hidden;
@@ -156,8 +157,7 @@ video {
   box-shadow: unset !important;
 }
 
-.project:hover video,
-video[active=true] {
+.project:hover video[active=true] {
   visibility: visible;
   transform: scale(1);
   opacity: 1;

@@ -1,46 +1,16 @@
 <template>
   <div class="curve-shadow"></div>
-  <div class="projects">
-    <div v-for="i in 3" :key="i">
-      <ProjectTile
-        :project="mainStore.projects[i-1]"
-        :index="i-1"
-        :showingIndex="selectedIndex"
-      />
-    </div>
+  <div>
+    <ProjectsBar />
   </div>
 </template>
 
 <script lang="ts">
-import ProjectTile from "../components/ProjectTile.vue";
-import { useMainStore } from "@/stores/main";
-
+import ProjectsBar from "../components/ProjectsBar.vue";
 export default {
-  setup() {
-    const mainStore = useMainStore();
-    return {
-      mainStore,
-    };
-  },
-  data() {
-    return {
-      selectedIndex: 0,
-    };
-  },
-  components: {
-    ProjectTile,
-  },
+    components: { ProjectsBar }
 };
 </script>
-
-<style scoped>
-.projects {
-  width: 1000vw;
-  height: 70vh;
-  display: flex;
-  flex-direction: row;
-}
-</style>
 
 <style scoped>
 
