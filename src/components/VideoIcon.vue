@@ -4,15 +4,15 @@
     @mouseover="mouseover"
     @mouseleave="mouseleave"
     tabindex="0"
-    @focus="selected"
-    @blur="deselected"
+    @focus="mouseover"
+    @blur="mouseleave"
     @click="clicked"
     @keydown.enter="clicked"
   >
     <video
       tabindex="-1"
       ref="video_forwards"
-      :src="src + '_for.webm'"
+      :src="props.src + '_for.webm'"
       muted
       @ended="playing = false"
       forwards
@@ -21,7 +21,7 @@
     <video
       tabindex="-1"
       ref="video_reversed"
-      :src="src + '_rev.webm'"
+      :src="props.src + '_rev.webm'"
       muted
       @ended="playing = false"
       reversed
@@ -30,56 +30,51 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: "VideoIcon",
-  props: {
-    src: String,
-    link: String,
-  },
-  data() {
-    return {
-      playing: false,
-      reversed: false,
-      hovered: false,
-    };
-  },
-  methods: {
-    play() {
-      this.playing = true;
-      if (this.reversed) {
-        this.$refs.video_reversed.play();
-      } else {
-        this.$refs.video_forwards.play();
-      }
-    },
-    mouseover() {
-      if (this.hovered) {
-        return;
-      }
-      this.reversed = false;
-      this.play();
-      this.hovered = true;
-    },
-    mouseleave() {
-      if (!this.hovered) {
-        return;
-      }
-      this.reversed = true;
-      this.play();
-      this.hovered = false;
-    },
-    selected() {
-      this.mouseover();
-    },
-    deselected() {
-      this.mouseleave();
-    },
-    clicked() {
-      window.open(this.link, "_blank");
-    },
-  },
-};
+<script lang="ts" setup>
+import { defineProps, ref } from "vue";
+
+let props = defineProps<{
+  src: String;
+  link: String;
+}>();
+
+let playing = ref(false);
+let reversed = ref(false);
+let hovered = ref(false);
+
+let video_reversed = ref<HTMLVideoElement>();
+let video_forwards = ref<HTMLVideoElement>();
+
+function play() {
+  playing.value = true;
+  if (reversed.value) {
+    video_reversed.value?.play();
+  } else {
+    video_forwards.value?.play();
+  }
+}
+
+function mouseover() {
+  if (hovered.value) {
+    return;
+  }
+  reversed.value = false;
+  play();
+  hovered.value = true;
+}
+
+function mouseleave() {
+  if (!hovered.value) {
+    return;
+  }
+  reversed.value = true;
+  play();
+  hovered.value = false;
+}
+
+function clicked() {
+  window.open(props.link as string, "_blank");
+}
 </script>
 
 <style scoped>
