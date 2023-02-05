@@ -18,6 +18,8 @@ let vid: any;
 let padding = 80;
 let doublePadding = padding * 2;
 
+let videoPadding = 80;
+
 let videoAspect = 1920 / 1080;
 
 let size = 400;
@@ -31,8 +33,8 @@ setTimeout(() => {
       vid = p.createVideo(
         "/content/rustcraft/video_nointro_1920x1080.mp4",
         () => {
-          vid.elt.style.top = `${padding}px`;
-          vid.elt.style.left = `${padding}px`;
+          vid.elt.style.top = `${videoPadding}px`;
+          vid.elt.style.left = `${videoPadding}px`;
         }
       );
       vid.volume(0);
@@ -45,19 +47,8 @@ setTimeout(() => {
       let img = vid.get();
       p.image(img, padding, padding); // redraws the video frame by frame in
 
-      p.drawingContext.globalCompositeOperation = "saturation";
-
-      p.drawingContext.fillStyle = "hsl(0,100%,50%)";
-      p.drawingContext.fillRect(
-        padding,
-        padding,
-        p.width - doublePadding,
-        p.height - doublePadding
-      );
-
-      p.drawingContext.globalCompositeOperation = "source-over";
-
-      p.drawingContext.filter = "blur(30px)";
+      p.drawingContext.filter = "contrast(180%) blur(30px)";
+      p.image(img, padding, padding); // redraws the video frame by frame in
     };
   }, "name");
 }, 200);
@@ -80,13 +71,18 @@ video {
 }
 
 #name {
-  width: 800px;
-  height: 800px;
+  width: 900px;
+  height: 500px;
+
+  :deep(canvas) {
+    transform: scaleX(0.95) scaleY(0.9);
+  }
 
   :deep(video) {
     position: absolute;
-    border-radius: 30px;
+    border-radius: 20px;
     overflow: hidden;
+    transition: opacity 0.4s ease-in;
   }
 }
 </style>
