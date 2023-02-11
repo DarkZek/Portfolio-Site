@@ -76,7 +76,7 @@ setTimeout(() => {
       let img = vid.get();
       p.image(img, padding, padding); // redraws the video frame by frame in
 
-      p.drawingContext.filter = "contrast(180%) blur(40px)";
+      p.drawingContext.filter = "contrast(180%) blur(25px)";
       p.image(img, padding, padding); // redraws the video frame by frame in
     };
   }, uniqueId);

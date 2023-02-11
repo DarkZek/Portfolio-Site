@@ -1,80 +1,44 @@
 <template>
-  <div class="project">
+  <div class="project" ref="instance">
     <div
       class="background"
-      style="background-image: url('/img/Rustcraft.webp')"
+      :style="`background-image: url(${props.backgroundImg}); opacity: ${
+        1 - distance
+      };`"
     ></div>
     <div class="row">
       <div class="info">
         <div class="row title">
-          <img src="/content/rustcraft/logo_hd.png" />
-          <a>Rustcraft</a>
+          <img :src="props.logoImg" />
+          <a>{{ props.title }}</a>
         </div>
         <div class="tags">
-          <div style="background-color: #ff000d38">ECS</div>
-          <div style="background-color: #ff000d38">3D Rendering</div>
-          <div style="background-color: #ff000d38">Rust</div>
-          <div style="background-color: #ff000d38">High Performance</div>
-        </div>
-        <div class="description">
-          <p>
-            RustCraft is a from scratch modern alternative to the official
-            Minecraft client. Written in Rust and using wgpu-rs it focuses on
-            delivering high performance voxel rendering. It features an Entity
-            Component System (ECS) based rendering system, threaded networking,
-            mesh building, asset management, render engine and AABB physics
-            engine providing blazing fast performance.
-          </p>
-        </div>
-        <div class="button" style="background-color: #ff000d38">
-          <a>View Mid Project Review</a>
-        </div>
-      </div>
-      <div class="graphics">
-        <project-slide
-          url="/content/rustcraft/video_nointro_1920x1080.mp4"
-        ></project-slide>
-        <a href="https://github.com/darkzek/rustcraft" target="_blank"
-          ><img src="/content/rustcraft/Github.png"
-        /></a>
-      </div>
-    </div>
-  </div>
-  <div class="project">
-    <div
-      class="background"
-      style="background-image: url('/img/Flixr.webp')"
-    ></div>
-    <div class="row">
-      <div class="info">
-        <div class="row title">
-          <img src="/content/flixr/favicon.png" />
-          <a>Flixrapp</a>
-        </div>
-        <div class="tags">
-          <div style="background-color: rgba(119, 130, 210, 0.5)">Vue.JS</div>
-          <div style="background-color: rgba(119, 130, 210, 0.5)">mySQL</div>
-          <div style="background-color: rgba(119, 130, 210, 0.5)">Docker</div>
-        </div>
-        <div class="description">
-          <p>
-            Flixr started as a frustration with managing tv show notifications
-            for so many different streaming platforms. It collates data from
-            online API's to provide one succinct user interface. It uses a
-            custom password-less authentication solution to accommodate
-            frictionless on-boarding.
-          </p>
-        </div>
-        <div class="button" style="background-color: rgba(119, 130, 210, 0.5)">
-          <a href="https://gitlab.com/darkzek/flixr" target="_blank"
-            >View Project GitHub</a
+          <div
+            :style="`background-color: ${props.color}38`"
+            v-for="tag of props.tags"
+            :key="tag"
           >
+            {{ tag }}
+          </div>
+        </div>
+        <div class="description">
+          <p>
+            {{ props.description }}
+          </p>
+        </div>
+        <div
+          class="button"
+          v-if="props.buttonTitle"
+          @click="props.buttonCallback"
+          :style="`background-color: ${props.color}38`"
+        >
+          <a>{{ props.buttonTitle }}</a>
         </div>
       </div>
       <div class="graphics">
-        <project-slide url="/content/flixr/video_1920x1080.mp4"></project-slide>
-        <a href="https://gitlab.com/darkzek/flixr" target="_blank"
-          ><img src="/content/flixr/Cover.png"
+        <project-slide :url="props.videoUrl"></project-slide>
+        <a :href="props.pictureLink" target="_blank"
+          ><img :src="props.pictureUrl"
         /></a>
       </div>
     </div>
@@ -82,7 +46,76 @@
 </template>
 
 <script lang="ts" setup>
+import { nextTick, ref } from "vue";
 import ProjectSlide from "./ProjectSlide.vue";
+
+const props = defineProps<{
+  backgroundImg: string;
+  title: string;
+  logoImg: string;
+  tags: string[];
+  description: string;
+  buttonTitle?: string;
+  buttonCallback: () => void;
+  videoUrl: string;
+  pictureUrl: string;
+  pictureLink: string;
+  color: string;
+}>();
+
+if (!props.color.startsWith("#") || props.color.length !== 7) {
+  throw new Error("Color must be a hex string with no alpha channel.");
+}
+
+const instance = ref<HTMLElement>();
+
+let targetScrollCenter = ref(0);
+// How big an area the distance is calculated over
+let scrollWidth = 300;
+
+let scrollOffset = -30;
+
+// Scale of 0-1 based on how close to targetScroll we are where 0 is at
+let distance = ref(1);
+
+function calculatePosition() {
+  targetScrollCenter.value =
+    window.pageYOffset +
+    instance.value!.getBoundingClientRect().y +
+    instance.value!.clientHeight / 2 +
+    scrollOffset;
+  calculateBackground();
+}
+
+window.addEventListener("resize", calculatePosition);
+
+nextTick(() => {
+  calculatePosition();
+});
+
+function calculateBackground() {
+  const screenCenter = window.scrollY + window.innerHeight / 2;
+
+  // How far away from the target scroll we are
+  const absoluteDistance = Math.abs(targetScrollCenter.value - screenCenter);
+  if (absoluteDistance > scrollWidth) {
+    distance.value = 1;
+    return;
+  }
+  distance.value = absoluteDistance / scrollWidth;
+
+  distance.value = Math.min(1, distance.value);
+
+  console.log({
+    title: props.title,
+    distance: distance.value,
+    absoluteDistance,
+    targetScrollCenter: targetScrollCenter.value,
+    screenCenter,
+  });
+}
+
+window.addEventListener("scroll", calculateBackground);
 </script>
 
 <style scoped lang="scss">

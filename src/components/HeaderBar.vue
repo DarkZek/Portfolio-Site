@@ -50,8 +50,8 @@ window.addEventListener("scroll", () => {
   z-index: 10;
   background: linear-gradient(
     90deg,
-    rgba(51, 48, 45, 0.9) 0%,
-    rgba(36, 36, 36, 0.9) 100%
+    rgb(46, 44, 42) 0%,
+    rgba(36, 36, 36, 1) 100%
   );
   width: 100vw;
   top: 0px;
