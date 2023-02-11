@@ -22,12 +22,12 @@ document.addEventListener("keydown", () => {
 });
 
 let parentWidth = ref(229);
-let parentDom = ref(null);
+let parentDom = ref<HTMLElement>();
 
 nextTick(() => {
   new ResizeObserver((e) => {
     parentWidth.value = e[0].target.clientWidth;
-  }).observe(parentDom.value);
+  }).observe(parentDom.value!);
 });
 
 let vid: any;
