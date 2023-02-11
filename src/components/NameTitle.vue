@@ -5,8 +5,8 @@
         :char="i"
         :style="charStyle[i]"
         @animationend="($event.target as any)?.classList.add('done')"
-        v-if="text[i] != '\n'"
-        >{{ text[i] }}</span
+        v-if="splitText[i] != '\n'"
+        >{{ splitText[i] }}</span
       >
       <br v-else />
     </template>
@@ -14,9 +14,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, ref } from "vue";
+import { computed, nextTick, ref, watch } from "vue";
 
-let text = ["M", "a", "r", "s", "h", "a", "l", "l"];
+let props = defineProps<{
+  fontSize?: number;
+  text: string;
+}>();
+
+let splitText = computed(() => props.text.split(""));
 
 // Static X, Static Y, Dynamic Y
 let offsets = ref([
@@ -33,19 +38,23 @@ let offsets = ref([
 
 let moveVelocity = 0;
 
+// How much we will scroll the background this frame
 let timeOffset = ref(0);
-let prevScroll = 0;
+let prevScroll = window.scrollY;
 
 setInterval(() => {
-  timeOffset.value += moveVelocity;
-  moveVelocity *= 0.98;
+  if (Math.abs(moveVelocity) > 0.1) {
+    timeOffset.value += moveVelocity;
+    moveVelocity *= 0.98;
+  }
 }, 1000 / 20);
 
 let charStyle = computed(() => {
   return offsets.value.map((offset, index) => {
-    return `background-position-x: ${-offset[0]}px;background-position-y: ${
-      -offset[1] - offset[2] + timeOffset.value
-    }px;`;
+    return `
+      background-position-x: ${-offset[0]}px;
+      background-position-y: ${-offset[1] - offset[2] + timeOffset.value}px;
+      font-size: ${props.fontSize ?? 60}px;`;
   });
 });
 
@@ -54,14 +63,25 @@ document.addEventListener("scroll", (e) => {
   prevScroll = window.scrollY;
 });
 
+function updateHorizontalOffset() {
+  for (let i = 0; i < props.text.length; i++) {
+    let object = document.querySelector(`span[char="${i}"]`) as any;
+    if (object) {
+      offsets.value[i][0] = object.offsetLeft;
+    }
+  }
+}
+
+watch(
+  () => props.fontSize,
+  () => {
+    updateHorizontalOffset();
+  }
+);
+
 nextTick(() => {
   document.fonts.ready.then(() => {
-    for (let i = 0; i < 13; i++) {
-      let object = document.querySelector(`span[char="${i}"]`) as any;
-      if (object) {
-        offsets.value[i][0] = object.offsetLeft;
-      }
-    }
+    updateHorizontalOffset();
   });
 });
 </script>
@@ -70,9 +90,7 @@ nextTick(() => {
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .title {
-  height: 90px;
   display: block;
-  margin-top: -10px;
 
   &:deep(span) {
     color: transparent;
@@ -82,7 +100,6 @@ nextTick(() => {
     background-image: url(./img/background_tiled.jpg);
     background-repeat: repeat-y;
     background-size: 1200px;
-    font-size: 60px;
     font-weight: 600;
     background-clip: text;
     -webkit-background-clip: text;
@@ -97,7 +114,7 @@ nextTick(() => {
   }
 }
 
-@for $i from 0 through 14 {
+@for $i from 0 through 50 {
   .title :deep(span)[char="#{$i}"] {
     animation-delay: #{(0.05 * $i) + 1}s;
     animation-name: topAnimation;

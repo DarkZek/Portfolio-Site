@@ -1,6 +1,6 @@
 <template>
   <div class="parent" :style="`aspect-ratio: ${videoAspect}`" ref="parentDom">
-    <div id="name" :style="innerStyle"></div>
+    <div :id="uniqueId" class="inner" :style="innerStyle"></div>
   </div>
 </template>
 
@@ -9,7 +9,13 @@ import { ref, nextTick, computed } from "vue";
 // @ts-ignore
 import { p5 } from "p5js-wrapper";
 
+let uniqueId = Math.random().toString().substring(2);
+
 let displayed = ref(false);
+
+let props = defineProps<{
+  url: string;
+}>();
 
 document.addEventListener("keydown", () => {
   displayed.value = !displayed.value;
@@ -47,13 +53,10 @@ setTimeout(() => {
         parentWidth.value / videoAspect + doublePadding
       );
 
-      vid = p.createVideo(
-        "/content/rustcraft/video_nointro_1920x1080.mp4",
-        () => {
-          vid.elt.style.top = `${videoPadding}px`;
-          vid.elt.style.left = `${videoPadding}px`;
-        }
-      );
+      vid = p.createVideo(props.url, () => {
+        vid.elt.style.top = `${videoPadding}px`;
+        vid.elt.style.left = `${videoPadding}px`;
+      });
       vid.volume(0);
       vid.loop();
       vid.size(parentWidth.value, parentWidth.value / videoAspect);
@@ -73,10 +76,10 @@ setTimeout(() => {
       let img = vid.get();
       p.image(img, padding, padding); // redraws the video frame by frame in
 
-      p.drawingContext.filter = "contrast(180%) blur(30px)";
+      p.drawingContext.filter = "contrast(180%) blur(40px)";
       p.image(img, padding, padding); // redraws the video frame by frame in
     };
-  }, "name");
+  }, uniqueId);
 }, 200);
 </script>
 
@@ -96,18 +99,19 @@ video {
   opacity: 0;
 }
 
-#name {
+.inner {
   width: 900px;
   height: 500px;
   position: absolute;
 
   :deep(canvas) {
     transform: scaleX(0.95) scaleY(0.9);
+    opacity: 0.7;
   }
 
   :deep(video) {
     position: absolute;
-    border-radius: 20px;
+    border-radius: 10px;
     overflow: hidden;
     transition: opacity 0.4s ease-in;
     background-color: rgba(0, 0, 0, 0.5);

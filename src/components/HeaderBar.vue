@@ -1,7 +1,10 @@
 <template>
   <div class="bar row" :style="`animation-delay: -${animationProgress}s`">
     <div>
-      <name-title></name-title>
+      <name-title
+        text="Marshall"
+        :font-size="62 - 18 * animationProgress"
+      ></name-title>
       <div
         class="row location"
         :style="`animation-delay: -${animationProgress}s`"
@@ -12,7 +15,7 @@
       </div>
     </div>
     <div class="spacer"></div>
-    <div class="socials row">
+    <div class="socials row" :style="`animation-delay: -${animationProgress}s`">
       <div class="email">
         <font-awesome-icon icon="fa-solid fa-envelope" />
       </div>
@@ -30,12 +33,13 @@
 import { ref } from "vue";
 import NameTitle from "./NameTitle.vue";
 
+let maxScroll = 500;
+
 // 0 - 1 scale on how progressed the header bar closing is
-let animationProgress = ref(0);
+let animationProgress = ref(window.scrollY / maxScroll);
 
 window.addEventListener("scroll", () => {
-  animationProgress.value = Math.min(0.9999, window.scrollY / 500);
-  console.log(animationProgress.value);
+  animationProgress.value = Math.min(0.9999, window.scrollY / maxScroll);
 });
 </script>
 
@@ -56,9 +60,10 @@ window.addEventListener("scroll", () => {
   animation-play-state: paused;
 }
 
-.socials > div {
-  font-size: 45px !important;
-  margin-left: 40px;
+.socials {
+  animation: socialsCondense 1s infinite;
+  animation-play-state: paused;
+  flex-wrap: nowrap;
 }
 
 .location {
@@ -80,7 +85,7 @@ window.addEventListener("scroll", () => {
 
 @keyframes barCondense {
   0% {
-    padding: 70px 80px;
+    padding: 70px 80px 50px 80px;
   }
   100% {
     padding: 15px 60px;
@@ -97,6 +102,19 @@ window.addEventListener("scroll", () => {
     transform: translateY(-15px);
     opacity: 0;
     height: 0px;
+  }
+}
+
+@keyframes socialsCondense {
+  0% {
+    font-size: 45px;
+    margin-top: 0px;
+    gap: 25px;
+  }
+  100% {
+    font-size: 35px;
+    margin-top: 10px;
+    gap: 15px;
   }
 }
 </style>
