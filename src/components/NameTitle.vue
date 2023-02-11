@@ -1,23 +1,16 @@
 <template>
-  <div>
-    <a class="title">
-      <template v-for="(_, i) in 14" :key="i">
-        <span
-          :char="i"
-          :style="charStyle[i]"
-          @animationend="($event.target as any)?.classList.add('done')"
-          v-if="text[i] != '\n'"
-          >{{ text[i] }}</span
-        >
-        <br v-else />
-      </template>
-    </a>
-    <div class="row location">
-      <span class="material-icons"> place </span>
-
-      <a>Christchurch, New Zealand</a>
-    </div>
-  </div>
+  <a class="title">
+    <template v-for="(_, i) in 14" :key="i">
+      <span
+        :char="i"
+        :style="charStyle[i]"
+        @animationend="($event.target as any)?.classList.add('done')"
+        v-if="text[i] != '\n'"
+        >{{ text[i] }}</span
+      >
+      <br v-else />
+    </template>
+  </a>
 </template>
 
 <script lang="ts" setup>
@@ -36,17 +29,16 @@ let offsets = ref([
   [0, 0, 0],
   [0, 0, 0],
   [0, 0, 0],
-  [0, 280, 0],
-  [0, 280, 0],
-  [0, 280, 0],
-  [0, 280, 0],
-  [0, 280, 0],
 ]);
 
+let moveVelocity = 0;
+
 let timeOffset = ref(0);
+let prevScroll = 0;
 
 setInterval(() => {
-  timeOffset.value += 1;
+  timeOffset.value += moveVelocity;
+  moveVelocity *= 0.98;
 }, 1000 / 20);
 
 let charStyle = computed(() => {
@@ -58,9 +50,8 @@ let charStyle = computed(() => {
 });
 
 document.addEventListener("scroll", (e) => {
-  offsets.value.forEach((offset, index) => {
-    offset[2] = window.scrollY / 4;
-  });
+  moveVelocity = Math.min(5, Math.max(-5, window.scrollY - prevScroll));
+  prevScroll = window.scrollY;
 });
 
 nextTick(() => {
@@ -123,21 +114,6 @@ nextTick(() => {
     transform: translateY(0px);
     background-position-y: 0px;
     opacity: 1;
-  }
-}
-
-.location {
-  color: #e6e6e6;
-  display: flex;
-
-  span {
-    font-size: 30px;
-    margin-right: 6px;
-    padding-top: 3px;
-  }
-
-  a {
-    font-size: 24px;
   }
 }
 </style>

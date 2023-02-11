@@ -109,6 +109,13 @@ import ProjectSlide from "./ProjectSlide.vue";
 }
 
 .graphics {
+  padding-right: 60px;
+
+  > * {
+    margin-top: 50px;
+    display: block;
+  }
+
   img {
     width: 100%;
     border-radius: 10px;
