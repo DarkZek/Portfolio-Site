@@ -97,7 +97,7 @@ nextTick(() => {
     position: unset;
     animation: 1s ease-out;
     animation-timing-function: cubic-bezier(0.47, -0.08, 0.13, 0.99);
-    background-image: url(./img/background_tiled.jpg);
+    background-image: url(/img/background_tiled.jpg);
     background-repeat: repeat-y;
     background-size: 1200px;
     font-weight: 600;

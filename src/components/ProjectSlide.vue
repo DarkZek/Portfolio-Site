@@ -76,7 +76,7 @@ setTimeout(() => {
       let img = vid.get();
       p.image(img, padding, padding); // redraws the video frame by frame in
 
-      p.drawingContext.filter = "contrast(180%) blur(25px)";
+      p.drawingContext.filter = "contrast(180%) blur(32px)";
       p.image(img, padding, padding); // redraws the video frame by frame in
     };
   }, uniqueId);
@@ -106,7 +106,7 @@ video {
 
   :deep(canvas) {
     transform: scaleX(0.95) scaleY(0.9);
-    opacity: 0.7;
+    opacity: 0.9;
   }
 
   :deep(video) {

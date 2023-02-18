@@ -15,11 +15,17 @@
 <style lang="scss" scoped>
 .about {
   padding: 0px 80px;
-  max-width: 60vw;
+  max-width: 1000px;
   font-size: 24px;
   line-height: 1.6;
   color: white;
   margin-top: 280px;
+}
+
+@media screen and (max-width: 768px) {
+  .about {
+    padding: 0px 40px;
+  }
 }
 
 p {

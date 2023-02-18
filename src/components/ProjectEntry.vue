@@ -3,7 +3,7 @@
     <div
       class="background"
       :style="`background-image: url(${props.backgroundImg}); opacity: ${
-        1 - distance
+        (1 - distance) * 0.7
       };`"
     ></div>
     <div class="row">
@@ -70,13 +70,16 @@ if (!props.color.startsWith("#") || props.color.length !== 7) {
 const instance = ref<HTMLElement>();
 
 let targetScrollCenter = ref(0);
-// How big an area the distance is calculated over
-let scrollWidth = 300;
+// How many px the image falloff will be
+let scrollWidth = 250;
 
 let scrollOffset = -30;
 
 // Scale of 0-1 based on how close to targetScroll we are where 0 is at
 let distance = ref(1);
+
+// How large the area of the project is in pixels
+let entrySize = 100;
 
 function calculatePosition() {
   targetScrollCenter.value =
@@ -84,6 +87,7 @@ function calculatePosition() {
     instance.value!.getBoundingClientRect().y +
     instance.value!.clientHeight / 2 +
     scrollOffset;
+  entrySize = instance.value!.getBoundingClientRect().height * 0.5;
   calculateBackground();
 }
 
@@ -97,7 +101,8 @@ function calculateBackground() {
   const screenCenter = window.scrollY + window.innerHeight / 2;
 
   // How far away from the target scroll we are
-  const absoluteDistance = Math.abs(targetScrollCenter.value - screenCenter);
+  let absoluteDistance = Math.abs(targetScrollCenter.value - screenCenter);
+  absoluteDistance = Math.max(0, absoluteDistance - entrySize / 2);
   if (absoluteDistance > scrollWidth) {
     distance.value = 1;
     return;
@@ -105,14 +110,6 @@ function calculateBackground() {
   distance.value = absoluteDistance / scrollWidth;
 
   distance.value = Math.min(1, distance.value);
-
-  console.log({
-    title: props.title,
-    distance: distance.value,
-    absoluteDistance,
-    targetScrollCenter: targetScrollCenter.value,
-    screenCenter,
-  });
 }
 
 window.addEventListener("scroll", calculateBackground);
@@ -121,13 +118,13 @@ window.addEventListener("scroll", calculateBackground);
 <style scoped lang="scss">
 .project {
   width: 100vw;
-  height: 650px;
-  aspect-ratio: calc(1280 / 800);
-  max-width: 100vw;
+  max-width: 1500px;
+  margin: auto;
 
   > .row {
     position: relative;
     justify-content: space-between;
+    flex-wrap: wrap;
   }
 
   .background {
@@ -136,16 +133,18 @@ window.addEventListener("scroll", calculateBackground);
     left: 0px;
     top: 0px;
     width: 100vw;
-    opacity: 0.4;
     aspect-ratio: calc(1280 / 800);
     background-size: cover;
+    height: 100%;
+    background-position: center;
   }
 
   .info {
     width: 70%;
-    padding: 0px 40px 0px 80px;
+    padding: 0px 40px 0px 40px;
     max-width: 800px;
     margin-top: 80px;
+    min-width: min(400px, 100vw);
   }
 
   .graphics {
@@ -170,8 +169,6 @@ window.addEventListener("scroll", calculateBackground);
   }
 
   .tags {
-    margin-bottom: 20px;
-
     div {
       display: inline-block;
       color: white;
@@ -180,6 +177,7 @@ window.addEventListener("scroll", calculateBackground);
       border-radius: 20px;
       margin-right: 10px;
       word-wrap: none;
+      margin-bottom: 20px;
     }
   }
 
@@ -189,7 +187,8 @@ window.addEventListener("scroll", calculateBackground);
 }
 
 .graphics {
-  padding-right: 60px;
+  padding-right: 40px;
+  padding-left: 30px;
 
   > * {
     margin-top: 50px;

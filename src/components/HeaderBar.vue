@@ -1,10 +1,7 @@
 <template>
   <div class="bar row" :style="`animation-delay: -${animationProgress}s`">
-    <div>
-      <name-title
-        text="Marshall"
-        :font-size="62 - 18 * animationProgress"
-      ></name-title>
+    <div class="name-location">
+      <name-title text="Marshall" :font-size="fontSize"></name-title>
       <div
         class="row location"
         :style="`animation-delay: -${animationProgress}s`"
@@ -14,7 +11,6 @@
         <a>Christchurch, New Zealand</a>
       </div>
     </div>
-    <div class="spacer"></div>
     <div class="socials row" :style="`animation-delay: -${animationProgress}s`">
       <div class="email">
         <font-awesome-icon icon="fa-solid fa-envelope" />
@@ -30,13 +26,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from "vue";
+import { computed, ref, watch } from "vue";
 import NameTitle from "./NameTitle.vue";
 
 let maxScroll = 500;
 
 // 0 - 1 scale on how progressed the header bar closing is
 let animationProgress = ref(window.scrollY / maxScroll);
+
+let windowWidth = ref(window.innerWidth);
+
+let fontSize = computed(() => {
+  let size = 62 - 18 * animationProgress.value;
+  if (windowWidth.value < 736) {
+    size *= 0.7;
+  }
+  return size;
+});
+
+watch(
+  () => window.innerWidth,
+  () => {
+    windowWidth.value = window.innerWidth;
+  }
+);
 
 window.addEventListener("scroll", () => {
   animationProgress.value = Math.min(0.9999, window.scrollY / maxScroll);
@@ -45,19 +58,26 @@ window.addEventListener("scroll", () => {
 
 <style lang="scss" scoped>
 .bar {
-  padding: 70px 80px;
   position: fixed;
   z-index: 10;
   background: linear-gradient(
     90deg,
-    rgb(46, 44, 42) 0%,
-    rgba(36, 36, 36, 1) 100%
+    rgba(46, 44, 42, 0.9) 0%,
+    rgba(36, 36, 36, 0.9) 100%
   );
   width: 100vw;
   top: 0px;
   backdrop-filter: blur(40px);
-  animation: barCondense 1s infinite;
+  animation: barCondense 1s;
   animation-play-state: paused;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 768px) {
+  .bar {
+    animation: barCondenseMobile 1s;
+    animation-play-state: paused;
+  }
 }
 
 .socials {
@@ -71,8 +91,8 @@ window.addEventListener("scroll", () => {
   display: flex;
   animation: loadingHide 1s infinite;
   animation-play-state: paused;
-
-  span {
+  width: 360px;
+  position: span {
     font-size: 30px;
     margin-right: 6px;
     padding-top: 3px;
@@ -83,12 +103,28 @@ window.addEventListener("scroll", () => {
   }
 }
 
+@media only screen and (max-width: 768px) {
+  .socials {
+    animation: socialsCondenseMobile 1s infinite;
+    animation-play-state: paused;
+  }
+}
+
 @keyframes barCondense {
   0% {
     padding: 70px 80px 50px 80px;
   }
   100% {
     padding: 15px 60px;
+  }
+}
+
+@keyframes barCondenseMobile {
+  0% {
+    padding: 50px 40px 50px 40px;
+  }
+  100% {
+    padding: 15px 30px;
   }
 }
 
@@ -113,6 +149,19 @@ window.addEventListener("scroll", () => {
   }
   100% {
     font-size: 35px;
+    margin-top: 10px;
+    gap: 15px;
+  }
+}
+
+@keyframes socialsCondenseMobile {
+  0% {
+    font-size: 35px;
+    margin-top: 0px;
+    gap: 25px;
+  }
+  100% {
+    font-size: 25px;
     margin-top: 10px;
     gap: 15px;
   }

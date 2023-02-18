@@ -17,12 +17,12 @@
     </div>
     <div class="socials">
       <VideoIcon
-        src="./img/linkedin"
+        src="/img/linkedin"
         link="https://www.linkedin.com/in/marshall-scott-746989167/"
         class="icon"
       ></VideoIcon>
       <VideoIcon
-        src="./img/github"
+        src="/img/github"
         link="https://github.com/darkzek/"
         class="icon"
       ></VideoIcon>
