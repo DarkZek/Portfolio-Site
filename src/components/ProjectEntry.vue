@@ -3,7 +3,7 @@
     <div
       class="background"
       :style="`background-image: url(${props.backgroundImg}); opacity: ${
-        (1 - distance) * 0.7
+        (1 - distance) * 0.3
       };`"
     ></div>
     <div class="row">
@@ -81,6 +81,12 @@ let distance = ref(1);
 // How large the area of the project is in pixels
 let entrySize = 100;
 
+// Min distance from top of screen that we can start showing backgrounds
+let topOverride = 100;
+
+// Fade out of top of the screen override
+let topFade = 200;
+
 function calculatePosition() {
   targetScrollCenter.value =
     window.pageYOffset +
@@ -107,9 +113,17 @@ function calculateBackground() {
     distance.value = 1;
     return;
   }
+
+  if (window.scrollY < topOverride) {
+    // 0 when at top and 1 when > topFade
+    let mix = Math.min(1, (topOverride - window.scrollY) / topFade);
+    absoluteDistance += mix * 500;
+  }
+
   distance.value = absoluteDistance / scrollWidth;
 
   distance.value = Math.min(1, distance.value);
+  console.log(props.title + distance.value);
 }
 
 window.addEventListener("scroll", calculateBackground);
@@ -152,6 +166,7 @@ window.addEventListener("scroll", calculateBackground);
     flex-grow: 1;
     max-width: 500px;
     padding-top: 30px;
+    opacity: 0.9;
   }
 }
 

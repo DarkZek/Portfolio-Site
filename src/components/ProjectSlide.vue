@@ -1,6 +1,17 @@
 <template>
-  <div class="parent" :style="`aspect-ratio: ${videoAspect}`" ref="parentDom">
+  <div
+    class="parent"
+    :style="`aspect-ratio: ${videoAspect}`"
+    ref="parentDom"
+    @click="pauseCommand = !pauseCommand"
+  >
     <div :id="uniqueId" class="inner" :style="innerStyle"></div>
+    <div class="overlay">
+      <div class="progress" :style="`width: ${progress * 100}%;`"></div>
+      <div v-if="paused" class="paused">
+        <span class="material-symbols-outlined">pause</span>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -30,6 +41,10 @@ nextTick(() => {
   }).observe(parentDom.value!);
 });
 
+let pauseCommand = ref(false);
+
+let paused = ref(false);
+
 let vid: any;
 
 let padding = 80;
@@ -38,6 +53,8 @@ let doublePadding = padding * 2;
 let videoPadding = 80;
 
 let videoAspect = 1920 / 1080;
+
+let progress = ref(0);
 
 let innerStyle = computed(() => {
   return `margin-top: -${padding}px; margin-left: -${padding}px;`;
@@ -78,6 +95,17 @@ setTimeout(() => {
 
       p.drawingContext.filter = "contrast(180%) blur(32px)";
       p.image(img, padding, padding); // redraws the video frame by frame in
+
+      progress.value = vid.elt.currentTime / vid.elt.duration;
+
+      if (pauseCommand.value != paused.value) {
+        paused.value = pauseCommand.value;
+        if (paused.value) {
+          vid.pause();
+        } else {
+          vid.play();
+        }
+      }
     };
   }, uniqueId);
 }, 200);
@@ -106,7 +134,7 @@ video {
 
   :deep(canvas) {
     transform: scaleX(0.95) scaleY(0.9);
-    opacity: 0.9;
+    opacity: 0.8;
   }
 
   :deep(video) {
@@ -115,6 +143,39 @@ video {
     overflow: hidden;
     transition: opacity 0.4s ease-in;
     background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+.overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  transition: opacity 0.4s ease-in;
+  border-radius: 10px;
+  overflow: hidden;
+  cursor: pointer;
+
+  .progress {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 4px;
+    position: absolute;
+    bottom: 0px;
+  }
+
+  .paused {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    span {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 60px;
+    }
   }
 }
 
