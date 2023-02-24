@@ -6,7 +6,7 @@
         class="row location"
         :style="`animation-delay: -${animationProgress}s`"
       >
-        <span class="material-icons"> place </span>
+        <map-marker-icon />
 
         <a>Christchurch, New Zealand</a>
       </div>
@@ -28,6 +28,7 @@
 <script lang="ts" setup>
 import { computed, ref, watch } from "vue";
 import NameTitle from "./NameTitle.vue";
+import MapMarkerIcon from "vue-material-design-icons/MapMarker.vue";
 
 let maxScroll = 500;
 
@@ -44,12 +45,9 @@ let fontSize = computed(() => {
   return size;
 });
 
-watch(
-  () => window.innerWidth,
-  () => {
-    windowWidth.value = window.innerWidth;
-  }
-);
+window.addEventListener("resize", () => {
+  windowWidth.value = window.innerWidth;
+});
 
 window.addEventListener("scroll", () => {
   animationProgress.value = Math.min(0.9999, window.scrollY / maxScroll);
@@ -92,10 +90,11 @@ window.addEventListener("scroll", () => {
   animation: loadingHide 1s infinite;
   animation-play-state: paused;
   width: 360px;
-  position: span {
+
+  span {
     font-size: 30px;
     margin-right: 6px;
-    padding-top: 3px;
+    margin-top: -4px;
   }
 
   a {
@@ -107,6 +106,11 @@ window.addEventListener("scroll", () => {
   .socials {
     animation: socialsCondenseMobile 1s infinite;
     animation-play-state: paused;
+    margin-top: 5px !important;
+  }
+
+  .location {
+    display: none;
   }
 }
 

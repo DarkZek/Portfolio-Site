@@ -6,10 +6,15 @@
     @click="pauseCommand = !pauseCommand"
   >
     <div :id="uniqueId" class="inner" :style="innerStyle"></div>
-    <div class="overlay">
+    <div
+      class="overlay"
+      :style="`width: ${parentWidth}px; height: ${
+        parentWidth / videoAspect
+      }px;`"
+    >
       <div class="progress" :style="`width: ${progress * 100}%;`"></div>
       <div v-if="paused" class="paused">
-        <span class="material-symbols-outlined">pause</span>
+        <pause-icon size="48px" />
       </div>
     </div>
   </div>
@@ -19,6 +24,7 @@
 import { ref, nextTick, computed } from "vue";
 // @ts-ignore
 import { p5 } from "p5js-wrapper";
+import PauseIcon from "vue-material-design-icons/Pause.vue";
 
 let uniqueId = Math.random().toString().substring(2);
 
@@ -150,7 +156,6 @@ video {
   position: absolute;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
   transition: opacity 0.4s ease-in;
   border-radius: 10px;
   overflow: hidden;
@@ -171,17 +176,19 @@ video {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 60px;
 
     span {
       color: rgba(255, 255, 255, 0.6);
-      font-size: 60px;
       user-select: none;
     }
   }
 }
 
 .parent {
+  max-width: min(100%, 400px);
+  max-height: 100%;
   width: 100%;
-  height: 100%;
+  flex-grow: 1;
 }
 </style>

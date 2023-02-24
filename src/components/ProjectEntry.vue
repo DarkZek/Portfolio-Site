@@ -8,12 +8,14 @@
     ></div>
     <div class="row">
       <div class="info">
-        <slot name="title">
-          <div class="row title">
-            <img :src="props.logoImg" />
-            <a>{{ props.title }}</a>
-          </div>
-        </slot>
+        <div style="min-height: 58px">
+          <slot name="title" v-if="animateInEffectShown">
+            <div class="row title">
+              <img :src="props.logoImg" />
+              <a>{{ props.title }}</a>
+            </div>
+          </slot>
+        </div>
         <div class="tags">
           <div
             :style="`background-color: ${props.color}38`"
@@ -24,9 +26,7 @@
           </div>
         </div>
         <div class="description">
-          <p>
-            {{ props.description }}
-          </p>
+          <p v-html="props.description"></p>
         </div>
         <div
           class="button"
@@ -89,6 +89,8 @@ let topOverride = 100;
 // Fade out of top of the screen override
 let topFade = 200;
 
+let animateInEffectShown = ref(false);
+
 function calculatePosition() {
   targetScrollCenter.value =
     window.pageYOffset +
@@ -116,6 +118,11 @@ function calculateBackground() {
     return;
   }
 
+  if (!animateInEffectShown.value) {
+    animateInEffectShown.value = true;
+    showUnderlines();
+  }
+
   if (window.scrollY < topOverride) {
     // 0 when at top and 1 when > topFade
     let mix = Math.min(1, (topOverride - window.scrollY) / topFade);
@@ -129,6 +136,24 @@ function calculateBackground() {
 }
 
 window.addEventListener("scroll", calculateBackground);
+
+function showUnderlines() {
+  let i = 0;
+
+  const underlines = instance.value!.querySelectorAll("u");
+
+  // Stagger underlines
+  function staggerOutline() {
+    if (underlines[i]) {
+      underlines[i].classList.add("staggered");
+      i++;
+    }
+
+    setTimeout(staggerOutline, 500);
+  }
+
+  setTimeout(staggerOutline, 2000);
+}
 </script>
 
 <style scoped lang="scss">
@@ -169,6 +194,7 @@ window.addEventListener("scroll", calculateBackground);
     opacity: 0.9;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
   }
 }
 
@@ -210,15 +236,19 @@ window.addEventListener("scroll", calculateBackground);
   padding-left: 30px;
   max-width: 1000px;
   margin: auto;
+  justify-content: center;
+  gap: 40px;
 
   > * {
     display: block;
-    margin: 0 30px;
+    max-width: min(100%, 400px);
+    min-width: 250px;
   }
 
   img {
     width: 100%;
     border-radius: 10px;
+    user-select: none;
   }
 
   .picture {
@@ -238,6 +268,34 @@ window.addEventListener("scroll", calculateBackground);
     color: white;
     font-size: 18px;
     text-decoration: none;
+  }
+}
+
+:deep(u) {
+  position: relative;
+  text-decoration: none;
+  display: inline-block;
+}
+
+:deep(u).staggered::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  display: block;
+  position: relative;
+  background: rgba(255, 255, 255, 0.8);
+  transition: 300ms;
+  animation: textShown 0.5s ease-in-out;
+  position: absolute;
+  margin-top: -2px;
+}
+
+@keyframes textShown {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 100%;
   }
 }
 </style>

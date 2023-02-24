@@ -4,11 +4,11 @@
     title="RustCraft"
     logo-img="/content/rustcraft/logo_hd.png"
     :tags="['ECS', '3D Rendering', 'Rust', 'High Performance']"
-    description="RustCraft is a from scratch modern
+    description="RustCraft is a <u>from scratch</u> modern
   alternative to the official Minecraft client. Written in Rust and using
-  wgpu-rs it focuses on delivering high performance voxel rendering. It features
+  wgpu-rs it focuses on delivering <u>high performance voxel rendering</u>. It features
   an Entity Component System (ECS) based rendering system, threaded networking,
-  mesh building, asset management, render engine and AABB physics engine
+  mesh building, asset management, <u>render engine</u> and AABB physics engine
   providing blazing fast performance."
     button-title="View Mid Project Review"
     :button-callback="
@@ -25,6 +25,11 @@
       <rustcraft-title-animation />
     </template>
   </project-entry>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
   <project-entry
     background-img="/img/Flixr.webp"
     title="Flixrapp"
@@ -32,8 +37,8 @@
     :tags="['Vue.js', 'mySQL', 'Docker']"
     description="Flixr started as a frustration with managing tv show notifications
             for so many different streaming platforms. It collates data from
-            online API's to provide one succinct user interface for subscribing to
-            TV show release's. It uses a custom password-less authentication
+            <u>online API's</u> to provide one succinct user interface for subscribing to
+            TV show release's. It uses a custom <u>password-less</u> authentication
             solution to accommodate frictionless on-boarding."
     button-title="View Project Gitlab"
     :button-callback="
