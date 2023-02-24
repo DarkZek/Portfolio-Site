@@ -8,10 +8,12 @@
     ></div>
     <div class="row">
       <div class="info">
-        <div class="row title">
-          <img :src="props.logoImg" />
-          <a>{{ props.title }}</a>
-        </div>
+        <slot name="title">
+          <div class="row title">
+            <img :src="props.logoImg" />
+            <a>{{ props.title }}</a>
+          </div>
+        </slot>
         <div class="tags">
           <div
             :style="`background-color: ${props.color}38`"
@@ -37,7 +39,7 @@
       </div>
       <div class="graphics">
         <project-slide :url="props.videoUrl"></project-slide>
-        <a :href="props.pictureLink" target="_blank"
+        <a :href="props.pictureLink" target="_blank" class="picture"
           ><img :src="props.pictureUrl"
         /></a>
       </div>
@@ -139,6 +141,7 @@ window.addEventListener("scroll", calculateBackground);
     position: relative;
     justify-content: space-between;
     flex-wrap: wrap;
+    flex-direction: column;
   }
 
   .background {
@@ -154,7 +157,6 @@ window.addEventListener("scroll", calculateBackground);
   }
 
   .info {
-    width: 70%;
     padding: 0px 40px 0px 40px;
     max-width: 800px;
     margin-top: 80px;
@@ -162,16 +164,18 @@ window.addEventListener("scroll", calculateBackground);
   }
 
   .graphics {
-    width: 30vw;
-    flex-grow: 1;
-    max-width: 500px;
+    height: 300px;
     padding-top: 30px;
     opacity: 0.9;
+    display: flex;
+    flex-direction: row;
   }
 }
 
 .info {
   color: white;
+  margin: auto;
+  margin-bottom: 60px;
 
   .title {
     font-size: 40px;
@@ -204,15 +208,21 @@ window.addEventListener("scroll", calculateBackground);
 .graphics {
   padding-right: 40px;
   padding-left: 30px;
+  max-width: 1000px;
+  margin: auto;
 
   > * {
-    margin-top: 50px;
     display: block;
+    margin: 0 30px;
   }
 
   img {
     width: 100%;
     border-radius: 10px;
+  }
+
+  .picture {
+    margin: auto;
   }
 }
 

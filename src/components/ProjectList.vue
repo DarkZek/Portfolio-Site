@@ -20,7 +20,11 @@
     picture-url="/content/rustcraft/Github.png"
     picture-link="https://github.com/darkzek/rustcraft"
     color="#ff000d"
-  />
+  >
+    <template v-slot:title>
+      <rustcraft-title-animation />
+    </template>
+  </project-entry>
   <project-entry
     background-img="/img/Flixr.webp"
     title="Flixrapp"
@@ -28,9 +32,9 @@
     :tags="['Vue.js', 'mySQL', 'Docker']"
     description="Flixr started as a frustration with managing tv show notifications
             for so many different streaming platforms. It collates data from
-            online API's to provide one succinct user interface. It uses a
-            custom password-less authentication solution to accommodate
-            frictionless on-boarding."
+            online API's to provide one succinct user interface for subscribing to
+            TV show release's. It uses a custom password-less authentication
+            solution to accommodate frictionless on-boarding."
     button-title="View Project Gitlab"
     :button-callback="
       () => {
@@ -41,11 +45,17 @@
     picture-url="/content/flixr/Cover.png"
     picture-link="https://gitlab.com/darkzek/flixr"
     color="#7782d2"
-  />
+  >
+    <template v-slot:title>
+      <flixr-title-animation />
+    </template>
+  </project-entry>
 </template>
 
 <script lang="ts" setup>
 import ProjectEntry from "./ProjectEntry.vue";
+import RustcraftTitleAnimation from "./RustcraftTitleAnimation.vue";
+import FlixrTitleAnimation from "./FlixrTitleAnimation.vue";
 
 let windowInstance = window;
 </script>

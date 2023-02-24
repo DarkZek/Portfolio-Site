@@ -175,11 +175,13 @@ video {
     span {
       color: rgba(255, 255, 255, 0.6);
       font-size: 60px;
+      user-select: none;
     }
   }
 }
 
 .parent {
   width: 100%;
+  height: 100%;
 }
 </style>
