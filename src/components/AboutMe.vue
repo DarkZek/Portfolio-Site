@@ -19,6 +19,7 @@
   font-size: 24px;
   line-height: 1.6;
   color: white;
+  margin: auto;
   margin-top: 280px;
 }
 

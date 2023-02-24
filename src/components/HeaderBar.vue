@@ -1,25 +1,30 @@
 <template>
   <div class="bar row" :style="`animation-delay: -${animationProgress}s`">
-    <div class="name-location">
-      <name-title text="Marshall" :font-size="fontSize"></name-title>
+    <div class="row content">
+      <div class="name-location">
+        <name-title text="Marshall" :font-size="fontSize"></name-title>
+        <div
+          class="row location"
+          :style="`animation-delay: -${animationProgress}s`"
+        >
+          <map-marker-icon />
+
+          <a>Christchurch, New Zealand</a>
+        </div>
+      </div>
       <div
-        class="row location"
+        class="socials row"
         :style="`animation-delay: -${animationProgress}s`"
       >
-        <map-marker-icon />
-
-        <a>Christchurch, New Zealand</a>
-      </div>
-    </div>
-    <div class="socials row" :style="`animation-delay: -${animationProgress}s`">
-      <div class="email">
-        <font-awesome-icon icon="fa-solid fa-envelope" />
-      </div>
-      <div class="linkedin">
-        <font-awesome-icon icon="fa-brands fa-linkedin-in" />
-      </div>
-      <div class="github">
-        <font-awesome-icon icon="fa-brands fa-github-alt" />
+        <div class="email">
+          <font-awesome-icon icon="fa-solid fa-envelope" />
+        </div>
+        <div class="linkedin">
+          <font-awesome-icon icon="fa-brands fa-linkedin-in" />
+        </div>
+        <div class="github">
+          <font-awesome-icon icon="fa-brands fa-github-alt" />
+        </div>
       </div>
     </div>
   </div>
@@ -68,7 +73,13 @@ window.addEventListener("scroll", () => {
   backdrop-filter: blur(40px);
   animation: barCondense 1s;
   animation-play-state: paused;
+}
+
+.content {
   justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  margin: auto;
 }
 
 @media screen and (max-width: 768px) {

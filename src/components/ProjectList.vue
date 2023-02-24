@@ -26,10 +26,6 @@
     </template>
   </project-entry>
   <br />
-  <br />
-  <br />
-  <br />
-  <br />
   <project-entry
     background-img="/img/Flixr.webp"
     title="Flixrapp"
@@ -54,6 +50,25 @@
     <template v-slot:title>
       <flixr-title-animation />
     </template>
+  </project-entry>
+  <br />
+  <project-entry
+    background-img="/img/Mobingo.webp"
+    title="Charchingo"
+    logo-img="/content/mobingo/charchingo_logo_vert.webp"
+    :tags="['Quasar', 'Professional', 'Payment Providers']"
+    description="Charchingo is an Online Gaming Platform made for Alabama customers by Ruby Play Network. It is a <u>commercial level</u> application developed for an in person bingo hall. It supports accepting Donations through <u>Payment Providers</u>, faciliates online gaming, provides rewards and jackpots."
+    button-title="View Project Writeup"
+    :button-callback="
+      () => {
+        windowInstance.open('https://gitlab.com/darkzek/flixr', '_blank');
+      }
+    "
+    video-url="/content/mobingo/video_1920x1080.mp4"
+    picture-url="/content/mobingo/Cover.png"
+    picture-link="https://gitlab.com/darkzek/flixr"
+    color="#f7941d"
+  >
   </project-entry>
 </template>
 
