@@ -6,7 +6,7 @@
     :tags="['ECS', '3D Rendering', 'Rust', 'High Performance']"
     description="RustCraft is a <u>from scratch</u> modern
   alternative to the official Minecraft client. Written in Rust and using
-  wgpu-rs it focuses on delivering <u>high performance voxel rendering</u>. It features
+  wgpu-rs it focuses on delivering <u>high performance</u> voxel rendering. It features
   an Entity Component System (ECS) based rendering system, threaded networking,
   mesh building, asset management, <u>render engine</u> and AABB physics engine
   providing blazing fast performance."
@@ -47,9 +47,6 @@
     picture-link="https://gitlab.com/darkzek/flixr"
     color="#7782d2"
   >
-    <template v-slot:title>
-      <flixr-title-animation />
-    </template>
   </project-entry>
   <br />
   <project-entry
@@ -75,7 +72,6 @@
 <script lang="ts" setup>
 import ProjectEntry from "./ProjectEntry.vue";
 import RustcraftTitleAnimation from "./RustcraftTitleAnimation.vue";
-import FlixrTitleAnimation from "./FlixrTitleAnimation.vue";
 
 let windowInstance = window;
 </script>

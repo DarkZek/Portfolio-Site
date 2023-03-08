@@ -16,15 +16,19 @@
         class="socials row"
         :style="`animation-delay: -${animationProgress}s`"
       >
-        <div class="email">
+        <a class="email" href="mailto:mashdowne@hotmail.co.nz" target="_blank">
           <font-awesome-icon icon="fa-solid fa-envelope" />
-        </div>
-        <div class="linkedin">
+        </a>
+        <a
+          class="linkedin"
+          href="https://www.linkedin.com/in/marshall-scott-746989167/"
+          target="_blank"
+        >
           <font-awesome-icon icon="fa-brands fa-linkedin-in" />
-        </div>
-        <div class="github">
+        </a>
+        <a class="github" href="https::/github.com/darkzek/" target="_blank">
           <font-awesome-icon icon="fa-brands fa-github-alt" />
-        </div>
+        </a>
       </div>
     </div>
   </div>
@@ -93,6 +97,9 @@ window.addEventListener("scroll", () => {
   animation: socialsCondense 1s infinite;
   animation-play-state: paused;
   flex-wrap: nowrap;
+  a {
+    color: rgb(167, 167, 167);
+  }
 }
 
 .location {

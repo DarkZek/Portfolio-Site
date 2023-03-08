@@ -14,7 +14,7 @@
     >
       <div class="progress" :style="`width: ${progress * 100}%;`"></div>
       <div v-if="paused" class="paused">
-        <pause-icon size="48px" />
+        <pause-icon :size="48" />
       </div>
     </div>
   </div>

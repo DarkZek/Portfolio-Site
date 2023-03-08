@@ -15,7 +15,7 @@
 <style lang="scss" scoped>
 .about {
   padding: 0px 80px;
-  max-width: 1000px;
+  max-width: 1160px;
   font-size: 24px;
   line-height: 1.6;
   color: white;

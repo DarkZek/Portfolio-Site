@@ -132,7 +132,6 @@ function calculateBackground() {
   distance.value = absoluteDistance / scrollWidth;
 
   distance.value = Math.min(1, distance.value);
-  console.log(props.title + distance.value);
 }
 
 window.addEventListener("scroll", calculateBackground);
@@ -189,7 +188,6 @@ function showUnderlines() {
   }
 
   .graphics {
-    height: 300px;
     padding-top: 30px;
     opacity: 0.9;
     display: flex;
@@ -287,7 +285,7 @@ function showUnderlines() {
   transition: 300ms;
   animation: textShown 0.5s ease-in-out;
   position: absolute;
-  margin-top: -2px;
+  margin-top: -6px;
 }
 
 @keyframes textShown {
@@ -297,5 +295,10 @@ function showUnderlines() {
   to {
     width: 100%;
   }
+}
+
+p {
+  line-height: 2;
+  opacity: 0.95;
 }
 </style>
