@@ -29,7 +29,6 @@
   <project-entry
     background-img="/img/Flixr.webp"
     title="Flixrapp"
-    logo-img="/content/flixr/favicon.png"
     :tags="['Vue.js', 'mySQL', 'Docker']"
     description="Flixr started as a frustration with managing tv show notifications
             for so many different streaming platforms. It collates data from
@@ -47,12 +46,14 @@
     picture-link="https://gitlab.com/darkzek/flixr"
     color="#7782d2"
   >
+    <template v-slot:title>
+      <flixr-title-animation />
+    </template>
   </project-entry>
   <br />
   <project-entry
     background-img="/img/Mobingo.webp"
     title="Charchingo"
-    logo-img="/content/mobingo/charchingo_logo_vert.webp"
     :tags="['Quasar', 'Professional', 'Payment Providers']"
     description="Charchingo is an Online Gaming Platform made for Alabama customers by Ruby Play Network. It is a <u>commercial level</u> application developed for an in person bingo hall. It supports accepting Donations through <u>Payment Providers</u>, faciliates online gaming, provides rewards and jackpots."
     button-title="View Project Writeup"
@@ -66,12 +67,17 @@
     picture-link="https://gitlab.com/darkzek/flixr"
     color="#f7941d"
   >
+    <template v-slot:title>
+      <charchingo-title-animation />
+    </template>
   </project-entry>
 </template>
 
 <script lang="ts" setup>
 import ProjectEntry from "./ProjectEntry.vue";
-import RustcraftTitleAnimation from "./RustcraftTitleAnimation.vue";
+import RustcraftTitleAnimation from "./titles/RustcraftTitleAnimation.vue";
+import FlixrTitleAnimation from "./titles/FlixrTitleAnimation.vue";
+import CharchingoTitleAnimation from "./titles/CharchingoTitleAnimation.vue";
 
 let windowInstance = window;
 </script>

@@ -186,7 +186,7 @@ video {
 }
 
 .parent {
-  max-width: min(100%, 400px);
+  max-width: 800px;
   max-height: 100%;
   width: 100%;
   flex-grow: 1;

@@ -18,7 +18,7 @@
         </div>
         <div class="tags">
           <div
-            :style="`background-color: ${props.color}38`"
+            :style="`background-color: ${props.color}42`"
             v-for="tag of props.tags"
             :key="tag"
           >
@@ -32,16 +32,13 @@
           class="button"
           v-if="props.buttonTitle"
           @click="props.buttonCallback"
-          :style="`background-color: ${props.color}38`"
+          :style="`background-color: ${props.color}42`"
         >
           <a>{{ props.buttonTitle }}</a>
         </div>
       </div>
       <div class="graphics">
         <project-slide :url="props.videoUrl"></project-slide>
-        <a :href="props.pictureLink" target="_blank" class="picture"
-          ><img :src="props.pictureUrl"
-        /></a>
       </div>
     </div>
   </div>
@@ -52,7 +49,7 @@ import { nextTick, ref } from "vue";
 import ProjectSlide from "./ProjectSlide.vue";
 
 const props = defineProps<{
-  backgroundImg: string;
+  backgroundImg?: string;
   title: string;
   logoImg: string;
   tags: string[];
@@ -60,8 +57,6 @@ const props = defineProps<{
   buttonTitle?: string;
   buttonCallback: () => void;
   videoUrl: string;
-  pictureUrl: string;
-  pictureLink: string;
   color: string;
 }>();
 
@@ -230,16 +225,15 @@ function showUnderlines() {
 }
 
 .graphics {
-  padding-right: 40px;
-  padding-left: 30px;
-  max-width: 1000px;
+  max-width: 800px;
   margin: auto;
   justify-content: center;
   gap: 40px;
+  width: 100%;
+  padding: 0px 40px;
 
   > * {
     display: block;
-    max-width: min(100%, 400px);
     min-width: 250px;
   }
 
