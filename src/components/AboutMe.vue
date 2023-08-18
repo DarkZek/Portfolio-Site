@@ -1,7 +1,9 @@
 <template>
   <div class="about">
     <div class="content">
-      <p>Hi! I am a Front-End Developer with a passion for computer graphics.</p>
+      <p>
+        Hi! I am a Front-End Developer with a passion for computer graphics.
+      </p>
       <p>
         I take pride in my ability to turn complex ideas into simple and elegant
         solutions. I am always eager to take on new challenges and learn new
@@ -10,7 +12,68 @@
       </p>
     </div>
   </div>
+  <div class="game-background" ref="gameParent">
+    <canvas id="game-about-me" ref="gameObj"></canvas>
+  </div>
 </template>
+
+<script lang="ts" setup>
+import { ref, watch } from "vue";
+import { SnakeGame } from "../utils/snake";
+
+let gameObj = ref<HTMLCanvasElement>();
+let gameParent = ref<Element>();
+
+let size = 600;
+let playing = true;
+
+const game = new SnakeGame(10);
+
+let opacity = 0;
+
+document.addEventListener('scroll', () => {
+  opacity = Math.min(0.15, Math.max(0, 0.5 - (window.scrollY / 500)));
+  console.log(opacity)
+  gameObj.value!.style.opacity = opacity.toString();
+  if (opacity == 0) { 
+    playing = false;
+  } else {
+    playing = true;
+  }
+})
+
+game.addListeners();
+
+function resized() {
+  size = window.innerHeight;
+
+  gameObj.value.height = size;
+  gameObj.value.width = size;
+
+}
+
+watch(gameParent, () => {
+  new ResizeObserver(resized).observe(gameParent.value!);
+});
+
+watch(gameObj, () => {
+  if (gameObj.value == undefined) {
+    return;
+  }
+
+  gameObj.value.height = size;
+  gameObj.value.width = size;
+
+  const ctx = gameObj.value.getContext("2d");
+
+  setInterval(() => {
+    if (ctx != null && playing) {
+      game.tick();
+      game.draw(ctx, size);
+    }
+  }, 150);
+});
+</script>
 
 <style lang="scss" scoped>
 .about {
@@ -36,5 +99,20 @@
 
 p {
   margin-bottom: 30px;
+}
+
+.game-background {
+  position: fixed;
+  width: 100vh;
+  height: 100vh;
+
+  right: 0px;
+  top: 0px;
+  pointer-events: none;
+
+  #game-about-me {
+    position: relative;
+    opacity: 0.15;
+  }
 }
 </style>

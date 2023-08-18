@@ -135,9 +135,17 @@ window.addEventListener("scroll", () => {
 @keyframes barCondense {
   0% {
     padding: 70px 80px 50px 80px;
+    backdrop-filter: blur(0px);
+    background: transparent;
   }
   100% {
     padding: 15px 60px;
+    backdrop-filter: blur(40px);
+    background: linear-gradient(
+      90deg,
+      rgba(46, 44, 42, 0.9) 0%,
+      rgba(36, 36, 36, 0.9) 100%
+    );
   }
 }
 

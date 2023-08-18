@@ -16,7 +16,6 @@
       <header-bar></header-bar>
       <about-me></about-me>
       <project-list></project-list>
-      <qualification-list />
       <contact-me />
     </div>
   </div>
@@ -46,7 +45,7 @@ window.addEventListener("load", () => {
   }
 });
 
-setTimeout(() => (showLoading.value = true), 300);
+setTimeout(() => (showLoading.value = true), 500);
 
 function loadedVideo() {
   loaded.value = true;
