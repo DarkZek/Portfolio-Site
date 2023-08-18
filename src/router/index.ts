@@ -8,6 +8,21 @@ const router = createRouter({
       path: '/',
       name: 'home',
       component: HomeView
+    },
+    {
+      path: '/rustcraft',
+      name: 'rustcraft',
+      component: HomeView
+    },
+    {
+      path: '/flixr',
+      name: 'rustcraft',
+      component: HomeView
+    },
+    {
+      path: '/charchingo',
+      name: 'rustcraft',
+      component: HomeView
     }
   ]
 })

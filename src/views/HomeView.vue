@@ -26,7 +26,6 @@
 import HeaderBar from "../components/HeaderBar.vue";
 import AboutMe from "../components/AboutMe.vue";
 import ProjectList from "../components/ProjectList.vue";
-import QualificationList from "../components/QualificationList.vue";
 import ContactMe from "../components/ContactMe.vue";
 import { ref } from "vue";
 

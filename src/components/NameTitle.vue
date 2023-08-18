@@ -24,17 +24,7 @@ let props = defineProps<{
 let splitText = computed(() => props.text.split(""));
 
 // Static X, Static Y, Dynamic Y
-let offsets = ref([
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-  [0, 0, 0],
-]);
+let offsets = ref(new Array(props.text.length).fill(0).map(() => [0,0,0]));
 
 let moveVelocity = 0;
 
@@ -105,6 +95,7 @@ nextTick(() => {
     font-family: "Poppins", sans-serif;
     display: inline-block;
     opacity: 0;
+    white-space: pre;
   }
 
   &:deep(.done) {

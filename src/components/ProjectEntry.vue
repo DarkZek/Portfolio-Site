@@ -7,7 +7,8 @@
       };`"
     ></div>
     <div class="row">
-      <div class="info">
+      <div class="info" @click="router.push('/' + props.redirectUrl)">
+        <font-awesome-icon icon="fa-solid fa-chevron-right" class="more_info" />
         <div style="min-height: 58px">
           <slot name="title" v-if="animateInEffectShown">
             <div class="row title">
@@ -47,11 +48,15 @@
 <script lang="ts" setup>
 import { nextTick, ref } from "vue";
 import ProjectSlide from "./ProjectSlide.vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const props = defineProps<{
   backgroundImg?: string;
   title: string;
-  logoImg: string;
+  logoImg?: string;
+  redirectUrl: string;
   tags: string[];
   description: string;
   buttonTitle?: string;
@@ -173,13 +178,7 @@ function showUnderlines() {
     background-size: cover;
     height: 100%;
     background-position: center;
-  }
-
-  .info {
-    padding: 0px 40px 0px 40px;
-    max-width: 800px;
-    margin-top: 80px;
-    min-width: min(400px, 100vw);
+    filter: blur(3px);
   }
 
   .graphics {
@@ -194,7 +193,34 @@ function showUnderlines() {
 .info {
   color: white;
   margin: auto;
-  margin-bottom: 60px;
+  padding: 30px 40px 30px 40px;
+  max-width: 800px;
+  margin-top: 80px;
+  min-width: min(400px, 100vw);
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: rgba(50, 50, 50, 0.4);
+    border-radius: 30px;
+    backdrop-filter: blur(10px);
+
+    .more_info {
+      opacity: 0.4;
+      transform: translateX(10px);
+    }
+  }
+
+  .more_info {
+    opacity: 0;
+    position: absolute;
+    right: -40px;
+    top: 0px;
+    bottom: 0px;
+    margin: auto;
+    transition: all 0.2s ease-in-out;
+    font-size: 40px;
+  }
 
   .title {
     font-size: 40px;

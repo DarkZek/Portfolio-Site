@@ -2,6 +2,7 @@
   <project-entry
     background-img="/img/Rustcraft.webp"
     title="RustCraft"
+    redirect-url="rustcraft"
     logo-img="/content/rustcraft/logo_hd.png"
     :tags="['ECS', '3D Rendering', 'Rust', 'High Performance']"
     description="RustCraft is a <u>from scratch</u> modern
@@ -29,6 +30,7 @@
   <project-entry
     background-img="/img/Flixr.webp"
     title="Flixrapp"
+    redirect-url="flixr"
     :tags="['Vue.js', 'mySQL', 'Docker']"
     description="Flixr started as a frustration with managing tv show notifications
             for so many different streaming platforms. It collates data from
@@ -54,6 +56,7 @@
   <project-entry
     background-img="/img/Mobingo.webp"
     title="Charchingo"
+    redirect-url="charchingo"
     :tags="['Quasar', 'Professional', 'Payment Providers']"
     description="Charchingo is an Online Gaming Platform made for Alabama customers by Ruby Play Network. It is a <u>commercial level</u> application developed for an in person bingo hall. It supports accepting Donations through <u>Payment Providers</u>, faciliates online gaming, provides rewards and jackpots."
     button-title="View Project Writeup"

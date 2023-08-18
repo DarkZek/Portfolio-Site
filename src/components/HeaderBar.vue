@@ -2,7 +2,7 @@
   <div class="bar row" :style="`animation-delay: -${animationProgress}s`">
     <div class="row content">
       <div class="name-location">
-        <name-title text="Marshall" :font-size="fontSize"></name-title>
+        <name-title text="Marshall Scott" :font-size="fontSize"></name-title>
         <div
           class="row location"
           :style="`animation-delay: -${animationProgress}s`"

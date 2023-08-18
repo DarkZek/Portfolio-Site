@@ -10,9 +10,9 @@ import "./assets/main.css";
 import { library } from "@fortawesome/fontawesome-svg-core";
 
 import { faLinkedinIn, faGithubAlt } from "@fortawesome/free-brands-svg-icons";
-import { faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { faEnvelope, faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
-library.add(faLinkedinIn, faGithubAlt, faEnvelope);
+library.add(faLinkedinIn, faGithubAlt, faEnvelope, faChevronRight);
 
 /* import font awesome icon component */
 import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
