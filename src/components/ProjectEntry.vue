@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="graphics">
-        <project-slide :url="props.videoUrl"></project-slide>
+        <!--<project-slide :url="props.videoUrl"></project-slide>-->
       </div>
     </div>
   </div>
