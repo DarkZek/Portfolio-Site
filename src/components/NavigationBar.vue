@@ -4,7 +4,7 @@
       <video
         muted
         autoplay
-        src="/img/name.webm"
+        src="#/img/name.webm"
         @ended="playing = false"
         v-if="playing"
       ></video>

@@ -4,7 +4,7 @@
       <iframe src="https://flixrapp.com" ref="iframe"></iframe>
       <img src="/img/iphone.png" />
       <a class="title">flixrapp.com</a>
-      <div class="refresh" tabindex="0" @click="iframe.src = iframe?.src"></div>
+      <div class="refresh" tabindex="0" @click="refresh"></div>
     </div>
     <div class="text">
       <h1>Flixr</h1>
@@ -37,6 +37,13 @@
 import { ref } from 'vue';
 
 const iframe = ref<HTMLIFrameElement>();
+
+function refresh() {
+  if (iframe.value) {
+    // eslint-disable-next-line no-self-assign
+    iframe.value.src = iframe.value.src;
+  }
+}
 
 </script>
 

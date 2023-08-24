@@ -92,7 +92,10 @@ export class SnakeGame {
     this.snake_points = [new Point(this.size - 1, 4)];
     this.snake_dir = Direction.Left;
 
-    this.fruit_loc = this.getNewFruitLoc();
+    const newFruitLoc = this.getNewFruitLoc();
+    if (newFruitLoc != undefined) {
+      this.fruit_loc = newFruitLoc;
+    }
 
     this.ai = true;
   }
@@ -247,7 +250,10 @@ export class SnakeGame {
 
     // Check if snake is eating fruit
     if (new_head.x == this.fruit_loc.x && new_head.y == this.fruit_loc.y) {
-      this.fruit_loc = this.getNewFruitLoc();
+      const newFruit = this.getNewFruitLoc();
+      if (newFruit != undefined) {
+        this.fruit_loc = newFruit;
+      }
     } else {
       this.snake_points.pop();
     }
@@ -327,17 +333,17 @@ export class SnakeGame {
         const color = this.board_lcd[x][y];
         ctx.fillStyle = new Color(255, 0, 0, 1.0).lerp(bgLcd, 1-color.red).toCSS()
         ctx.beginPath();
-        ctx.roundRect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.rect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
         ctx.fill();
 
         ctx.fillStyle = new Color(0, 255, 0, 1.0).lerp(bgLcd, 1-color.green).toCSS()
         ctx.beginPath();
-        ctx.roundRect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.rect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
         ctx.fill();
         
         ctx.fillStyle = new Color(0, 0, 255, 1.0).lerp(bgLcd, 1-color.blue).toCSS()
         ctx.beginPath();
-        ctx.roundRect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.rect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
         ctx.fill();
 
         // Debugging colours
