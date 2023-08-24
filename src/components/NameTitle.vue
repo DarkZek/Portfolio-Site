@@ -37,10 +37,10 @@ let prevScroll = window.scrollY;
 
 setInterval(() => {
   if (Math.abs(moveVelocity) > 0.1) {
-    timeOffset.value += moveVelocity;
-    moveVelocity *= 0.98;
+    timeOffset.value += moveVelocity / 5;
+    moveVelocity *= 0.9995;
   }
-}, 1000 / 20);
+}, 1000 / 30);
 
 let charStyle = computed(() => {
   return offsets.value.map((offset, index) => {
@@ -52,7 +52,7 @@ let charStyle = computed(() => {
 });
 
 document.addEventListener("scroll", (e) => {
-  moveVelocity = Math.min(5, Math.max(-5, window.scrollY - prevScroll));
+  moveVelocity = Math.min(10, Math.max(-10, window.scrollY - prevScroll));
   prevScroll = window.scrollY;
 });
 

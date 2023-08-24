@@ -7,7 +7,7 @@
       };`"
     ></div>
     <div class="row">
-      <div class="info" @click="router.push('/' + props.redirectUrl)">
+      <div :class="{ info: true, mobile: isMobile() }" @click="router.push('/' + props.redirectUrl)">
         <font-awesome-icon icon="fa-solid fa-chevron-right" class="more_info" />
         <div style="min-height: 58px">
           <slot name="title" v-if="animateInEffectShown">
@@ -39,7 +39,7 @@
         </div>
       </div>
       <div class="graphics">
-        <!--<project-slide :url="props.videoUrl"></project-slide>-->
+        <project-slide :url="props.videoUrl" :cover-url="props.coverUrl"></project-slide>
       </div>
     </div>
   </div>
@@ -49,6 +49,7 @@
 import { nextTick, ref } from "vue";
 import ProjectSlide from "./ProjectSlide.vue";
 import { useRouter } from 'vue-router';
+import { isMobile } from "../composables/isMobile";
 
 const router = useRouter();
 
@@ -63,6 +64,7 @@ const props = defineProps<{
   buttonCallback: () => void;
   videoUrl: string;
   color: string;
+  coverUrl: string;
 }>();
 
 if (!props.color.startsWith("#") || props.color.length !== 7) {
@@ -205,7 +207,7 @@ function showUnderlines() {
   transition: all 0.2s ease-in-out;
   border-radius: 30px;
 
-  &:hover {
+  &:hover, &.mobile {
     background-color: rgba(50, 50, 50, 0.4);
     backdrop-filter: blur(10px) opacity(1);
 

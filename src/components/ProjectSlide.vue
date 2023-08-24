@@ -5,6 +5,7 @@
     ref="parentDom"
     @click="pauseCommand = !pauseCommand"
   >
+    <img :src="coverUrl" v-if="!displayed" />
     <div :id="uniqueId" class="inner" :style="innerStyle"></div>
     <div
       class="overlay"
@@ -16,15 +17,19 @@
       <div v-if="paused" class="paused">
         <pause-icon :size="48" />
       </div>
+      <div v-if="!displayed" class="paused" @click.stop="displayed = true">
+        <pause-icon :size="48" />
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick, computed } from "vue";
+import { ref, nextTick, computed, watch } from "vue";
 // @ts-ignore
 import { p5 } from "p5js-wrapper";
 import PauseIcon from "vue-material-design-icons/Pause.vue";
+import { isMobile } from "../composables/isMobile";
 
 let uniqueId = Math.random().toString().substring(2);
 
@@ -32,23 +37,34 @@ let displayed = ref(false);
 
 let props = defineProps<{
   url: string;
+  coverUrl: string;
 }>();
-
-document.addEventListener("keydown", () => {
-  displayed.value = !displayed.value;
-});
 
 let parentWidth = ref(229);
 let parentDom = ref<HTMLElement>();
+
+let visible = ref(false);
+
+document.addEventListener('scroll', onScroll)
+
+function onScroll() {
+  let rect = parentDom.value!.getBoundingClientRect();
+  const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+  if (visible.value != isVisible) {
+    visible.value = isVisible;
+    p5Instance?.loop();
+  }
+}
 
 nextTick(() => {
   new ResizeObserver((e) => {
     parentWidth.value = e[0].target.clientWidth;
   }).observe(parentDom.value!);
+  onScroll();
 });
 
-let pauseCommand = ref(false);
 
+let pauseCommand = ref(false);
 let paused = ref(false);
 
 let vid: any;
@@ -57,69 +73,90 @@ let padding = 80;
 let doublePadding = padding * 2;
 
 let videoPadding = 80;
-
 let videoAspect = 1920 / 1080;
-
 let progress = ref(0);
+
+let p5Instance: any;
 
 let innerStyle = computed(() => {
   return `margin-top: -${padding}px; margin-left: -${padding}px;`;
 });
-setTimeout(() => {
-  let currentWidth = parentWidth.value;
+watch(displayed, () => {
 
-  //const P5 = new p5(() => name);
-  let sketch1 = new p5((p: any) => {
-    p.setup = () => {
-      p.createCanvas(
-        parentWidth.value + doublePadding,
-        parentWidth.value / videoAspect + doublePadding
-      );
+  if (!displayed.value) {
+    return;
+  }
 
-      vid = p.createVideo(props.url, () => {
-        vid.elt.style.top = `${videoPadding}px`;
-        vid.elt.style.left = `${videoPadding}px`;
-      });
-      vid.volume(0);
-      vid.loop();
-      vid.size(parentWidth.value, parentWidth.value / videoAspect);
-    };
-    p.draw = () => {
-      p.clear();
+  setTimeout(() => {
+    let currentWidth = parentWidth.value;
 
-      if (currentWidth != parentWidth.value) {
-        currentWidth = parentWidth.value;
-        p.resizeCanvas(
+    p5Instance = new p5((p: any) => {
+      p.setup = () => {
+        p.createCanvas(
           parentWidth.value + doublePadding,
           parentWidth.value / videoAspect + doublePadding
         );
+
+        vid = p.createVideo(props.url, () => {
+          vid.elt.style.top = `${videoPadding}px`;
+          vid.elt.style.left = `${videoPadding}px`;
+        });
+        vid.volume(0);
+        vid.loop();
         vid.size(parentWidth.value, parentWidth.value / videoAspect);
-      }
 
-      let img;
-      try {
-        img = vid.get();
-      } catch (e) {
-        return;
-      }
-      p.image(img, padding, padding); // redraws the video frame by frame in
-
-      p.drawingContext.filter = "contrast(180%) blur(32px)";
-      p.image(img, padding, padding); // redraws the video frame by frame in
-
-      progress.value = vid.elt.currentTime / vid.elt.duration;
-
-      if (pauseCommand.value != paused.value) {
-        paused.value = pauseCommand.value;
-        if (paused.value) {
-          vid.pause();
-        } else {
-          vid.play();
+        // If not visible dont start draw loop
+        if (!visible.value) {
+          p.noLoop();
         }
-      }
-    };
-  }, uniqueId);
-}, 200);
+      };
+      p.draw = () => {
+        p.clear();
+
+        if (currentWidth != parentWidth.value) {
+          currentWidth = parentWidth.value;
+          p.resizeCanvas(
+            parentWidth.value + doublePadding,
+            parentWidth.value / videoAspect + doublePadding
+          );
+          vid.size(parentWidth.value, parentWidth.value / videoAspect);
+        }
+
+        let img;
+        try {
+          img = vid.get();
+        } catch (e) {
+          return;
+        }
+        p.image(img, padding, padding); // redraws the video frame by frame in
+
+        p.drawingContext.filter = "contrast(180%) blur(32px)";
+        p.image(img, padding, padding); // redraws the video frame by frame in
+
+        progress.value = vid.elt.currentTime / vid.elt.duration;
+
+        if (pauseCommand.value != paused.value) {
+          paused.value = pauseCommand.value;
+          if (paused.value) {
+            vid.pause();
+          } else {
+            vid.play();
+          }
+        }
+
+        // Continue drawing
+        if (!visible.value) {
+          p.noLoop();
+        }
+      };
+    }, uniqueId);
+  }, 200);
+});
+
+// Dont display by default on mobile
+if (!isMobile()) {
+  displayed.value = true;
+}
 </script>
 
 <style lang="scss" scoped>
@@ -195,5 +232,11 @@ video {
   max-height: 100%;
   width: 100%;
   flex-grow: 1;
+}
+
+img {
+  height: 100%;
+  border-radius: 10px;
+  position: absolute;
 }
 </style>
