@@ -12,7 +12,7 @@
       </p>
     </div>
   </div>
-  <div class="game-background" ref="gameParent">
+  <div class="game-background" ref="gameParent" v-if="game != undefined">
     <canvas id="game-about-me" ref="gameObj"></canvas>
   </div>
 </template>
@@ -20,6 +20,7 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import { SnakeGame } from "../utils/snake";
+import { isMobile } from "../composables/isMobile";
 
 let gameObj = ref<HTMLCanvasElement>();
 let gameParent = ref<Element>();
@@ -27,60 +28,68 @@ let gameParent = ref<Element>();
 let size = 600;
 let playing = true;
 
-const game = new SnakeGame(10);
+let game: SnakeGame | undefined = undefined;
 
 let opacity = 0;
 
-function onScroll() {
-  if (gameObj.value == undefined) {
-    return;
-  }
+function gameSetup() {
+  game = new SnakeGame(10);
 
-  opacity = Math.min(0.15, Math.max(0, 0.5 - (window.scrollY / 500)));
-  gameObj.value!.style.opacity = opacity.toString();
-  if (opacity == 0) { 
-    playing = false;
-  } else {
-    playing = true;
-  }
-}
-
-document.addEventListener('scroll', onScroll)
-
-game.addListeners();
-
-function resized() {
-  size = window.innerHeight;
-
-  if (gameObj.value == undefined) {
-    return;
-  }
-
-  gameObj.value.height = size;
-  gameObj.value.width = size;
-}
-
-watch(gameParent, () => {
-  new ResizeObserver(resized).observe(gameParent.value!);
-});
-
-watch(gameObj, () => {
-  if (gameObj.value == undefined) {
-    return;
-  }
-
-  gameObj.value.height = size;
-  gameObj.value.width = size;
-
-  const ctx = gameObj.value.getContext("2d");
-
-  setInterval(() => {
-    if (ctx != null && playing) {
-      game.tick();
-      game.draw(ctx, size);
+  function onScroll() {
+    if (gameObj.value == undefined) {
+      return;
     }
-  }, 150);
-});
+
+    opacity = Math.min(0.15, Math.max(0, 0.5 - window.scrollY / 500));
+    gameObj.value!.style.opacity = opacity.toString();
+    if (opacity == 0) {
+      playing = false;
+    } else {
+      playing = true;
+    }
+  }
+
+  document.addEventListener("scroll", onScroll);
+
+  game.addListeners();
+
+  function resized() {
+    size = window.innerHeight;
+
+    if (gameObj.value == undefined) {
+      return;
+    }
+
+    gameObj.value.height = size;
+    gameObj.value.width = size;
+  }
+
+  watch(gameParent, () => {
+    new ResizeObserver(resized).observe(gameParent.value!);
+  });
+
+  watch(gameObj, () => {
+    if (gameObj.value == undefined) {
+      return;
+    }
+
+    gameObj.value.height = size;
+    gameObj.value.width = size;
+
+    const ctx = gameObj.value.getContext("2d");
+
+    setInterval(() => {
+      if (ctx != null && playing) {
+        game.tick();
+        game.draw(ctx, size);
+      }
+    }, 150);
+  });
+}
+
+if (!isMobile()) {
+  gameSetup();
+}
 </script>
 
 <style lang="scss" scoped>

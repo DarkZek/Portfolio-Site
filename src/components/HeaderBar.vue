@@ -49,8 +49,12 @@ let windowWidth = ref(window.innerWidth);
 
 let fontSize = computed(() => {
   let size = 62 - 18 * animationProgress.value;
+  // Max on mobile is 10% vw
+  if (size > window.innerWidth * .1) {
+    size = window.innerWidth * .1;
+  }
   if (windowWidth.value < 736) {
-    size *= 0.7;
+    //size *= 0.7;
   }
   return size;
 });

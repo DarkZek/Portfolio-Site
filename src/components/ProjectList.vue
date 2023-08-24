@@ -57,7 +57,7 @@
     background-img="/img/Mobingo.webp"
     title="Mobingo"
     redirect-url="mobingo"
-    :tags="['Quasar', 'Professional', 'Payment Providers']"
+    :tags="['Vue.js', 'Professional', 'Payment Providers']"
     description="Mobingo is a white-label Online Gaming Platform made for Alabama customers by Ruby Play Network. It is a <u>commercial level</u> application developed for an in person bingo hall. It supports accepting Donations through <u>Payment Providers</u>, faciliates online gaming, provides rewards and jackpots."
     button-title="View Project Writeup"
     :button-callback="

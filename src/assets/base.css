@@ -78,6 +78,11 @@ body {
   overflow-x: hidden;
 }
 
+#app {
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
 .spacer {
   flex-grow: 1;
 }
