@@ -333,17 +333,17 @@ export class SnakeGame {
         const color = this.board_lcd[x][y];
         ctx.fillStyle = new Color(255, 0, 0, 1.0).lerp(bgLcd, 1-color.red).toCSS()
         ctx.beginPath();
-        ctx.rect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
+        ctx.roundRect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
 
         ctx.fillStyle = new Color(0, 255, 0, 1.0).lerp(bgLcd, 1-color.green).toCSS()
         ctx.beginPath();
-        ctx.rect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
+        ctx.roundRect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
         
         ctx.fillStyle = new Color(0, 0, 255, 1.0).lerp(bgLcd, 1-color.blue).toCSS()
         ctx.beginPath();
-        ctx.rect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding/*, borderRadius*/);
+        ctx.roundRect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
 
         // Debugging colours
