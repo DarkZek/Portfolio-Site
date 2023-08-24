@@ -92,6 +92,10 @@ let topFade = 200;
 let animateInEffectShown = ref(false);
 
 function calculatePosition() {
+  if (instance.value == undefined) {
+    window.removeEventListener("resize", calculatePosition);
+    return;
+  }
   targetScrollCenter.value =
     window.pageYOffset +
     instance.value!.getBoundingClientRect().y +

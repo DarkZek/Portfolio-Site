@@ -4,8 +4,9 @@
       <header-bar></header-bar>
       <about-me v-if="isHome"></about-me>
       <project-list v-if="isHome"></project-list>
-      <contact-me v-if="isHome"/>
-      <flixr-page v-if="!isHome"/>
+      <flixr-page v-if="route.name == 'Flixr'"/>
+      <mobingo-page v-if="route.name == 'Mobingo'"/>
+      <contact-me/>
     </div>
   </div>
 </template>
@@ -18,6 +19,7 @@ import ContactMe from "../components/ContactMe.vue";
 import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import FlixrPage from "../components/project/FlixrPage.vue";
+import MobingoPage from "../components/project/MobingoPage.vue";
 
 const route = useRoute()
 const isHome = computed(() => route.path == "/")
@@ -25,6 +27,7 @@ const isHome = computed(() => route.path == "/")
 
 <style scoped lang="scss">
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@100;200;300;400;500;600;700;800;900&display=swap");
 
 .page {
   min-height: 200vh;

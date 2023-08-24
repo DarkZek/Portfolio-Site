@@ -20,8 +20,8 @@ const router = createRouter({
       component: HomeView
     },
     {
-      path: '/charchingo',
-      name: 'Charchingo',
+      path: '/mobingo',
+      name: 'Mobingo',
       component: HomeView
     }
   ]

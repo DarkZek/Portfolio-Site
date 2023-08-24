@@ -96,7 +96,12 @@ setTimeout(() => {
         vid.size(parentWidth.value, parentWidth.value / videoAspect);
       }
 
-      let img = vid.get();
+      let img;
+      try {
+        img = vid.get();
+      } catch (e) {
+        return;
+      }
       p.image(img, padding, padding); // redraws the video frame by frame in
 
       p.drawingContext.filter = "contrast(180%) blur(32px)";
