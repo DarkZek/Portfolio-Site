@@ -48,6 +48,9 @@ let visible = ref(false);
 document.addEventListener('scroll', onScroll)
 
 function onScroll() {
+  if (parentDom.value == undefined) {
+    return;
+  }
   let rect = parentDom.value!.getBoundingClientRect();
   const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
   if (visible.value != isVisible) {
