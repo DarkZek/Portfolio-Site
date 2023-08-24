@@ -1,5 +1,5 @@
 <template>
-  <a class="title">
+  <a class="title" @click="router.push('/')" @keydown.enter="router.push('/')" tabindex="0">
     <template v-for="(_, i) in 14" :key="i">
       <span
         :char="i"
@@ -15,6 +15,9 @@
 
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from "vue";
+import { useRouter } from 'vue-router'
+
+const router = useRouter();
 
 let props = defineProps<{
   fontSize?: number;
@@ -79,15 +82,16 @@ nextTick(() => {
 <style scoped lang="scss">
 .title {
   display: block;
+  cursor: pointer;
 
   &:deep(span) {
     color: transparent;
     position: unset;
     animation: 1s ease-out;
     animation-timing-function: cubic-bezier(0.47, -0.08, 0.13, 0.99);
-    background-image: url(/img/background_tiled.jpg);
+    background-image: url(/img/background.webp);
     background-repeat: repeat-y;
-    background-size: 1200px;
+    background-size: 1000px;
     font-weight: 600;
     background-clip: text;
     -webkit-background-clip: text;
@@ -98,15 +102,32 @@ nextTick(() => {
     white-space: pre;
   }
 
+  &:deep(span:not(.done)) {
+    animation-name: topAnimation;
+  }
+
   &:deep(.done) {
     opacity: 1;
+  }
+
+  &:hover :deep(span) {
+    animation: test 1s ease-out infinite;
+    animation-name: test;
   }
 }
 
 @for $i from 0 through 50 {
   .title :deep(span)[char="#{$i}"] {
     animation-delay: #{(0.05 * $i) + 1}s;
-    animation-name: topAnimation;
+  }
+}
+
+@keyframes test {
+  0% {
+    filter: hue-rotate(0deg);
+  }
+  100% {
+    filter: hue-rotate(360deg);
   }
 }
 

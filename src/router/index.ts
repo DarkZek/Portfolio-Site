@@ -16,12 +16,12 @@ const router = createRouter({
     },
     {
       path: '/flixr',
-      name: 'rustcraft',
+      name: 'Flixr',
       component: HomeView
     },
     {
       path: '/charchingo',
-      name: 'rustcraft',
+      name: 'Charchingo',
       component: HomeView
     }
   ]

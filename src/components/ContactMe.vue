@@ -33,7 +33,7 @@
     h3 {
       font-size: 40px;
       margin-bottom: 20px;
-      background-image: url(/img/background.jpg);
+      background-image: url(/img/background.webp);
       background-size: 400px;
       -webkit-background-clip: text;
       top: 0px;

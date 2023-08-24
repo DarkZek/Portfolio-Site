@@ -1,22 +1,11 @@
 <template>
-  <div :class="{ transition }">
-    <div
-      class="loader"
-      :style="`opacity: ${!loaded ? 1 : 0}; pointer-events: none;`"
-    >
-      <video
-        v-if="showLoading"
-        src="/img/name.webm"
-        autoplay
-        muted
-        @ended="loadedVideo"
-      ></video>
-    </div>
-    <div class="page" :style="`opacity: ${loaded ? 1 : 0}`">
+  <div>
+    <div class="page">
       <header-bar></header-bar>
-      <about-me></about-me>
-      <project-list></project-list>
-      <contact-me />
+      <about-me v-if="isHome"></about-me>
+      <project-list v-if="isHome"></project-list>
+      <contact-me v-if="isHome"/>
+      <flixr-page v-if="!isHome"/>
     </div>
   </div>
 </template>
@@ -26,30 +15,12 @@ import HeaderBar from "../components/HeaderBar.vue";
 import AboutMe from "../components/AboutMe.vue";
 import ProjectList from "../components/ProjectList.vue";
 import ContactMe from "../components/ContactMe.vue";
-import { ref } from "vue";
+import { computed, ref } from "vue";
+import { useRoute } from "vue-router";
+import FlixrPage from "../components/project/FlixrPage.vue";
 
-let loaded = ref(false);
-
-let now = new Date();
-let transition = ref(true);
-let showLoading = ref(false);
-
-window.addEventListener("load", () => {
-  let msTaken = new Date() - now;
-
-  if (msTaken < 250) {
-    // Cached, no animation
-    transition.value = false;
-
-    loaded.value = true;
-  }
-});
-
-setTimeout(() => (showLoading.value = true), 500);
-
-function loadedVideo() {
-  loaded.value = true;
-}
+const route = useRoute()
+const isHome = computed(() => route.path == "/")
 </script>
 
 <style scoped lang="scss">

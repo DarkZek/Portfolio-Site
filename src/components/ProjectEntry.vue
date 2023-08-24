@@ -199,11 +199,11 @@ function showUnderlines() {
   min-width: min(400px, 100vw);
   cursor: pointer;
   transition: all 0.2s ease-in-out;
+  border-radius: 30px;
 
   &:hover {
     background-color: rgba(50, 50, 50, 0.4);
-    border-radius: 30px;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px) opacity(1);
 
     .more_info {
       opacity: 0.4;
@@ -220,6 +220,7 @@ function showUnderlines() {
     margin: auto;
     transition: all 0.2s ease-in-out;
     font-size: 40px;
+    backdrop-filter: blur(10px) opacity(0);
   }
 
   .title {

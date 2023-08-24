@@ -35,9 +35,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from "vue";
+import { computed, ref, onUnmounted } from "vue";
 import NameTitle from "./NameTitle.vue";
 import MapMarkerIcon from "vue-material-design-icons/MapMarker.vue";
+import { useRoute } from 'vue-router'
 
 let maxScroll = 500;
 
@@ -54,13 +55,29 @@ let fontSize = computed(() => {
   return size;
 });
 
-window.addEventListener("resize", () => {
-  windowWidth.value = window.innerWidth;
-});
+const route = useRoute();
 
-window.addEventListener("scroll", () => {
-  animationProgress.value = Math.min(0.9999, window.scrollY / maxScroll);
-});
+function onResize() {
+  windowWidth.value = window.innerWidth;
+}
+
+function onScroll() {
+  if (route.name == 'home') {
+    animationProgress.value = Math.min(0.9999, window.scrollY / maxScroll);
+  } else {
+    animationProgress.value = 0.9999
+  }
+}
+
+window.addEventListener("scroll", onScroll);
+window.addEventListener("resize", onResize);
+
+onUnmounted(() => {
+  window.removeEventListener("scroll", onScroll);
+  window.removeEventListener("resize", onResize);
+})
+
+onScroll();
 </script>
 
 <style lang="scss" scoped>

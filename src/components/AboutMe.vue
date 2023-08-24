@@ -31,25 +31,33 @@ const game = new SnakeGame(10);
 
 let opacity = 0;
 
-document.addEventListener('scroll', () => {
+function onScroll() {
+  if (gameObj.value == undefined) {
+    return;
+  }
+
   opacity = Math.min(0.15, Math.max(0, 0.5 - (window.scrollY / 500)));
-  console.log(opacity)
   gameObj.value!.style.opacity = opacity.toString();
   if (opacity == 0) { 
     playing = false;
   } else {
     playing = true;
   }
-})
+}
+
+document.addEventListener('scroll', onScroll)
 
 game.addListeners();
 
 function resized() {
   size = window.innerHeight;
 
+  if (gameObj.value == undefined) {
+    return;
+  }
+
   gameObj.value.height = size;
   gameObj.value.width = size;
-
 }
 
 watch(gameParent, () => {

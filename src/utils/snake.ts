@@ -181,20 +181,19 @@ export class SnakeGame {
     document.addEventListener("keydown", (event) => {
       if (event.key == "ArrowUp") {
         this.snake_dir = Direction.Up;
-        this.ai = false;
-      }
-      if (event.key == "ArrowDown") {
+      } else if (event.key == "ArrowDown") {
         this.snake_dir = Direction.Down;
-        this.ai = false;
-      }
-      if (event.key == "ArrowLeft") {
+      } else if (event.key == "ArrowLeft") {
         this.snake_dir = Direction.Left;
-        this.ai = false;
-      }
-      if (event.key == "ArrowRight") {
+      } else if (event.key == "ArrowRight") {
         this.snake_dir = Direction.Right;
-        this.ai = false;
+      } else {
+        // No key pressed
+        return;
       }
+      
+      // Disable AI
+      this.ai = false;
       event.preventDefault();
     });
   }
@@ -312,29 +311,31 @@ export class SnakeGame {
 
     ctx.clearRect(0, 0, boardSizePx, boardSizePx);
 
-    const padding = 5;
+    const padding = 10;
     const doublePadding = padding * 2;
 
-    const borderRadius = 10;
+    const borderRadius = 20;
 
     const lcdSize = boardSizePx / this.size;
 
     const quarterLcd = lcdSize / 4;
 
+    const bgLcd = new Color(100, 100, 100, 0.2);
+
     for (let x = 0; x < this.size; x++) {
       for (let y = 0; y < this.size; y++) {
         const color = this.board_lcd[x][y];
-        ctx.fillStyle = new Color(255, 0, 0, 1.0).lerp(backgroundColor, 1-color.red).toCSS()
+        ctx.fillStyle = new Color(255, 0, 0, 1.0).lerp(bgLcd, 1-color.red).toCSS()
         ctx.beginPath();
         ctx.roundRect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
 
-        ctx.fillStyle = new Color(0, 255, 0, 1.0).lerp(backgroundColor, 1-color.green).toCSS()
+        ctx.fillStyle = new Color(0, 255, 0, 1.0).lerp(bgLcd, 1-color.green).toCSS()
         ctx.beginPath();
         ctx.roundRect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
         
-        ctx.fillStyle = new Color(0, 0, 255, 1.0).lerp(backgroundColor, 1-color.blue).toCSS()
+        ctx.fillStyle = new Color(0, 0, 255, 1.0).lerp(bgLcd, 1-color.blue).toCSS()
         ctx.beginPath();
         ctx.roundRect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
         ctx.fill();
