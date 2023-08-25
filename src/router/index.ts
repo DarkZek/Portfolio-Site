@@ -11,7 +11,7 @@ const router = createRouter({
     },
     {
       path: '/rustcraft',
-      name: 'rustcraft',
+      name: 'Rustcraft',
       component: HomeView
     },
     {

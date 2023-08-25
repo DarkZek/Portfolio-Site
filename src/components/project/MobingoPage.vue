@@ -204,7 +204,7 @@ h3 {
   left: 0px;
   right: 0px;
   bottom: 0px;
-  background-image: url("/img/Untitled.svg");
+  background-image: url("/content/mobingo/Background.png");
   background-size: cover;
   z-index: -1;
 }

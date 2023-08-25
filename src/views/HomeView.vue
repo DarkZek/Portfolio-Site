@@ -6,6 +6,7 @@
       <project-list v-if="isHome"></project-list>
       <flixr-page v-if="route.name == 'Flixr'"/>
       <mobingo-page v-if="route.name == 'Mobingo'"/>
+      <rustcraft-page v-if="route.name == 'Rustcraft'"/>
       <contact-me/>
     </div>
   </div>
@@ -20,6 +21,7 @@ import { computed, ref } from "vue";
 import { useRoute } from "vue-router";
 import FlixrPage from "../components/project/FlixrPage.vue";
 import MobingoPage from "../components/project/MobingoPage.vue";
+import RustcraftPage from "../components/project/RustcraftPage.vue";
 
 const route = useRoute()
 const isHome = computed(() => route.path == "/")
