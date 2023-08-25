@@ -1,19 +1,21 @@
 <template>
-  <div class="about">
-    <div class="content">
-      <p>
-        Hi! I am a Front-End Developer with a passion for computer graphics.
-      </p>
-      <p>
-        I take pride in my ability to turn complex ideas into simple and elegant
-        solutions. I am always eager to take on new challenges and learn new
-        technologies. My passion for graphics allows me to bring a unique
-        perspective to my work and helps me create visually stunning interfaces.
-      </p>
+  <div>
+    <div class="about">
+      <div class="content">
+        <p>
+          Hi! I am a Front-End Developer with a passion for computer graphics.
+        </p>
+        <p>
+          I take pride in my ability to turn complex ideas into simple and elegant
+          solutions. I am always eager to take on new challenges and learn new
+          technologies. My passion for graphics allows me to bring a unique
+          perspective to my work and helps me create visually stunning interfaces.
+        </p>
+      </div>
     </div>
-  </div>
-  <div class="game-background" ref="gameParent" v-if="game != undefined">
-    <canvas id="game-about-me" ref="gameObj"></canvas>
+    <div class="game-background" ref="gameParent" v-if="game != undefined">
+      <canvas id="game-about-me" ref="gameObj"></canvas>
+    </div>
   </div>
 </template>
 

@@ -7,10 +7,10 @@
     </div>
     <div class="icons">
       <div class="linkedin">
-        <font-awesome-icon icon="fa-brands fa-linkedin-in" size="40px" />
+        <font-awesome-icon icon="fa-brands fa-linkedin-in" />
       </div>
       <div class="email">
-        <font-awesome-icon icon="fa-solid fa-envelope" size="40px" />
+        <font-awesome-icon icon="fa-solid fa-envelope" />
       </div>
     </div>
   </div>

@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, onUnmounted } from "vue";
+import { computed, ref, onUnmounted, watch } from "vue";
 import NameTitle from "./NameTitle.vue";
 import MapMarkerIcon from "vue-material-design-icons/MapMarker.vue";
 import { useRoute } from 'vue-router'
@@ -72,6 +72,8 @@ function onScroll() {
     animationProgress.value = 0.9999
   }
 }
+
+watch(route, onScroll)
 
 window.addEventListener("scroll", onScroll);
 window.addEventListener("resize", onResize);

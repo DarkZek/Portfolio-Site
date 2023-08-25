@@ -157,7 +157,8 @@
             </div>
             <br />
             <br />
-            <iframe
+            <div>
+              <iframe
               loading="lazy"
               width="800"
               height="450"
@@ -167,6 +168,7 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
             ></iframe>
+            </div>
           </div>
         </div>
       </div>
@@ -195,7 +197,7 @@ $iphonePaddingTop: 30%;
 $scale: 0.75;
 
 .content {
-  padding: 40px 80px 0px 80px;
+  padding: 40px 0px 0px 0px;
   max-width: 1000px;
   font-size: 18px;
   line-height: 1.6;
@@ -240,15 +242,24 @@ video {
   border-radius: 10px;
   background-color: #f8f8f8;
   height: 48px !important;
-  display: inline-block;
+  display: flex;
   padding-top: 4px;
   padding-left: 10px;
   cursor: pointer;
+  max-width: 100%;
+  overflow: auto hidden;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .github-info img {
   height: 25px;
   padding-right: 10px;
+  margin-top: 7px;
   vertical-align: middle;
 }
 
@@ -258,7 +269,9 @@ video {
   background-color: white;
   min-height: 40px !important;
   height: 40px !important;
-  display: inline-block;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
   padding-top: 4px;
   padding-left: 10px;
   padding-right: 10px;
@@ -274,8 +287,7 @@ video {
 }
 
 .github-stat svg {
-  margin-top: -2px;
-  vertical-align: middle;
+  margin-top: 6px;
   margin-right: 4px;
 }
 
@@ -284,7 +296,6 @@ video {
   text-decoration: none;
   padding-top: 2px;
   padding-right: 10px;
-  line-height: 1px;
   padding-bottom: 2px;
   display: inline-block;
   vertical-align: middle;
@@ -344,6 +355,14 @@ video {
 iframe {
   display: block;
   margin: 0 auto;
+  max-width: 100%;
+}
+
+@supports(aspect-ratio: 800 / 450) {
+  iframe {
+    aspect-ratio: 800 / 450;
+    height: unset;
+  }
 }
 
 .expanding-col {
@@ -407,7 +426,7 @@ b {
 }
 
 .background {
-  position: fixed;
+  position:fixed;
   top: 0px;
   left: 0px;
   right: 0px;

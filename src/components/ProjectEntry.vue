@@ -209,7 +209,6 @@ function showUnderlines() {
 
   &:hover, &.mobile {
     background-color: rgba(50, 50, 50, 0.4);
-    backdrop-filter: blur(10px) opacity(1);
 
     .more_info {
       opacity: 0.4;
