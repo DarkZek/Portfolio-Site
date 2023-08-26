@@ -1,7 +1,12 @@
 <template>
   <div class="content">
     <div class="background"></div>
-    <h1><img src="/content/flixr/favicon.png">Flixr</h1>
+    <div>
+      <div class="back" @click.stop="router.push('/#flixr')">
+        <font-awesome-icon icon="fa-solid fa-chevron-left" class="icon" />
+      </div>
+      <h1><img src="/content/flixr/favicon.png">Flixr</h1>
+    </div>
     <div class="demo" style="--size: 800px">
       <iframe src="https://flixrapp.com" ref="iframe"></iframe>
       <img src="/img/macbook.png" />
@@ -23,8 +28,10 @@
 </template>
 
 <script setup lang="ts">
-
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const iframe = ref<HTMLIFrameElement>();
 
@@ -147,5 +154,27 @@ p {
   background-image: url("/content/flixr/Background.png");
   background-size: cover;
   z-index: -1;
+}
+
+@media screen and (max-width: 600px) {
+  .back {
+    display: none;
+  }
+}
+
+.back {
+  position: absolute;
+  padding: 10px;
+  border-radius: 40px;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.2s ease-in-out;
+  top: 10px;
+
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.15);
+  }
 }
 </style>

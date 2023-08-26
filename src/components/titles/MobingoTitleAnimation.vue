@@ -5,7 +5,7 @@
         <video src="/img/charchingo.webm" muted ref="video"></video>
       </div>
       <div class="title">
-        <a>Charchingo</a>
+        <a>Mobingo</a>
       </div>
     </div>
   </div>

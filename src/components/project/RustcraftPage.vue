@@ -4,6 +4,9 @@
     <div class="centered text">
       <div class="container">
         <div class="row">
+          <div class="back" @click.stop="router.push('/#rustcraft')">
+            <font-awesome-icon icon="fa-solid fa-chevron-left" class="icon" />
+          </div>
           <div class="brand">
             <img class="logo" src="/public/content/rustcraft/logo_hd.png" />
             <span>RustCraft</span>
@@ -178,6 +181,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const stars = ref(undefined);
 const forks = ref(undefined);
@@ -434,5 +440,27 @@ b {
   background-image: url("/content/rustcraft/Background.png");
   background-size: cover;
   z-index: -1;
+}
+
+@media screen and (max-width: 600px) {
+  .back {
+    display: none;
+  }
+}
+
+.back {
+  position: absolute;
+  padding: 10px;
+  border-radius: 40px;
+  width: 60px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.2s ease-in-out;
+  top: 10px;
+
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.15);
+  }
 }
 </style>

@@ -2,6 +2,10 @@
   <div class="content">
     <div class="background"></div>
     <div class="centered text">
+      <div class="back" @click.stop="router.push('/#mobingo')">
+        <font-awesome-icon icon="fa-solid fa-chevron-left" class="icon" />
+        Back
+      </div>
       <img src="/img/charchingo.png" class="logo" />
       <p>
         Mobingo is an innovative white label online gaming platform created by
@@ -48,6 +52,9 @@
 
 <script setup lang="ts">
 import { ref } from "vue";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const iframe = ref<HTMLIFrameElement>();
 
@@ -207,5 +214,32 @@ h3 {
   background-image: url("/content/mobingo/Background.png");
   background-size: cover;
   z-index: -1;
+}
+
+@media screen and (max-width: 600px) {
+  .back {
+    display: none;
+  }
+}
+
+.back {
+  position: absolute;
+  padding: 10px 20px;
+  border-radius: 40px;
+  text-align: center;
+  cursor: pointer;
+  z-index: 2;
+  transition: background-color 0.2s ease-in-out;
+  top: 40px;
+  display: flex;
+
+  svg {
+    margin-top: 5px;
+    margin-right: 15px;
+  }
+
+  &:hover {
+    background-color: rgba(200, 200, 200, 0.15);
+  }
 }
 </style>
