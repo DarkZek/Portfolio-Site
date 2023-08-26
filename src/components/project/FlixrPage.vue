@@ -1,13 +1,13 @@
 <template>
   <div class="content">
-    <div class="demo" style="--size: 400px">
+    <div class="background"></div>
+    <h1><img src="/content/flixr/favicon.png">Flixr</h1>
+    <div class="demo" style="--size: 800px">
       <iframe src="https://flixrapp.com" ref="iframe"></iframe>
-      <img src="/img/iphone.png" />
+      <img src="/img/macbook.png" />
       <a class="title">flixrapp.com</a>
-      <div class="refresh" tabindex="0" @click="refresh"></div>
     </div>
     <div class="text">
-      <h1>Flixr</h1>
       <p>
         Flixr started as a frustration with managing new show notifications for
         so many different streaming platforms. I decided to solve that problem
@@ -16,16 +16,6 @@
         since gained more functionality such as downloading wallpaper packs with
         screenshots from your content.
       </p>
-      <h4>Tech Stack</h4>
-      <ul>
-        <li>mySQL</li>
-        <li>PHP 7.0</li>
-        <li>Laravel Framework</li>
-        <li>Nginx</li>
-        <li>Docker</li>
-        <li>Rust</li>
-        <li>VueJS</li>
-      </ul>
       <a href="https://gitlab.com/darkzek/flixr" target="_blank" class="button">Check it out on GitLab
         <font-awesome-icon icon="fa-solid fa-chevron-right" class="icon" /></a>
     </div>
@@ -50,6 +40,8 @@ function refresh() {
 <style scoped lang="scss">
 $iphonePadding: 4.5%;
 $iphonePaddingTop: 30%;
+$aspectRatio: 1.72;
+$scale: 0.5;
 
 .content {
   padding: 0px 80px;
@@ -61,18 +53,20 @@ $iphonePaddingTop: 30%;
   margin-top: 180px;
   min-height: 50vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
 
   .demo {
     min-width: var(--size);
     max-width: var(--size);
-    min-height: calc(var(--size) / 0.48733153638);
-    max-height: calc(var(--size) / 0.48733153638);
+    min-height: calc(var(--size) / $aspectRatio);
+    max-height: calc(var(--size) / $aspectRatio);
     container-type: inline-size;
+    align-self: center;
 
     img {
       width: 100%;
       position: absolute;
+      top: 0px;
       left: 0px;
       pointer-events: none;
     }
@@ -82,57 +76,38 @@ $iphonePaddingTop: 30%;
       left: 0px;
       top: 0px;
       width: 100%;
-      margin-top: 18.5%;
-      color: #0f0f0f;
+      margin-top: 2.9%;
+      color: #8b8b8b;
       text-align: center;
-      font-size: 4.6cqw;
-    }
-
-    .refresh {
-      position: absolute;
-      position: absolute;
-      right: 8%;
-      top: 0px;
-      margin-top: 18.5%;
-      width: 7%;
-      aspect-ratio: 1;
-      border-radius: 100%;
-      cursor: pointer;
+      font-size: .6cqw;
     }
 
     iframe {
+      position: absolute;
       border: none;
-      border-radius: 0 0 10% 10%;
-      overflow: hidden;
-      width: calc(100% - ($iphonePadding * 2));
-      height: calc(100% - $iphonePaddingTop / 2);
-      margin-left: $iphonePadding;
-      margin-top: $iphonePaddingTop;
-      overflow: hidden;
-
-      &::-webkit-scrollbar {
-        width: 10px;
-      }
-
-      /* Track */
-      &::-webkit-scrollbar-track {
-        background: rgb(41, 41, 41);
-      }
-
-      /* Handle */
-      &::-webkit-scrollbar-thumb {
-        background: #474747;
-      }
-
-      /* Handle on hover */
-      &::-webkit-scrollbar-thumb:hover {
-        background: #5a5a5a;
-      }
+      width: calc(78% / $scale);
+      height: calc(81% / $scale);
+      margin-left: 11%;
+      margin-top: 4.5%;
+      transform: scale($scale);
+      -webkit-transform-origin: 0 0;
+      background-color: white;
     }
   }
 
   .text {
     padding-left: 40px;
+  }
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 150px;
+
+  img {
+    width: 50px;
+    margin-bottom: -8px;;
+    margin-right: 20px;
   }
 }
 
@@ -157,5 +132,20 @@ $iphonePaddingTop: 30%;
   &:hover .icon {
     transform: translateX(5px);
   }
+}
+
+p {
+  margin: 60px 0px;
+}
+
+.background {
+  position:fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-image: url("/content/flixr/Background.png");
+  background-size: cover;
+  z-index: -1;
 }
 </style>

@@ -103,7 +103,7 @@ if (!isMobile()) {
   color: white;
   margin: auto;
   margin-top: 280px;
-  min-height: 50vh;
+  min-height: 40vh;
 
   .content {
     max-width: 700px;

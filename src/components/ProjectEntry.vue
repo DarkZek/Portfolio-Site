@@ -29,14 +29,6 @@
         <div class="description">
           <p v-html="props.description"></p>
         </div>
-        <div
-          class="button"
-          v-if="props.buttonTitle"
-          @click="props.buttonCallback"
-          :style="`background-color: ${props.color}42`"
-        >
-          <a>{{ props.buttonTitle }}</a>
-        </div>
       </div>
       <div class="graphics">
         <project-slide :url="props.videoUrl" :cover-url="props.coverUrl"></project-slide>
@@ -277,21 +269,6 @@ function showUnderlines() {
 
   .picture {
     margin: auto;
-  }
-}
-
-.button {
-  margin-top: 20px;
-  backdrop-filter: blur(5px);
-  display: inline-block;
-  padding: 10px 30px;
-  border-radius: 30px;
-  cursor: pointer;
-
-  a {
-    color: white;
-    font-size: 18px;
-    text-decoration: none;
   }
 }
 

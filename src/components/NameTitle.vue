@@ -39,6 +39,8 @@ setInterval(() => {
   if (Math.abs(moveVelocity) > 0.1) {
     timeOffset.value += moveVelocity / 5;
     moveVelocity *= 0.9995;
+  } else {
+    moveVelocity = 8;;
   }
 }, 1000 / 30);
 
@@ -89,7 +91,7 @@ nextTick(() => {
     position: unset;
     animation: 1s ease-out;
     animation-timing-function: cubic-bezier(0.47, -0.08, 0.13, 0.99);
-    background-image: url(/img/background.webp);
+    background-image: url(/img/background_tiled.jpg);
     background-repeat: repeat-y;
     background-size: 1000px;
     font-weight: 600;
@@ -111,8 +113,7 @@ nextTick(() => {
   }
 
   &:hover :deep(span) {
-    animation: test 1s ease-out infinite;
-    animation-name: test;
+    animation: hueRotate 1s ease-out infinite;
   }
 }
 
@@ -122,7 +123,7 @@ nextTick(() => {
   }
 }
 
-@keyframes test {
+@keyframes hueRotate {
   0% {
     filter: hue-rotate(0deg);
   }

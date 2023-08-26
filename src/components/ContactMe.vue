@@ -6,10 +6,10 @@
       <h3>Get In Touch</h3>
     </div>
     <div class="icons">
-      <div class="linkedin">
+      <div class="linkedin" onclick="window.open('https://www.linkedin.com/in/marshall-scott-746989167/');">
         <font-awesome-icon icon="fa-brands fa-linkedin-in" />
       </div>
-      <div class="email">
+      <div class="email" onclick="window.open('mailto:mashdowne@hotmail.co.nz')">
         <font-awesome-icon icon="fa-solid fa-envelope" />
       </div>
     </div>
@@ -63,6 +63,18 @@
   display: flex;
   justify-content: center;
   padding: 60px 3px;
+
+  svg {
+    transition: color 0.2s ease-in-out;
+  }
+
+  svg:hover {
+    color: #ffffff;
+  }
+
+  div {
+    cursor: pointer;
+  }
 
   .linkedin {
     width: 90px;
