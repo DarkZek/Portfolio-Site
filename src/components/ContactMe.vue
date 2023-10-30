@@ -19,11 +19,11 @@
 <style lang="scss" scoped>
 .container {
   max-width: 1160px;
-  padding: 0 80px;
   width: 100vw;
   margin: auto;
   text-align: center;
   margin-top: 80px;
+  padding-bottom: 50px;;
 
   .title {
     width: 300px;
@@ -58,11 +58,11 @@
 }
 
 .icons {
-  font-size: 90px;
-  gap: 120px;
+  font-size: max(min(90px, calc(15vw)), 40px);
+  gap: max(min(120px, calc(15vw)), 40px);
   display: flex;
   justify-content: center;
-  padding: 60px 3px;
+  padding: 60px 3px 20px 3px;
 
   svg {
     transition: color 0.2s ease-in-out;

@@ -244,7 +244,7 @@ function showUnderlines() {
   }
 
   .description {
-    font-size: 22px;
+    font-size: 20px;
   }
 }
 

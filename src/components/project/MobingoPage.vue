@@ -15,7 +15,7 @@
         experience the same fun in the comfort of their own homes.
       </p>
     </div>
-    <div class="text row">
+    <div class="text row demo-row">
       <div class="demo" style="--size: 300px">
         <iframe src="https://play.charchingo.com" ref="iframe"></iframe>
         <img src="/img/iphone.png" />
@@ -135,6 +135,7 @@ $scale: 0.75;
       transform: scale($scale);
       -webkit-transform-origin: 0 0;
       background-color: white;
+      position: absolute;
 
       &::-webkit-scrollbar {
         width: 10px;
@@ -155,6 +156,16 @@ $scale: 0.75;
         background: #5a5a5a;
       }
     }
+  }
+}
+
+// When screen size is mobile
+@media screen and (max-width: 800px) {
+  .content {
+    padding: 20px 20px;
+  }
+  .back {
+    left: -5px;
   }
 }
 
@@ -193,12 +204,26 @@ p {
   text-align: center;
 }
 
-.row {
+.demo-row {
   flex-wrap: nowrap;
 }
 
 .phone-text {
   padding: 180px 0px 0px 60px;
+}
+
+@media screen and (max-width: 900px) {
+  .demo-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .phone-text {
+    padding: 10px 0px 0px 0px;
+  }
+
+  .centered p {
+    text-align: left;
+  }
 }
 
 h3 {

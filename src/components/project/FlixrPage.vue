@@ -7,7 +7,7 @@
       </div>
       <h1><img src="/content/flixr/favicon.png">Flixr</h1>
     </div>
-    <div class="demo" style="--size: 800px">
+    <div class="demo" ref="demo" style="--size: 800px">
       <div class="browser">
         <img src="/content/flixr/page.jpeg" />
       </div>
@@ -30,10 +30,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { nextTick, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 const router = useRouter();
+
+const demo = ref<HTMLDivElement>();
+
+function updateDemoSize() {
+  if (demo.value) {
+    let width = window.screen.width;
+
+    width *= 0.8;
+
+    if (width > 800) {
+      width = 800;
+    }
+
+    demo.value.style.setProperty('--size', `${width}px`);
+  }
+}
+
+nextTick(updateDemoSize);
+window.addEventListener('resize', updateDemoSize);
 
 </script>
 
@@ -45,7 +64,7 @@ $aspectRatio: 1.72;
 .content {
   padding: 0px 80px;
   max-width: 1160px;
-  font-size: 24px;
+  font-size: 18px;
   line-height: 1.6;
   color: white;
   margin: auto;
@@ -98,7 +117,6 @@ $aspectRatio: 1.72;
   }
 
   .text {
-    padding-left: 40px;
     text-align: center;
   }
 }
@@ -111,6 +129,16 @@ h1 {
     width: 50px;
     margin-bottom: -8px;;
     margin-right: 20px;
+  }
+}
+
+// When screen size is mobile
+@media screen and (max-width: 800px) {
+  .content {
+    padding: 20px 20px;
+  }
+  .back {
+    left: -5px;
   }
 }
 
