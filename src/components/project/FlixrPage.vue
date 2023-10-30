@@ -8,7 +8,9 @@
       <h1><img src="/content/flixr/favicon.png">Flixr</h1>
     </div>
     <div class="demo" style="--size: 800px">
-      <iframe src="https://flixrapp.com" ref="iframe"></iframe>
+      <div class="browser">
+        <img src="/content/flixr/page.jpeg" />
+      </div>
       <img src="/img/macbook.png" />
       <a class="title">flixrapp.com</a>
     </div>
@@ -33,22 +35,12 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
-const iframe = ref<HTMLIFrameElement>();
-
-function refresh() {
-  if (iframe.value) {
-    // eslint-disable-next-line no-self-assign
-    iframe.value.src = iframe.value.src;
-  }
-}
-
 </script>
 
 <style scoped lang="scss">
 $iphonePadding: 4.5%;
 $iphonePaddingTop: 30%;
 $aspectRatio: 1.72;
-$scale: 0.5;
 
 .content {
   padding: 0px 80px;
@@ -89,27 +81,31 @@ $scale: 0.5;
       font-size: .6cqw;
     }
 
-    iframe {
+    .browser {
       position: absolute;
       border: none;
-      width: calc(78% / $scale);
-      height: calc(81% / $scale);
+      width: 78%;
+      height: 81%;
       margin-left: 11%;
       margin-top: 4.5%;
-      transform: scale($scale);
-      -webkit-transform-origin: 0 0;
       background-color: white;
+      overflow-y: scroll;
+    
+      img {
+        width: 100%;
+      }
     }
   }
 
   .text {
     padding-left: 40px;
+    text-align: center;
   }
 }
 
 h1 {
   text-align: center;
-  margin-bottom: 150px;
+  margin-bottom: 100px;
 
   img {
     width: 50px;
@@ -119,12 +115,13 @@ h1 {
 }
 
 .button {
-  background-color: #FCA326;
+  border: 2px solid #FCA326;
   border-radius: 10px;
+  align-self: center;
   padding: 8px 40px;
   color: white;
   text-decoration: none;
-  transition: background-color 0.2s ease-in-out;
+  transition: border-color 0.2s ease-in-out;
 
   .icon {
     font-size: 1.0rem;
@@ -133,7 +130,7 @@ h1 {
   }
 
   &:hover {
-    background-color: #FC6D26;
+    border-color: #FC6D26;
   }
 
   &:hover .icon {
