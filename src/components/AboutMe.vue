@@ -58,12 +58,18 @@ function gameSetup() {
   function resized() {
     size = window.innerHeight;
 
+    if (size > 800) {
+      size = 1000;
+    }
+
     if (gameObj.value == undefined) {
       return;
     }
 
     gameObj.value.height = size;
     gameObj.value.width = size;
+    gameParent.value.style.height = size + 'px';
+    gameParent.value.style.width = size + 'px';
   }
 
   watch(gameParent, () => {
