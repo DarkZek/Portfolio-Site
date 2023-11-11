@@ -4,7 +4,6 @@
       <span
         :char="i"
         :style="charStyle[i]"
-        @animationend="($event.target as any)?.classList.add('done')"
         v-if="splitText[i] != '\n'"
         >{{ splitText[i] }}</span
       >
@@ -29,33 +28,21 @@ let splitText = computed(() => props.text.split(""));
 // Static X, Static Y, Dynamic Y
 let offsets = ref(new Array(props.text.length).fill(0).map(() => [0,0,0]));
 
-let moveVelocity = 0;
+let moveVelocity = -1.5;
 
 // How much we will scroll the background this frame
 let timeOffset = ref(0);
-let prevScroll = window.scrollY;
 
 setInterval(() => {
-  if (Math.abs(moveVelocity) > 0.1) {
-    timeOffset.value += moveVelocity / 5;
-    moveVelocity *= 0.9995;
-  } else {
-    moveVelocity = 8;;
-  }
+    timeOffset.value += moveVelocity;
 }, 1000 / 30);
 
 let charStyle = computed(() => {
   return offsets.value.map((offset, index) => {
     return `
       background-position-x: ${-offset[0]}px;
-      background-position-y: ${-offset[1] - offset[2] + timeOffset.value}px;
       font-size: ${props.fontSize ?? 60}px;`;
   });
-});
-
-document.addEventListener("scroll", (e) => {
-  moveVelocity = Math.min(10, Math.max(-10, window.scrollY - prevScroll));
-  prevScroll = window.scrollY;
 });
 
 function updateHorizontalOffset() {
@@ -82,14 +69,38 @@ nextTick(() => {
 </script>
 
 <style scoped lang="scss">
+
+// Separate vertical offset for JS and CSS so there is no jarring teleporting when switching between the inital css animation, and the physics
+// based js animation.
+@property --js-vertical-offset {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: true;
+}
+@property --css-vertical-offset {
+  syntax: '<length>';
+  initial-value: 0px;
+  inherits: false;
+}
+
+@keyframes gradualScrollUp {
+  0% {
+    --js-vertical-offset: 0px;
+  }
+  100% {
+    --js-vertical-offset: 4800px; // Image height
+  }
+}
+
 .title {
   display: block;
   cursor: pointer;
+  animation: gradualScrollUp 100s linear infinite;
 
   &:deep(span) {
     color: transparent;
     position: unset;
-    animation: 1s ease-out;
+    animation: topAnimation 1s ease-out;
     animation-timing-function: cubic-bezier(0.47, -0.08, 0.13, 0.99);
     background-image: url(/img/background_tiled.jpg);
     background-repeat: repeat-y;
@@ -101,25 +112,20 @@ nextTick(() => {
     font-family: "Poppins", sans-serif;
     display: inline-block;
     opacity: 0;
+    animation-fill-mode: forwards;
     white-space: pre;
-  }
-
-  &:deep(span:not(.done)) {
-    animation-name: topAnimation;
-  }
-
-  &:deep(.done) {
-    opacity: 1;
+    background-position-y: calc(var(--css-vertical-offset) + var(--js-vertical-offset));
   }
 
   &:hover :deep(span) {
-    animation: hueRotate 1s ease-out infinite;
+    filter: saturate(1.5) brightness(1.1);
+    text-shadow: 0px 0px 15px rgba(236, 236, 236, 0.274);
   }
 }
 
 @for $i from 0 through 50 {
   .title :deep(span)[char="#{$i}"] {
-    animation-delay: #{(0.05 * $i) + 0.2}s;
+    animation-delay: #{(0.03 * $i) + 0.2}s;
   }
 }
 
@@ -135,12 +141,12 @@ nextTick(() => {
 @keyframes topAnimation {
   0% {
     transform: translateY(-100px);
-    background-position-y: 100px;
+    --css-vertical-offset: 100px;
     opacity: 0;
   }
   100% {
     transform: translateY(0px);
-    background-position-y: 0px;
+    --css-vertical-offset: 0px;
     opacity: 1;
   }
 }
