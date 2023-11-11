@@ -104,7 +104,6 @@ export class SnakeGame {
     // Generate the move for the AI
     // bfs to find route to fruit
     const queue: Point[] = [];
-    const visited: Point[] = [];
 
     const prev = new Array(this.size)
       .fill(0)
@@ -113,12 +112,12 @@ export class SnakeGame {
     queue.push(this.snake_points[0]);
     while (queue.length > 0) {
       const point = queue.shift()!;
+
       if (point.x == this.fruit_loc.x && point.y == this.fruit_loc.y) {
         // Found fruit
-
         break;
       }
-      visited.push(point);
+
       for (const dir of [
         Direction.Up,
         Direction.Down,
@@ -139,9 +138,11 @@ export class SnakeGame {
         ) {
           continue;
         }
-        if (visited.some((p) => p.x == newPoint.x && p.y == newPoint.y)) {
+        
+        if (prev[newPoint.x][newPoint.y] != undefined) {
           continue;
         }
+
         prev[newPoint.x][newPoint.y] = point;
         queue.push(newPoint);
       }
@@ -158,12 +159,14 @@ export class SnakeGame {
       route.push(curr);
       curr = prev[curr.x][curr.y];
       if (curr == undefined) {
+        console.log('no options')
         // No valid options
         return;
       }
     }
 
     const nextPoint = route[route.length - 1];
+
     // Get direction
     if (nextPoint.x == this.snake_points[0].x - 1) {
       this.snake_dir = Direction.Left;
