@@ -119,7 +119,7 @@ nextTick(() => {
 
 @for $i from 0 through 50 {
   .title :deep(span)[char="#{$i}"] {
-    animation-delay: #{(0.05 * $i) + 1}s;
+    animation-delay: #{(0.05 * $i) + 0.2}s;
   }
 }
 
