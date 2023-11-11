@@ -14,6 +14,7 @@
       <img src="/img/macbook.png" />
       <a class="title">flixrapp.com</a>
     </div>
+    <h6 class="discontinued">( Discontinued )</h6>
     <div class="text">
       <p>
         Flixr started as a frustration with managing new show notifications for
@@ -201,5 +202,12 @@ p {
   &:hover {
     background-color: rgba(200, 200, 200, 0.15);
   }
+}
+
+.discontinued {
+  text-align: center;
+  color: #dadada;
+  font-style: italic;
+  font-weight: 400;
 }
 </style>

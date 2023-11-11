@@ -243,7 +243,7 @@ h3 {
 
 @media screen and (max-width: 600px) {
   .back {
-    display: none;
+    display: none !important;
   }
 }
 
