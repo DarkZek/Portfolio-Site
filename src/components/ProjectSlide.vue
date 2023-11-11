@@ -55,7 +55,6 @@ function onScroll() {
   const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
   if (visible.value != isVisible) {
     visible.value = isVisible;
-    p5Instance?.loop();
   }
 }
 
