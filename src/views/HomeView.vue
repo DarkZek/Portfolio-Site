@@ -9,6 +9,9 @@
         <project-list v-if="isHome"></project-list>
       </transition>
       <transition>
+        <project-carousel v-if="isHome"></project-carousel>
+      </transition>
+      <transition>
         <flixr-page v-if="route.name == 'Flixr'"/>
       </transition>
       <transition>
@@ -26,6 +29,7 @@
 import HeaderBar from "../components/HeaderBar.vue";
 import AboutMe from "../components/AboutMe.vue";
 import ProjectList from "../components/ProjectList.vue";
+import ProjectCarousel from "../components/ProjectCarousel.vue";
 import ContactMe from "../components/ContactMe.vue";
 import { computed, watch } from "vue";
 import { useRoute } from "vue-router";
@@ -34,7 +38,7 @@ import MobingoPage from "../components/project/MobingoPage.vue";
 import RustcraftPage from "../components/project/RustcraftPage.vue";
 
 const route = useRoute()
-const isHome = computed(() => route.path == "/")
+const isHome = computed(() => route.path == "/");
 
 watch(route, () => {
   if (route.name != "Home") {
