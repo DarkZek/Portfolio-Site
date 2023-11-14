@@ -3,7 +3,9 @@
     <div class="scroller" ref="scroller" @scroll="onScroll">
       <div
         class="inside"
-        :style="`width: ${displayWidth * 3}px;`"
+        :style="`width: ${440}px;`"
+        v-for="i of displayTiles"
+        :key="i.title"
       ></div>
     </div>
     <div class="images" ref="images">
@@ -11,12 +13,19 @@
         v-for="i in displayTiles.entries()"
         :key="i[0]"
         class="tile"
-        :style="`background-image: url(${i[1].img}); animation-delay: ${-animationProgress[i[0]]}s`"
+        :style="`background-image: url(${
+          i[1].img
+        }); animation-delay: ${-animationProgress[i[0]]}s`"
       ></div>
     </div>
     <div class="content" ref="content">
       <div class="row" ref="row">
-        <div class="tile-content" v-for="i in displayTiles.entries()" :key="i[0]" :style="`animation-delay: ${-animationProgress[i[0]]}s`">
+        <div
+          class="tile-content"
+          v-for="i in displayTiles.entries()"
+          :key="i[0]"
+          :style="`animation-delay: ${-animationProgress[i[0]]}s`"
+        >
           <h3>
             <b>{{ i[1].title }}</b>
           </h3>
@@ -39,32 +48,53 @@ let content = ref<HTMLElement>();
 let row = ref<HTMLElement>();
 
 nextTick(() => {
-  scroller.value!.scrollLeft = displayWidth.value;
+  scroller.value!.scrollLeft = displayWidth.value + (440 / 2) - (window.innerWidth / 2);
   row.value.style.left = -content.value?.getBoundingClientRect().x + "px";
 });
 
+let timer;
 function onScroll(event: Event) {
-    let scrollLeft = event.target.scrollLeft;
+  let scrollLeft = event.target.scrollLeft;
 
-    if (scrollLeft < displayWidth.value * 0.5) {
-        event.target.scrollLeft += displayWidth.value;
+  if (scrollLeft < displayWidth.value * 0.5) {
+    event.target.scrollLeft += displayWidth.value;
+  }
+  if (scrollLeft > displayWidth.value * 2.0) {
+    event.target.scrollLeft -= displayWidth.value;
+  }
+
+  scrollLeft = event.target.scrollLeft;
+
+  images.value.scrollLeft = scrollLeft;
+  content.value.scrollLeft = scrollLeft;
+
+  for (let i = 0; i < displayTiles.value.length; i++) {
+    let center = i * (400 + 40) + 220;
+
+    let screenCenter = center - scrollLeft;
+
+    animationProgress.value[i] = Math.min(
+      1,
+      Math.abs(screenCenter - window.innerWidth / 2) / 500
+    );
+  }
+
+    if(timer !== null) {
+        clearTimeout(timer);        
     }
-    if (scrollLeft > displayWidth.value * 2.5) {
-        event.target.scrollLeft -= displayWidth.value;
-    }
-    
-    scrollLeft = event.target.scrollLeft;
+    timer = setTimeout(function() {
+          lockToClosest();
+    }, 150);
+}
 
-    images.value.scrollLeft = scrollLeft;
-    content.value.scrollLeft = scrollLeft;
-
-    for (let i = 0; i < displayTiles.value.length; i++) {
-        let center = (i * (400 + 40)) + 200;
-
-        let screenCenter = center - scrollLeft;
-
-        animationProgress.value[i] = Math.min(1, Math.abs(screenCenter - window.innerWidth / 2) / 500)
-    }
+function lockToClosest() {
+  // Get centered one
+  let i = Math.round((scroller.value!.scrollLeft + (window.innerWidth / 2) - 220) / 440);
+  scroller.value!.scroll({
+    left: (i * 440) + 220 - (window.innerWidth / 2),
+    top: 0,
+    behavior: 'smooth'
+  });
 }
 
 let tiles = ref([
@@ -114,7 +144,7 @@ let displayTiles = computed(() => {
 let animationProgress = ref(new Array(displayTiles.value.length).fill(0));
 
 let displayWidth = computed(() => {
-    return tiles.value.length * (400 + 40);
+  return tiles.value.length * (400 + 40);
 });
 </script>
 
@@ -186,30 +216,37 @@ let displayWidth = computed(() => {
     height: 800px;
     z-index: 10;
     overflow-x: scroll;
+    //scroll-snap-type: x mandatory;
+
+    display: flex;
 
     .inside {
-      width: 800vw;
+      height: 10px;
+      flex-shrink: 0;
+      scroll-snap-align: center;
     }
   }
 }
 
 @keyframes descriptionFade {
-    0% {
-        opacity: 1;
-    }
-    100% {
-        opacity: 0;
-    }
+  0% {
+    opacity: 1;
+    transform: scale(1.0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
 }
 
 @keyframes tileFade {
-    0% {
-        opacity: 1;
-        transform: scale(1.0);
-    }
-    100% {
-        opacity: 0.5;
-        transform: scale(0.9);
-    }
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0.5;
+    transform: scale(0.9);
+  }
 }
 </style>
