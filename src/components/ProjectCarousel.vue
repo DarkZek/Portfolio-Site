@@ -47,8 +47,13 @@ let images = ref<HTMLElement>();
 let content = ref<HTMLElement>();
 let row = ref<HTMLElement>();
 
+let size = 400;
+let padding = 40;
+
+let sizePlusPadding = size + padding;
+
 nextTick(() => {
-  scroller.value!.scrollLeft = displayWidth.value + (440 / 2) - (window.innerWidth / 2);
+  scroller.value!.scrollLeft = displayWidth.value + (sizePlusPadding / 2) - (window.innerWidth / 2);
   row.value.style.left = -content.value?.getBoundingClientRect().x + "px";
 });
 
@@ -69,7 +74,7 @@ function onScroll(event: Event) {
   content.value.scrollLeft = scrollLeft;
 
   for (let i = 0; i < displayTiles.value.length; i++) {
-    let center = i * (400 + 40) + 220;
+    let center = i * sizePlusPadding + (sizePlusPadding / 2);
 
     let screenCenter = center - scrollLeft;
 
@@ -89,9 +94,9 @@ function onScroll(event: Event) {
 
 function lockToClosest() {
   // Get centered one
-  let i = Math.round((scroller.value!.scrollLeft + (window.innerWidth / 2) - 220) / 440);
+  let i = Math.round((scroller.value!.scrollLeft + (window.innerWidth / 2) - (sizePlusPadding / 2)) / sizePlusPadding);
   scroller.value!.scroll({
-    left: (i * 440) + 220 - (window.innerWidth / 2),
+    left: (i * sizePlusPadding) + (sizePlusPadding / 2) - (window.innerWidth / 2),
     top: 0,
     behavior: 'smooth'
   });
@@ -144,7 +149,7 @@ let displayTiles = computed(() => {
 let animationProgress = ref(new Array(displayTiles.value.length).fill(0));
 
 let displayWidth = computed(() => {
-  return tiles.value.length * (400 + 40);
+  return tiles.value.length * sizePlusPadding;
 });
 </script>
 
