@@ -106,10 +106,12 @@ let images = ref<HTMLElement>();
 let imagesBg = ref<HTMLElement>();
 let content = ref<HTMLElement>();
 
-let size = 400;
+let size = ref(Math.min(400, window.innerWidth * 0.9));
 let padding = 40;
 
-let sizePlusPadding = size + padding;
+window.addEventListener('resize', () => size.value = Math.min(400, window.innerWidth * 0.9))
+
+let sizePlusPadding = computed(() => size.value + padding);
 
 nextTick(() => {
   scrollToIndex(getClosestIndex(), 'instant');
@@ -134,7 +136,7 @@ function onScroll() {
   content.value!.scrollLeft = scrollLeft;
 
   for (let i = 0; i < displayTiles.value.length; i++) {
-    let center = i * sizePlusPadding + sizePlusPadding / 2;
+    let center = i * sizePlusPadding.value + sizePlusPadding.value / 2;
 
     let screenCenter = center - scrollLeft;
 
@@ -154,13 +156,13 @@ function onScroll() {
 
 function getClosestIndex(): number {
   return Math.round(
-    (scroller.value!.scrollLeft + window.innerWidth / 2 - sizePlusPadding / 2) /
-      sizePlusPadding
+    (scroller.value!.scrollLeft + window.innerWidth / 2 - sizePlusPadding.value / 2) /
+      sizePlusPadding.value
   );
 }
 
 function scrollToIndex(index: number, behavior?: 'auto' | 'instant' | 'smooth') {
-  let left = index * sizePlusPadding + sizePlusPadding / 2 - window.innerWidth / 2;
+  let left = index * sizePlusPadding.value + sizePlusPadding.value / 2 - window.innerWidth / 2;
 
   if (Math.abs(left - scroller.value!.scrollLeft) <= 1) {
     return;
@@ -181,7 +183,7 @@ let displayTiles = computed(() => {
 let animationProgress = ref(new Array(displayTiles.value.length).fill(0));
 
 let displayWidth = computed(() => {
-  return tiles.value.length * sizePlusPadding;
+  return tiles.value.length * sizePlusPadding.value;
 });
 
 let dragging = false;
@@ -218,7 +220,7 @@ function mouseUp(event) {
 
 <style lang="scss">
 .carousel {
-  --width: 400px;
+  --width: min(400px, 90vw);
 
   margin-top: 150px;
 
@@ -342,6 +344,12 @@ function mouseUp(event) {
       flex-shrink: 0;
       scroll-snap-align: center;
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .images-bg::before {
+    backdrop-filter: blur(50px) !important;
   }
 }
 
