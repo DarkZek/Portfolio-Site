@@ -1,11 +1,27 @@
 <template>
   <div class="carousel">
-    <div class="scroller" ref="scroller" @scroll="onScroll">
+    <div
+      class="scroller"
+      ref="scroller"
+      @scroll="onScroll"
+      @mousedown="mouseDown"
+      @mouseup="mouseUp"
+      @mousemove="mouseMove"
+    >
       <div
         class="inside"
         :style="`width: ${440}px;`"
         v-for="i of displayTiles"
         :key="i.title"
+      ></div>
+    </div>
+    
+    <div class="images-bg" ref="imagesBg">
+      <div
+        v-for="i in displayTiles.entries()"
+        :key="i[0]"
+        class="tile"
+        :style="`background-color: ${i[1].color}; animation-delay: ${-animationProgress[i[0]]}s`"
       ></div>
     </div>
     <div class="images" ref="images">
@@ -39,11 +55,57 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from "vue";
+import { computed, onUnmounted } from "vue";
 import { nextTick, ref } from "vue";
+
+let tiles = ref([
+  {
+    img: "/content/ChristmasEvent2021/Cover.png",
+    title: "UDC Christmas Event 2021",
+    color: 'pink',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    img: "/content/cgra/Cover.png",
+    title: "CGRA352 Group Project",
+    color: 'blue',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    img: "/content/ChristmasEvent2019/Cover.png",
+    title: "UDC Christmas Event 2019",
+    color: 'green',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    img: "/content/aliens_are_attacking/Cover.png",
+    title: "Lorem Ipsum",
+    color: 'white',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    img: "/content/ChristmasEvent2018/Cover.png",
+    title: "UDC Christmas Event 2018",
+    color: 'red',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+  {
+    img: "/img/background.webp",
+    title: "Lorem Ipsum",
+    color: 'purple',
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+  },
+]);
 
 let scroller = ref<HTMLElement>();
 let images = ref<HTMLElement>();
+let imagesBg = ref<HTMLElement>();
 let content = ref<HTMLElement>();
 let row = ref<HTMLElement>();
 
@@ -53,28 +115,30 @@ let padding = 40;
 let sizePlusPadding = size + padding;
 
 nextTick(() => {
-  scroller.value!.scrollLeft = displayWidth.value + (sizePlusPadding / 2) - (window.innerWidth / 2);
-  row.value.style.left = -content.value?.getBoundingClientRect().x + "px";
+  scrollToIndex(getClosestIndex(), 'instant');
+  row.value!.style.left = -content.value!.getBoundingClientRect().x + "px";
 });
 
-let timer;
-function onScroll(event: Event) {
-  let scrollLeft = event.target.scrollLeft;
+let timer: number | null | undefined;
+function onScroll() {
+
+  let scrollLeft = scroller.value!.scrollLeft;
 
   if (scrollLeft < displayWidth.value * 0.5) {
-    event.target.scrollLeft += displayWidth.value;
+    scroller.value!.scrollLeft += displayWidth.value;
   }
   if (scrollLeft > displayWidth.value * 2.0) {
-    event.target.scrollLeft -= displayWidth.value;
+    scroller.value!.scrollLeft -= displayWidth.value;
   }
 
-  scrollLeft = event.target.scrollLeft;
+  scrollLeft = scroller.value!.scrollLeft;
 
-  images.value.scrollLeft = scrollLeft;
-  content.value.scrollLeft = scrollLeft;
+  images.value!.scrollLeft = scrollLeft;
+  imagesBg.value!.scrollLeft = scrollLeft;
+  content.value!.scrollLeft = scrollLeft;
 
   for (let i = 0; i < displayTiles.value.length; i++) {
-    let center = i * sizePlusPadding + (sizePlusPadding / 2);
+    let center = i * sizePlusPadding + sizePlusPadding / 2;
 
     let screenCenter = center - scrollLeft;
 
@@ -84,62 +148,34 @@ function onScroll(event: Event) {
     );
   }
 
-    if(timer !== null) {
-        clearTimeout(timer);        
-    }
-    timer = setTimeout(function() {
-          lockToClosest();
-    }, 150);
+  if (timer !== null) {
+    clearTimeout(timer);
+  }
+  timer = setTimeout(function () {
+    scrollToIndex(getClosestIndex());
+  }, 150);
 }
 
-function lockToClosest() {
-  // Get centered one
-  let i = Math.round((scroller.value!.scrollLeft + (window.innerWidth / 2) - (sizePlusPadding / 2)) / sizePlusPadding);
+function getClosestIndex(): number {
+  return Math.round(
+    (scroller.value!.scrollLeft + window.innerWidth / 2 - sizePlusPadding / 2) /
+      sizePlusPadding
+  );
+}
+
+function scrollToIndex(index: number, behavior?: 'auto' | 'instant' | 'smooth') {
+  let left = index * sizePlusPadding + sizePlusPadding / 2 - window.innerWidth / 2;
+
+  if (Math.abs(left - scroller.value!.scrollLeft) <= 1) {
+    return;
+  }
+
   scroller.value!.scroll({
-    left: (i * sizePlusPadding) + (sizePlusPadding / 2) - (window.innerWidth / 2),
+    left,
     top: 0,
-    behavior: 'smooth'
+    behavior: behavior ?? 'smooth',
   });
 }
-
-let tiles = ref([
-  {
-    img: "/content/ChristmasEvent2021/Cover.png",
-    title: "UDC Christmas Event 2021",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    img: "/img/background.webp",
-    title: "Lorem Ipsum",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    img: "/content/ChristmasEvent2019/Cover.png",
-    title: "UDC Christmas Event 2019",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    img: "/content/aliens_are_attacking/Cover.png",
-    title: "Lorem Ipsum",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    img: "/content/ChristmasEvent2018/Cover.png",
-    title: "UDC Christmas Event 2018",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-  {
-    img: "/img/background.webp",
-    title: "Lorem Ipsum",
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-  },
-]);
 
 // Display tiles 3x, one for the left of the screen, one displayed and one for the right - to provide infinite scrolling
 let displayTiles = computed(() => {
@@ -151,49 +187,125 @@ let animationProgress = ref(new Array(displayTiles.value.length).fill(0));
 let displayWidth = computed(() => {
   return tiles.value.length * sizePlusPadding;
 });
+
+let dragging = false;
+let downTime = new Date();
+
+const MAX_CLICK_MILLIS = 4500;
+
+// Start dragging functionality
+function mouseDown() {
+  dragging = true;
+  downTime = new Date();
+}
+
+function mouseMove(event) {
+  if (!dragging) {
+    return;
+  }
+  scroller.value!.scrollLeft -= event.movementX;
+}
+
+function mouseUp(event) {
+  dragging = false;
+
+  if (new Date() - downTime < MAX_CLICK_MILLIS) {
+    let i = getClosestIndex();
+
+    // Get side of screen and adjust i based on that
+    event.screenX < screen.width / 2 ? i-- : i++;
+
+    scrollToIndex(i);
+  }
+}
 </script>
 
 <style lang="scss">
 .carousel {
   --width: 400px;
 
-  margin-top: 50px;
+  margin-top: 250px;
 
   display: flex;
   flex-direction: column;
 
-  .images {
-    display: flex;
-    overflow-x: scroll;
+.images {
+  display: flex;
+  overflow-x: scroll;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .tile {
-      width: var(--width);
-      aspect-ratio: 5/3;
-      margin: 20px;
-      flex-shrink: 0;
-      border-radius: 20px;
-      background-position: center;
-      background-size: cover;
-      animation: tileFade 1s ease-in-out;
-      animation-play-state: paused;
-      animation-fill-mode: forwards;
-    }
+  &::-webkit-scrollbar {
+    display: none;
   }
 
+  .tile {
+    width: var(--width);
+    aspect-ratio: 5/3;
+    margin: 20px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background-position: center;
+    background-size: cover;
+    animation: tileFade 1s ease-in-out;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+  }
+}
+
+.images-bg {
+  display: flex;
+  overflow-x: scroll;
+  padding: 150px 0px;
+  position: absolute;
+  margin-top: -150px;
+  width: 100vw;
+  isolation: isolate;
+  pointer-events: none;
+
+  &::before {
+    content: '';
+    z-index: 1;
+    backdrop-filter: blur(80px);
+    position: absolute;
+    left: 0px;
+    width: 1000vw;
+    height: 200%;
+    margin-top: -25%;
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tile {
+    width: var(--width);
+    aspect-ratio: 5/3;
+    margin: 20px;
+    flex-shrink: 0;
+    border-radius: 20px;
+    background-position: center;
+    background-size: cover;
+    animation: tileBackgroundFade 1s ease-in-out;
+    animation-play-state: paused;
+    animation-fill-mode: forwards;
+    z-index: 0;
+  }
+}
+
   .content {
-    width: 600px;
-    height: 300px;
+    width: 500px;
+    height: 200px;
     background-color: rgba(150, 150, 150, 0.05);
     border-radius: 20px;
     align-self: center;
     overflow-x: scroll;
+    margin-top: 25px;
 
     &::-webkit-scrollbar {
       display: none;
+    }
+
+    b {
+      font-weight: bold !important;
     }
 
     .row {
@@ -218,10 +330,14 @@ let displayWidth = computed(() => {
     position: absolute;
     width: 100vw;
     left: 0px;
-    height: 800px;
+    height: 100%;
     z-index: 10;
     overflow-x: scroll;
-    //scroll-snap-type: x mandatory;
+    cursor: pointer;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     display: flex;
 
@@ -236,7 +352,7 @@ let displayWidth = computed(() => {
 @keyframes descriptionFade {
   0% {
     opacity: 1;
-    transform: scale(1.0);
+    transform: scale(1);
   }
   100% {
     opacity: 0;
@@ -252,6 +368,18 @@ let displayWidth = computed(() => {
   100% {
     opacity: 0.5;
     transform: scale(0.9);
+  }
+}
+
+@keyframes tileBackgroundFade {
+  0% {
+    filter: contrast(1);
+    opacity: 0.4;
+  }
+  100% {
+    filter: contrast(0.5);
+    opacity: 0.2;
+    scale: 0.9;
   }
 }
 </style>
