@@ -176,6 +176,7 @@ function showUnderlines() {
     height: 100%;
     background-position: center;
     filter: blur(3px);
+    pointer-events: none;
   }
 
   .graphics {

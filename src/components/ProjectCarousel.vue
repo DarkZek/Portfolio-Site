@@ -21,7 +21,7 @@
         v-for="i in displayTiles.entries()"
         :key="i[0]"
         class="tile"
-        :style="`background-color: ${i[1].color}; animation-delay: ${-animationProgress[i[0]]}s`"
+        :style="`background: ${i[1].color}; animation-delay: ${-animationProgress[i[0]]}s`"
       ></div>
     </div>
     <div class="images" ref="images">
@@ -35,20 +35,18 @@
       ></div>
     </div>
     <div class="content" ref="content">
-      <div class="row" ref="row">
-        <div
-          class="tile-content"
-          v-for="i in displayTiles.entries()"
-          :key="i[0]"
-          :style="`animation-delay: ${-animationProgress[i[0]]}s`"
-        >
-          <h3>
-            <b>{{ i[1].title }}</b>
-          </h3>
-          <p>
-            {{ i[1].description }}
-          </p>
-        </div>
+      <div
+        class="tile-content"
+        v-for="i in displayTiles.entries()"
+        :key="i[0]"
+        :style="`animation-delay: ${-animationProgress[i[0]]}s`"
+      >
+        <h3>
+          <b>{{ i[1].title }}</b>
+        </h3>
+        <p>
+          {{ i[1].description }}
+        </p>
       </div>
     </div>
   </div>
@@ -90,7 +88,7 @@ let tiles = ref([
   {
     img: "/content/ChristmasEvent2018/Cover.png",
     title: "UDC Christmas Event 2018",
-    color: 'red',
+    color: 'linear-gradient(135deg, hsla(122, 66%, 52%, 1) 0%, hsla(0, 72%, 52%, 1) 100%)',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
   },
@@ -107,7 +105,6 @@ let scroller = ref<HTMLElement>();
 let images = ref<HTMLElement>();
 let imagesBg = ref<HTMLElement>();
 let content = ref<HTMLElement>();
-let row = ref<HTMLElement>();
 
 let size = 400;
 let padding = 40;
@@ -116,7 +113,6 @@ let sizePlusPadding = size + padding;
 
 nextTick(() => {
   scrollToIndex(getClosestIndex(), 'instant');
-  row.value!.style.left = -content.value!.getBoundingClientRect().x + "px";
 });
 
 let timer: number | null | undefined;
@@ -144,7 +140,7 @@ function onScroll() {
 
     animationProgress.value[i] = Math.min(
       1,
-      Math.abs(screenCenter - window.innerWidth / 2) / 500
+      Math.abs(screenCenter - window.innerWidth / 2) / 400
     );
   }
 
@@ -224,95 +220,95 @@ function mouseUp(event) {
 .carousel {
   --width: 400px;
 
-  margin-top: 250px;
+  margin-top: 150px;
 
   display: flex;
   flex-direction: column;
 
-.images {
-  display: flex;
-  overflow-x: scroll;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .tile {
-    width: var(--width);
-    aspect-ratio: 5/3;
-    margin: 20px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background-position: center;
-    background-size: cover;
-    animation: tileFade 1s ease-in-out;
-    animation-play-state: paused;
-    animation-fill-mode: forwards;
-  }
-}
-
-.images-bg {
-  display: flex;
-  overflow-x: scroll;
-  padding: 150px 0px;
-  position: absolute;
-  margin-top: -150px;
-  width: 100vw;
-  isolation: isolate;
-  pointer-events: none;
-
-  &::before {
-    content: '';
-    z-index: 1;
-    backdrop-filter: blur(80px);
-    position: absolute;
-    left: 0px;
-    width: 1000vw;
-    height: 200%;
-    margin-top: -25%;
-  }
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  .tile {
-    width: var(--width);
-    aspect-ratio: 5/3;
-    margin: 20px;
-    flex-shrink: 0;
-    border-radius: 20px;
-    background-position: center;
-    background-size: cover;
-    animation: tileBackgroundFade 1s ease-in-out;
-    animation-play-state: paused;
-    animation-fill-mode: forwards;
-    z-index: 0;
-  }
-}
-
-  .content {
-    width: 500px;
-    height: 200px;
-    background-color: rgba(150, 150, 150, 0.05);
-    border-radius: 20px;
-    align-self: center;
+  .images {
+    display: flex;
     overflow-x: scroll;
-    margin-top: 25px;
 
     &::-webkit-scrollbar {
       display: none;
     }
 
-    b {
+    .tile {
+      width: var(--width);
+      aspect-ratio: 5/3;
+      margin: 20px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background-position: center;
+      background-size: cover;
+      animation: tileFade 1s ease-in-out;
+      animation-play-state: paused;
+      animation-fill-mode: forwards;
+    }
+  }
+
+  .images-bg {
+    display: flex;
+    overflow-x: scroll;
+    padding: 150px 0px;
+    position: absolute;
+    margin-top: -150px;
+    width: 100vw;
+    isolation: isolate;
+    pointer-events: none;
+
+    &::before {
+      content: '';
+      z-index: 1;
+      backdrop-filter: blur(80px);
+      position: absolute;
+      left: 0px;
+      width: 1000vw;
+      height: 200%;
+      margin-top: -25%;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tile {
+      width: var(--width);
+      aspect-ratio: 5/3;
+      margin: 20px;
+      flex-shrink: 0;
+      border-radius: 20px;
+      background-position: center;
+      background-size: cover;
+      animation: tileBackgroundFade 1s ease-in-out;
+      animation-play-state: paused;
+      animation-fill-mode: forwards;
+      z-index: 0;
+    }
+  }
+
+  .content {
+    height: 200px;
+    border-radius: 20px;
+    align-self: center;
+    overflow-x: scroll;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100vw;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    h3 {
       font-weight: bold !important;
+      color: white;
+      padding-bottom: 10px;
     }
 
     .row {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      width: 100vw;
       position: absolute;
     }
 
