@@ -168,7 +168,6 @@ function showUnderlines() {
 
   .background {
     position: fixed;
-    z-index: -1;
     left: 0px;
     top: 0px;
     width: 100vw;
