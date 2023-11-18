@@ -207,7 +207,7 @@ function mouseDown(event) {
 .carousel {
   --width: min(400px, 90vw);
 
-  margin-top: 100px;
+  margin-top: 150px;
 
   display: flex;
   flex-direction: column;
