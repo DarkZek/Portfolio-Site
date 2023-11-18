@@ -60,7 +60,7 @@ let tiles = ref([
   {
     img: "/content/ChristmasEvent2021/Cover.png",
     title: "UDC Christmas Event 2021",
-    color: 'pink',
+    color: 'red',
     description:
       "UDC Christmas Event 2021 was a virtual security software development social 'Capture The Flag' event for the Unity Developer Community made by me, containing a set of challenges including website exploits, SSH challenges, quizzes and more.",
     url: '/content/ChristmasEvent2021/Server.mp4'
@@ -76,7 +76,7 @@ let tiles = ref([
   {
     img: "/content/ChristmasEvent2019/Cover.png",
     title: "UDC Christmas Event 2019",
-    color: 'green',
+    color: '#ffb700',
     description:
       "UDC Christmas Event 2019 was a virtual security software development social 'Capture The Flag' event for the Unity Developer Community made by me, containing a set of challenges including website exploits, SSH challenges, software development and more.",
     url: '/content/ChristmasEvent2019/index.html'
