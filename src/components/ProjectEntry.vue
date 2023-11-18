@@ -158,6 +158,7 @@ function showUnderlines() {
   width: 100vw;
   max-width: 1500px;
   margin: auto;
+  z-index: 2;
 
   > .row {
     position: relative;

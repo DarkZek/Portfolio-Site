@@ -63,6 +63,7 @@ let tiles = ref([
     color: 'pink',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    url: '/content/ChristmasEvent2021/Server.mp4'
   },
   {
     img: "/content/cgra/Cover.png",
@@ -70,6 +71,7 @@ let tiles = ref([
     color: 'blue',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    url: 'https://github.com/tessapower/cgra350-group-project'
   },
   {
     img: "/content/ChristmasEvent2019/Cover.png",
@@ -77,6 +79,7 @@ let tiles = ref([
     color: 'green',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    url: '/content/ChristmasEvent2019/index.html'
   },
   {
     img: "/content/aliens_are_attacking/Cover.png",
@@ -84,6 +87,7 @@ let tiles = ref([
     color: 'white',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    url: '/content/aliens_are_attacking/WebGL/index.html'
   },
   {
     img: "/content/ChristmasEvent2018/Cover.png",
@@ -91,6 +95,7 @@ let tiles = ref([
     color: 'linear-gradient(135deg, hsla(122, 66%, 52%, 1) 0%, hsla(0, 72%, 52%, 1) 100%)',
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+    url: '/content/ChristmasEvent2018/index.html'
   },
   {
     img: "/img/background.webp",
@@ -115,10 +120,12 @@ let sizePlusPadding = computed(() => size.value + padding);
 
 nextTick(() => {
   scrollToIndex(getClosestIndex(), 'instant');
+  onScroll();
 });
 
 let timer: number | null | undefined;
 function onScroll() {
+  console.log('scroll')
 
   let scrollLeft = scroller.value!.scrollLeft;
 
@@ -186,35 +193,19 @@ let displayWidth = computed(() => {
   return tiles.value.length * sizePlusPadding.value;
 });
 
-let dragging = false;
-let downTime = new Date();
+function mouseDown(event) {
 
-const MAX_CLICK_MILLIS = 4500;
-
-// Start dragging functionality
-function mouseDown() {
-  dragging = true;
-  downTime = new Date();
-}
-
-function mouseMove(event) {
-  if (!dragging) {
+  // Detect if center item is clicked then open link
+  if (Math.abs(event.screenX - window.innerWidth / 2) < size.value / 2) {
+    window.open(displayTiles.value[getClosestIndex()].url, '_blank');
     return;
   }
-  scroller.value!.scrollLeft -= event.movementX;
-}
 
-function mouseUp(event) {
-  dragging = false;
+  let i = getClosestIndex();
 
-  if (new Date() - downTime < MAX_CLICK_MILLIS) {
-    let i = getClosestIndex();
+  i += event.screenX < window.innerWidth / 2 ? -1 : 1;
 
-    // Get side of screen and adjust i based on that
-    event.screenX < screen.width / 2 ? i-- : i++;
-
-    scrollToIndex(i);
-  }
+  scrollToIndex(i, 'smooth');
 }
 </script>
 
@@ -222,7 +213,7 @@ function mouseUp(event) {
 .carousel {
   --width: min(400px, 90vw);
 
-  margin-top: 150px;
+  margin-top: 100px;
 
   display: flex;
   flex-direction: column;
