@@ -62,7 +62,7 @@ let tiles = ref([
     title: "UDC Christmas Event 2021",
     color: 'pink',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "UDC Christmas Event 2021 was a virtual security software development social 'Capture The Flag' event for the Unity Developer Community made by me, containing a set of challenges including website exploits, SSH challenges, quizzes and more.",
     url: '/content/ChristmasEvent2021/Server.mp4'
   },
   {
@@ -70,7 +70,7 @@ let tiles = ref([
     title: "CGRA352 Group Project",
     color: 'blue',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "A group project for CGRA352 - Real Time 3D Rendering. We created a 3D scene from scratch using C++ and OpenGL. I was responsible for the mesh optimisation utilising marching cubes to automatically create low-poly versions of assets.",
     url: 'https://github.com/tessapower/cgra350-group-project'
   },
   {
@@ -78,15 +78,15 @@ let tiles = ref([
     title: "UDC Christmas Event 2019",
     color: 'green',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "UDC Christmas Event 2019 was a virtual security software development social 'Capture The Flag' event for the Unity Developer Community made by me, containing a set of challenges including website exploits, SSH challenges, software development and more.",
     url: '/content/ChristmasEvent2019/index.html'
   },
   {
     img: "/content/aliens_are_attacking/Cover.png",
-    title: "Lorem Ipsum",
+    title: "Aliens Are Attacking",
     color: 'white',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "Aliens Are Attacking is a 2D slicing game made in Unity in collaboration with James Kellie. It was made for the 2020 UDC Game Jam. I was responsible for the game mechanics, UI, and the game's art style.",
     url: '/content/aliens_are_attacking/WebGL/index.html'
   },
   {
@@ -94,15 +94,8 @@ let tiles = ref([
     title: "UDC Christmas Event 2018",
     color: 'linear-gradient(135deg, hsla(122, 66%, 52%, 1) 0%, hsla(0, 72%, 52%, 1) 100%)',
     description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
-    url: '/content/ChristmasEvent2018/index.html'
-  },
-  {
-    img: "/img/background.webp",
-    title: "Lorem Ipsum",
-    color: 'purple',
-    description:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "UDC Christmas Event 2018 was a virtual security software development social 'Capture The Flag' event for the Unity Developer Community made by me, containing a set of challenges including website exploits, SSH challenges, software development and more.",
+    url: 'https://darkzek.github.io/UDC-Christmas-Event/Website/index.html'
   },
 ]);
 
@@ -119,7 +112,8 @@ window.addEventListener('resize', () => size.value = Math.min(400, window.innerW
 let sizePlusPadding = computed(() => size.value + padding);
 
 nextTick(() => {
-  scrollToIndex(getClosestIndex(), 'instant');
+  // Scroll to a random tile to begin with
+  scrollToIndex(tiles.value.length + Math.round(Math.random() * tiles.value.length), 'instant');
   onScroll();
 });
 
