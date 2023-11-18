@@ -23,7 +23,7 @@
   margin: auto;
   text-align: center;
   margin-top: 80px;
-  padding-bottom: 50px;;
+  padding-bottom: 100px;
 
   .title {
     width: 300px;
@@ -83,7 +83,7 @@
 
   .linkedin::before {
     content: "";
-    background-color: #0a66c22a;
+    background-color: #0a66c260;
     filter: blur(50px);
     width: 100%;
     height: 100%;
@@ -99,7 +99,7 @@
 
   .email::before {
     content: "";
-    background-color: #ffffff2a;
+    background-color: #ffffff60;
     filter: blur(50px);
     width: 100%;
     height: 100%;
