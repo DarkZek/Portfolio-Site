@@ -57,6 +57,10 @@ class Point {
     }
     return newPoint;
   }
+
+  distance(other: Point) {
+    return Math.sqrt(Math.pow(this.x - other.x, 2) + Math.pow(this.y - other.y, 2));
+  }
 }
 
 function randomInRange(from: number, to: number) {
@@ -76,6 +80,8 @@ export class SnakeGame {
   snake_dir = Direction.Left;
   snake_points: Point[] = [];
   fruit_loc = new Point(0, 0);
+  restartAnimation = 0;
+  restarting = false;
 
   ai = true;
 
@@ -204,7 +210,39 @@ export class SnakeGame {
     });
   }
 
+  showRestarting() {
+    this.restartAnimation += 2;
+
+    if (this.restartAnimation > this.size * 2) {
+      this.generate();
+      this.restarting = false;
+      this.restartAnimation = 0;
+    }
+
+    // Get all lcd points in range and set them to white
+    for (let x = 0; x < this.size; x++) {
+      for (let y = 0; y < this.size; y++) {
+        // From position around snake
+        const radius = this.snake_points[0].distance(new Point(x, y));
+        if (
+          radius > this.restartAnimation ||
+          radius < this.restartAnimation - 2
+        ) {
+          this.board_lcd[x][y] = new Color(0, 0, 0, 1.0);
+        } else {
+          this.board_lcd[x][y] = new Color(255, 255, 255, 1.0);
+        }
+      }
+    }
+  }
+
   tick() {
+
+    if (this.restarting) {
+      this.showRestarting();
+      return;
+    }
+
     if (this.ai) {
         this.aiTick();
     }
@@ -234,7 +272,7 @@ export class SnakeGame {
       new_head.y < 0 ||
       new_head.y >= this.size
     ) {
-      this.generate();
+      this.restarting = true;
       return;
     }
 
@@ -244,7 +282,7 @@ export class SnakeGame {
       const point = this.snake_points[i];
       if (point.x == new_head.x && point.y == new_head.y) {
         // Fail!
-        this.generate();
+        this.restarting = true;
         return;
       }
     }
@@ -320,38 +358,48 @@ export class SnakeGame {
 
     ctx.clearRect(0, 0, boardSizePx, boardSizePx);
 
-    const padding = 10;
+    const padding = 6;
     const doublePadding = padding * 2;
 
-    const borderRadius = 20;
+    const lcdSize = Math.sqrt(Math.pow(boardSizePx/(this.size + 0.5), 2) / 2)//boardSizePx / this.size;
+    const lcdLength = Math.sqrt(lcdSize * lcdSize * 2);
 
-    const lcdSize = boardSizePx / this.size;
-
-    const quarterLcd = lcdSize / 4;
-
-    const bgLcd = new Color(100, 100, 100, 0.2);
+    const bgLcd = new Color(100, 100, 100, 1.2);
 
     for (let x = 0; x < this.size; x++) {
       for (let y = 0; y < this.size; y++) {
+        const isOddRow = y % 2 == 0;
+        const xTranslate = (x + (isOddRow ? 0.5 : 1.0)) * lcdLength;
+        const yTranslate = y * lcdLength / 2;
+
+        ctx.translate(xTranslate, yTranslate);
+        ctx.scale(lcdSize - doublePadding, lcdSize - doublePadding);
+        ctx.rotate(Math.PI/4);
+
         const color = this.board_lcd[x][y];
-        ctx.fillStyle = new Color(255, 0, 0, 1.0).lerp(bgLcd, 1-color.red).toCSS()
+        ctx.fillStyle = new Color(20 + (color.red * 255), 20, 20, 0.2 + color.red).toCSS()
         ctx.beginPath();
-        ctx.roundRect(x * lcdSize + padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.roundRect(0.6, 0.6, 0.3, 0.3, 0.1);
         ctx.fill();
 
-        ctx.fillStyle = new Color(0, 255, 0, 1.0).lerp(bgLcd, 1-color.green).toCSS()
+        ctx.fillStyle = new Color(20, 20 + (color.green * 255), 20, 0.2 + color.green).toCSS()
         ctx.beginPath();
-        ctx.roundRect((x + 0.5) * lcdSize - (quarterLcd / 2), y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.roundRect(0.6, 0.075, 0.3, 0.15, 0.1);
+        ctx.roundRect(0.075, 0.6, 0.15, 0.3, 0.1);
         ctx.fill();
-        
-        ctx.fillStyle = new Color(0, 0, 255, 1.0).lerp(bgLcd, 1-color.blue).toCSS()
+
+        ctx.fillStyle = new Color(20, 20, 20 + (color.blue * 255), 0.2 + color.blue).toCSS()
         ctx.beginPath();
-        ctx.roundRect((x + 1) * lcdSize - quarterLcd - padding, y * lcdSize + padding, quarterLcd, lcdSize - doublePadding, borderRadius);
+        ctx.roundRect(0, 0, 0.3, 0.3, 0.05);
         ctx.fill();
 
         // Debugging colours
         // ctx.fillStyle = new Color(color.red, color.green, color.blue, 1.0).toCSS();
-        // ctx.fillRect(x * lcdSize + (padding*5), y * lcdSize + (padding*5), lcdSize - (doublePadding*5), lcdSize - (doublePadding*5));
+        // ctx.fillRect(0, 0, 1, 1);
+
+        ctx.rotate(-Math.PI/4)
+        ctx.scale(1/(lcdSize - doublePadding), 1/(lcdSize - doublePadding));
+        ctx.translate(-xTranslate, -yTranslate)
       }
     }
   }

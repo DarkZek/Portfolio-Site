@@ -42,7 +42,7 @@ function gameSetup() {
       return;
     }
 
-    opacity = Math.min(0.15, Math.max(0, 0.5 - window.scrollY / 500));
+    opacity = Math.min(0.8, Math.max(0, 0.5 - window.scrollY / 500));
     gameObj.value!.style.opacity = opacity.toString();
     if (opacity == 0) {
       playing = false;
@@ -137,7 +137,8 @@ p {
 
   #game-about-me {
     position: relative;
-    opacity: 0.15;
+    opacity: 0.8;
+    filter: blur(8px);
   }
 }
 </style>
