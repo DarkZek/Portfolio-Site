@@ -26,8 +26,7 @@
 
 <script lang="ts" setup>
 import { ref, nextTick, computed, watch } from "vue";
-// @ts-ignore
-import { p5 } from "p5js-wrapper";
+import * as p5 from "p5";
 import PauseIcon from "vue-material-design-icons/Pause.vue";
 import { isMobile } from "../composables/isMobile";
 
@@ -55,6 +54,11 @@ function onScroll() {
   const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
   if (visible.value != isVisible) {
     visible.value = isVisible;
+
+    // If it has just become visible again, start the draw loop
+    if (visible.value && p5Instance) {
+      p5Instance.loop();
+    }
   }
 }
 
@@ -91,7 +95,6 @@ watch(displayed, () => {
 
   setTimeout(() => {
     let currentWidth = parentWidth.value;
-
     p5Instance = new p5((p: any) => {
       p.setup = () => {
         p.createCanvas(
@@ -132,7 +135,7 @@ watch(displayed, () => {
         }
         p.image(img, padding, padding); // redraws the video frame by frame in
 
-        p.drawingContext.filter = "contrast(180%) blur(32px)";
+        p.drawingContext.filter = "contrast(180%) blur(48px)";
         p.image(img, padding, padding); // redraws the video frame by frame in
 
         progress.value = vid.elt.currentTime / vid.elt.duration;
