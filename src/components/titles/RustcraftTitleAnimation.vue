@@ -23,12 +23,6 @@
 </template>
 
 <style lang="scss" scoped>
-@font-face {
-  font-family: "Roboto";
-  src: url("../../assets/Roboto-Regular.woff") format("woff");
-  font-weight: 400;
-  font-display: swap;
-}
 .rustcraft-title-animation {
   height: 82px;
 }

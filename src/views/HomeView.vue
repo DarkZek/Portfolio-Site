@@ -49,20 +49,6 @@ watch(route, () => {
 
 <style scoped lang="scss">
 
-// @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
-// @import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
-@font-face {
-  font-family: "Poppins";
-  src: url("../assets/Poppins-Regular.woff") format("woff");
-  font-weight: 400;
-}
-@font-face {
-  font-family: "Poppins";
-  src: url("../assets/Poppins-SemiBold.woff") format("woff");
-  font-weight: 600;
-}
-
 .transition > div {
   transition: opacity 1s ease-in;
 }
