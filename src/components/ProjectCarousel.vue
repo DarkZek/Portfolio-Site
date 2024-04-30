@@ -119,8 +119,6 @@ nextTick(() => {
 
 let timer: number | null | undefined;
 function onScroll() {
-  console.log('scroll')
-
   let scrollLeft = scroller.value!.scrollLeft;
 
   if (scrollLeft < displayWidth.value * 0.5) {
