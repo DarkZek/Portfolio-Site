@@ -26,7 +26,7 @@
         >
           <font-awesome-icon icon="fa-brands fa-linkedin-in" />
         </a>
-        <a class="github" href="https::/github.com/darkzek/" target="_blank">
+        <a class="github" href="https://github.com/darkzek/" target="_blank">
           <font-awesome-icon icon="fa-brands fa-github-alt" />
         </a>
       </div>

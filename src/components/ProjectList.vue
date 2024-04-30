@@ -20,7 +20,7 @@
           }
         "
         video-url="/content/rustcraft/video_nointro_1920x1080.mp4"
-        cover-url="/content/rustcraft/Cover.png"
+        cover-url="/content/rustcraft/Cover.webp"
         picture-link="https://github.com/darkzek/rustcraft"
         color="#ff000d"
       >
@@ -48,7 +48,7 @@
           }
         "
         video-url="/content/flixr/video_1920x1080.mp4"
-        cover-url="/content/flixr/Cover.png"
+        cover-url="/content/flixr/Cover.webp"
         picture-link="https://gitlab.com/darkzek/flixr"
         color="#7782d2"
       >
@@ -72,7 +72,7 @@
           }
         "
         video-url="/content/mobingo/video_1920x1080.mp4"
-        cover-url="/content/mobingo/Cover.png"
+        cover-url="/content/mobingo/Cover.webp"
         picture-link="https://gitlab.com/darkzek/flixr"
         color="#f7941d"
       >
