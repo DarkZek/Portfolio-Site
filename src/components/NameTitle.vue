@@ -111,6 +111,7 @@ nextTick(() => {
     color: rgba(0, 0, 0, 0.2);
     font-family: "Poppins", sans-serif;
     display: inline-block;
+    filter: saturate(0.9);
     opacity: 0;
     animation-fill-mode: forwards;
     white-space: pre;
@@ -118,7 +119,7 @@ nextTick(() => {
   }
 
   &:hover :deep(span) {
-    filter: saturate(1.5) brightness(1.1);
+    filter: saturate(1.2);
     text-shadow: 0px 0px 15px rgba(236, 236, 236, 0.274);
   }
 }
