@@ -6,7 +6,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "flixrapp",
       name: "Flixrapp.com",
-      image: "/content/flixr/Cover.png",
+      image: "/content/flixr/Cover.webp",
       url: "https://flixrapp.com/",
       url_tyle: "local",
       description:
@@ -22,7 +22,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "rustcraft",
       name: "RustCraft",
-      image: "/content/rustcraft/Cover.png",
+      image: "/content/rustcraft/Cover.webp",
       url: "./content/rustcraft/index.html",
       url_tyle: "local",
       description:
@@ -42,7 +42,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "mobingo",
       name: "Charchingo",
-      image: "/content/mobingo/Cover.png",
+      image: "/content/mobingo/Cover.webp",
       url: "https://play.charchingo.com",
       url_tyle: "external",
       description:
@@ -58,7 +58,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "aliensareattacking",
       name: "Aliens Are Attacking",
-      image: "/content/aliens_are_attacking/Cover.png",
+      image: "/content/aliens_are_attacking/Cover.webp",
       url: "/content/aliens_are_attacking/WebGL/index.html",
       description:
         "Flixr started as a frustration with managing tv show notifications for s many different streaming platforms. It collates data from online <b>API's</b> to provide one succinct user interface. It uses a custom password-less authentication solution to accommodate on-boarding.",
@@ -73,7 +73,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "christmasevent2019",
       name: "UDC Christmas Event 2019",
-      image: "/content/ChristmasEvent2019/Cover.png",
+      image: "/content/ChristmasEvent2019/Cover.webp",
       url: "/content/ChristmasEvent2019/index.html",
       url_tyle: "local",
       description:
@@ -86,7 +86,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "byteunwrapped",
       name: "Byte Unwrapped",
-      image: "/content/byte_unwrapped/Cover.png",
+      image: "/content/byte_unwrapped/Cover.webp",
       url: "https://blog.flixrapp.com/",
       description:
         "My development blog where knowledge is spread, experiments are conducted, and progress is reported. It is made in <b>Wordpress</b> which supports comments, posts and an account system. Running on a Linux server in my house, Byte Unwrapped is a communication portal to the world.",
@@ -98,7 +98,7 @@ export const useMainStore = defineStore("main", () => {
     {
       id: "christmasevent2018",
       name: "UDC Christmas Event 2018",
-      image: "/content/ChristmasEvent2018/Cover.png",
+      image: "/content/ChristmasEvent2018/Cover.webp",
       url: "/content/ChristmasEvent2018/index.html",
       url_tyle: "local",
       description:
@@ -112,7 +112,7 @@ export const useMainStore = defineStore("main", () => {
      {
          id: "christmasevent2021",
         name: "UDC Christmas Event 2021",
-        image: "/content/ChristmasEvent2021/Cover.png",
+        image: "/content/ChristmasEvent2021/Cover.webp",
         url: "./content/ChristmasEvent2021/index.html",
         url_tyle: "local",
         description: "This christmas event is an upcoming Capture the Flag programming adventure made for the online community Unity Developer Community using mainly <b>C Sharp</b>. It includes a Discord Bot, Networking challenges based on the <b>Docker</b> platform. It releases <i>December 2021</i>",

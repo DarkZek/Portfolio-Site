@@ -58,7 +58,7 @@ import { nextTick, ref } from "vue";
 
 let tiles = ref([
   {
-    img: "/content/ChristmasEvent2021/Cover.png",
+    img: "/content/ChristmasEvent2021/Cover.webp",
     title: "UDC Christmas Event 2021",
     color: 'red',
     description:
@@ -66,7 +66,7 @@ let tiles = ref([
     url: '/content/ChristmasEvent2021/Server.mp4'
   },
   {
-    img: "/content/cgra/Cover.png",
+    img: "/content/cgra/Cover.webp",
     title: "CGRA352 Group Project",
     color: 'blue',
     description:
@@ -74,7 +74,7 @@ let tiles = ref([
     url: 'https://github.com/tessapower/cgra350-group-project'
   },
   {
-    img: "/content/ChristmasEvent2019/Cover.png",
+    img: "/content/ChristmasEvent2019/Cover.webp",
     title: "UDC Christmas Event 2019",
     color: '#ffb700',
     description:
@@ -82,7 +82,7 @@ let tiles = ref([
     url: '/content/ChristmasEvent2019/index.html'
   },
   {
-    img: "/content/aliens_are_attacking/Cover.png",
+    img: "/content/aliens_are_attacking/Cover.webp",
     title: "Aliens Are Attacking",
     color: 'white',
     description:
@@ -90,7 +90,7 @@ let tiles = ref([
     url: '/content/aliens_are_attacking/WebGL/index.html'
   },
   {
-    img: "/content/ChristmasEvent2018/Cover.png",
+    img: "/content/ChristmasEvent2018/Cover.webp",
     title: "UDC Christmas Event 2018",
     color: 'linear-gradient(135deg, hsla(122, 66%, 52%, 1) 0%, hsla(0, 72%, 52%, 1) 100%)',
     description:
