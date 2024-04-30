@@ -14,6 +14,7 @@
         </div>
         <div class="row text-center">
           <video
+            disableRemotePlayback
             autoplay
             muted
             loop

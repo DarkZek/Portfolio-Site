@@ -104,7 +104,7 @@ let images = ref<HTMLElement>();
 let imagesBg = ref<HTMLElement>();
 let content = ref<HTMLElement>();
 
-let size = ref(Math.min(400, window.innerWidth * 0.9));
+let size = ref(Math.min(400, window.innerWidth * 0.6));
 let padding = 40;
 
 window.addEventListener('resize', () => size.value = Math.min(400, window.innerWidth * 0.9))

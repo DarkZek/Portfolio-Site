@@ -75,15 +75,19 @@ function onScroll() {
 
 watch(route, onScroll)
 
-window.addEventListener("scroll", onScroll);
-window.addEventListener("resize", onResize);
+if (window.innerWidth > 768) {
+  window.addEventListener("scroll", onScroll);
+  window.addEventListener("resize", onResize);
+
+  onScroll();
+} else {
+  animationProgress.value = 0.9999
+}
 
 onUnmounted(() => {
   window.removeEventListener("scroll", onScroll);
   window.removeEventListener("resize", onResize);
 })
-
-onScroll();
 </script>
 
 <style lang="scss" scoped>

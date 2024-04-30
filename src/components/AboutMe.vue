@@ -119,6 +119,7 @@ if (!isMobile()) {
 @media screen and (max-width: 768px) {
   .about {
     padding: 0px 40px;
+    margin-top: 180px;
   }
 }
 

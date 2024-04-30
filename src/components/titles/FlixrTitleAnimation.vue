@@ -2,7 +2,7 @@
   <div class="rustcraft-title-animation">
     <div class="row">
       <div class="logo-parent">
-        <video src="/img/flixr.webm" muted ref="video"></video>
+        <video src="/img/flixr.webm" disableRemotePlayback muted ref="video"></video>
       </div>
       <div class="title">
         <a>Flixrapp</a>

@@ -10,6 +10,7 @@
     @keydown.enter="clicked"
   >
     <video
+      disableRemotePlayback
       tabindex="-1"
       ref="video_forwards"
       :src="props.src + '_for.webm'"
@@ -19,6 +20,7 @@
       v-show="!reversed"
     ></video>
     <video
+      disableRemotePlayback
       tabindex="-1"
       ref="video_reversed"
       :src="props.src + '_rev.webm'"

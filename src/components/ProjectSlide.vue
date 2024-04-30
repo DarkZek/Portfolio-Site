@@ -44,7 +44,9 @@ let parentDom = ref<HTMLElement>();
 
 let visible = ref(false);
 
-document.addEventListener('scroll', onScroll)
+if (window.innerWidth > 768) {
+  document.addEventListener('scroll', onScroll)
+}
 
 function onScroll() {
   if (parentDom.value == undefined) {

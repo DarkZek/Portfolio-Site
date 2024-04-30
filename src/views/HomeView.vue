@@ -55,27 +55,9 @@ watch(route, () => {
   transition: opacity 1s ease-in;
 }
 
-.loader {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
-  top: 0px;
-  left: 0px;
-  z-index: 10;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  video {
-    max-width: 700px;
-    margin-top: -8%;
-    width: 90vw;
-  }
-}
-
 .v-enter-active,
 .v-leave-active {
-  transition: opacity .5s ease-in-out;
+  transition: opacity .3s ease-in-out;
 }
 
 .v-enter-from,
