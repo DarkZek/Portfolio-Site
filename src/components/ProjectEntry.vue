@@ -39,9 +39,22 @@
 
 <script lang="ts" setup>
 import { nextTick, ref } from "vue";
-import ProjectSlide from "./ProjectSlide.vue";
 import { useRouter } from 'vue-router';
 import { isMobile } from "../composables/isMobile";
+import { defineAsyncComponent } from 'vue'
+import ProjectSlideLoading from './ProjectSlideLoading.vue'
+
+const ProjectSlide = defineAsyncComponent({
+  loader: () => {
+    if (window.innerWidth > 758) {
+      return import('./ProjectSlide.vue')
+    } else {
+      return import('./ProjectSlideMobile.vue')
+    }
+  },
+  loadingComponent: ProjectSlideLoading,
+  delay: 0
+})
 
 const router = useRouter();
 
@@ -182,7 +195,6 @@ function showUnderlines() {
 
   .graphics {
     padding-top: 30px;
-    opacity: 0.9;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

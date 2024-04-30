@@ -1,7 +1,7 @@
 <template>
   <div
     class="parent"
-    :style="`aspect-ratio: ${videoAspect}`"
+    :style="`aspect-ratio: ${videoAspect}; opacity: ${loaded ? 1 : 0}`"
     ref="parentDom"
     @click="pauseCommand = !pauseCommand"
   >
@@ -28,11 +28,11 @@
 import { ref, nextTick, computed, watch } from "vue";
 import * as p5 from "p5";
 import PauseIcon from "vue-material-design-icons/Pause.vue";
-import { isMobile } from "../composables/isMobile";
 
 let uniqueId = Math.random().toString().substring(2);
 
 let displayed = ref(false);
+let loaded = ref(false);
 
 let props = defineProps<{
   url: string;
@@ -44,9 +44,7 @@ let parentDom = ref<HTMLElement>();
 
 let visible = ref(false);
 
-if (window.innerWidth > 768) {
-  document.addEventListener('scroll', onScroll)
-}
+document.addEventListener('scroll', onScroll)
 
 function onScroll() {
   if (parentDom.value == undefined) {
@@ -70,7 +68,6 @@ nextTick(() => {
   }).observe(parentDom.value!);
   onScroll();
 });
-
 
 let pauseCommand = ref(false);
 let paused = ref(false);
@@ -107,6 +104,7 @@ watch(displayed, () => {
         vid = p.createVideo(props.url, () => {
           vid.elt.style.top = `${videoPadding}px`;
           vid.elt.style.left = `${videoPadding}px`;
+          loaded.value = true;
         });
         vid.volume(0);
         vid.loop();
@@ -160,26 +158,12 @@ watch(displayed, () => {
   }, 200);
 });
 
-// Dont display by default on mobile
-if (!isMobile()) {
-  displayed.value = true;
-}
+displayed.value = true;
 </script>
 
 <style lang="scss" scoped>
 video {
   width: 800px;
-}
-
-/* we will explain what these classes do next! */
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
 }
 
 .inner {
@@ -239,6 +223,7 @@ video {
   max-height: 100%;
   width: 100%;
   flex-grow: 1;
+  transition: opacity 0.2s ease-in;
 }
 
 img {
