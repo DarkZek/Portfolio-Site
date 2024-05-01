@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick, watch } from "vue";
+import { computed, nextTick, onUnmounted, watch } from "vue";
 import { ref } from "vue";
 
 let tiles = ref([
@@ -86,20 +86,26 @@ const carousel = ref<HTMLElement>();
 const paddingLeft = ref<HTMLElement>();
 const paddingRight = ref<HTMLElement>();
 
+const screenWidth = ref(window.innerWidth);
+
+let update = () => screenWidth.value = window.innerWidth;
+document.addEventListener('resize', update);
+onUnmounted(() => document.removeEventListener('resize', update));
+
 const windowSize = 5;
-const tileSize = 500;
+const tileSize = computed(() => Math.min(600, screenWidth.value * 0.8));
 const padding = 2000000;
-const center = ref(padding + (windowSize / 2) * tileSize);
+const center = ref(padding + (windowSize / 2) * tileSize.value);
 
 const scrollX = ref(center.value);
 const windowOffset = computed(() => {
-  return Math.round((scrollX.value - center.value) / (tileSize * windowSize));
+  return Math.round((scrollX.value - center.value) / (tileSize.value * windowSize));
 });
 const paddingLeftPx = computed(
-  () => padding + tileSize * windowSize * windowOffset.value
+  () => padding + tileSize.value * windowSize * windowOffset.value
 );
 const paddingRightPx = computed(
-  () => padding - tileSize * windowSize * windowOffset.value
+  () => padding - tileSize.value * windowSize * windowOffset.value
 );
 
 nextTick(() => {
@@ -142,6 +148,12 @@ let displayTiles = computed(() => {
 
   &::-webkit-scrollbar {
     display: none;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .images {
+    padding: 15px !important;
   }
 }
 
