@@ -1,17 +1,14 @@
 <template>
-  <div
-    class="parent"
-    @click="pause"
-    ref="parentDom"
-  >
-    <div class="inner" :style="loading ? 'visibility: invisible; position: absolute' : undefined">
+  <div class="parent" @click="pause" ref="parentDom">
+    <div
+      class="inner"
+      :style="loading ? 'visibility: invisible; position: absolute' : undefined"
+    >
       <video :src="props.url" muted ref="blurVideoObj" class="blur" />
       <video :src="props.url" @loadeddata="startPlaying" muted ref="videoObj" />
     </div>
-    <img :src="coverUrl" v-if="loading" />
-    <div
-      class="overlay"
-    >
+    <img :src="coverUrl" v-if="loading" :alt="props.alt" />
+    <div class="overlay">
       <div v-if="paused || loading" class="paused">
         <loading-icon v-if="loading" style="width: 64px" />
         <pause-icon v-else :size="48" />
@@ -27,13 +24,14 @@ import LoadingIcon from "./LoadingIcon.vue";
 
 let paused = ref(true);
 let videoObj = ref<HTMLVideoElement>();
-let blurVideoObj = ref<HTMLVideoElement>()
+let blurVideoObj = ref<HTMLVideoElement>();
 let loading = ref(true);
 let parentDom = ref<HTMLElement>();
 
 let props = defineProps<{
   url: string;
   coverUrl: string;
+  alt: string;
 }>();
 
 watch(paused, (val) => {
@@ -44,7 +42,7 @@ watch(paused, (val) => {
     videoObj.value?.play();
     blurVideoObj.value?.play();
   }
-})
+});
 
 function startPlaying() {
   loading.value = false;
@@ -62,7 +60,7 @@ function pause() {
 
 let visible = ref(false);
 
-document.addEventListener('scroll', onScroll)
+document.addEventListener("scroll", onScroll);
 
 function onScroll() {
   if (parentDom.value == undefined) {

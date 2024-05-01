@@ -1,15 +1,20 @@
 <template>
-  <div
-    class="parent"
-    @click="pause"
-  >
-    <div class="inner" v-if="displayed || loading" :style="loading ? 'visibility: invisible; position: absolute' : undefined">
-      <video :src="props.url" @playing="startPlaying" autoplay muted ref="videoObj" />
-    </div>
-    <img :src="coverUrl" v-if="!displayed" />
+  <div class="parent" @click="pause">
     <div
-      class="overlay"
+      class="inner"
+      v-if="displayed || loading"
+      :style="loading ? 'visibility: invisible; position: absolute' : undefined"
     >
+      <video
+        :src="props.url"
+        @playing="startPlaying"
+        autoplay
+        muted
+        ref="videoObj"
+      />
+    </div>
+    <img :src="coverUrl" v-if="!displayed" :alt="props.alt" />
+    <div class="overlay">
       <div v-if="paused || loading" class="paused">
         <loading-icon v-if="loading" style="width: 64px" />
         <pause-icon v-else :size="48" />
@@ -31,6 +36,7 @@ let loading = ref(false);
 let props = defineProps<{
   url: string;
   coverUrl: string;
+  alt: string;
 }>();
 
 watch(paused, (val) => {
@@ -39,7 +45,7 @@ watch(paused, (val) => {
   } else {
     videoObj.value?.play();
   }
-})
+});
 
 function startPlaying() {
   loading.value = false;
@@ -48,7 +54,6 @@ function startPlaying() {
 }
 
 function pause() {
-
   if (!displayed.value) {
     loading.value = true;
     return;

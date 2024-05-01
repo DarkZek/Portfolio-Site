@@ -7,7 +7,10 @@
       };`"
     ></div>
     <div class="row">
-      <div :class="{ info: true, mobile: isMobile() }" @click="router.push('/' + props.redirectUrl)">
+      <div
+        :class="{ info: true, mobile: isMobile() }"
+        @click="router.push('/' + props.redirectUrl)"
+      >
         <font-awesome-icon icon="fa-solid fa-chevron-right" class="more_info" />
         <div style="min-height: 58px">
           <slot name="title" v-if="animateInEffectShown">
@@ -31,7 +34,11 @@
         </div>
       </div>
       <div class="graphics">
-        <project-slide :url="props.videoUrl" :cover-url="props.coverUrl"></project-slide>
+        <project-slide
+          :url="props.videoUrl"
+          :cover-url="props.coverUrl"
+          :alt="`${props.title} Cover Image`"
+        ></project-slide>
       </div>
     </div>
   </div>
@@ -39,22 +46,22 @@
 
 <script lang="ts" setup>
 import { nextTick, ref } from "vue";
-import { useRouter } from 'vue-router';
+import { useRouter } from "vue-router";
 import { isMobile } from "../composables/isMobile";
-import { defineAsyncComponent } from 'vue'
-import ProjectSlideLoading from './ProjectSlideLoading.vue'
+import { defineAsyncComponent } from "vue";
+import ProjectSlideLoading from "./ProjectSlideLoading.vue";
 
 const ProjectSlide = defineAsyncComponent({
   loader: () => {
     if (window.innerWidth > 758) {
-      return import('./ProjectSlide.vue')
+      return import("./ProjectSlide.vue");
     } else {
-      return import('./ProjectSlideMobile.vue')
+      return import("./ProjectSlideMobile.vue");
     }
   },
   loadingComponent: ProjectSlideLoading,
-  delay: 0
-})
+  delay: 0,
+});
 
 const router = useRouter();
 
@@ -212,7 +219,8 @@ function showUnderlines() {
   transition: all 0.2s ease-in-out;
   border-radius: 30px;
 
-  &:hover, &.mobile {
+  &:hover,
+  &.mobile {
     background-color: rgba(50, 50, 50, 0.4);
 
     .more_info {

@@ -9,18 +9,18 @@
         <project-list v-if="isHome"></project-list>
       </transition>
       <transition>
-        <project-carousel v-if="isHome && false"></project-carousel>
+        <project-carousel v-if="isHome"></project-carousel>
       </transition>
       <transition>
-        <flixr-page v-if="route.name == 'Flixr'"/>
+        <flixr-page v-if="route.name == 'Flixr'" />
       </transition>
       <transition>
-        <mobingo-page v-if="route.name == 'Mobingo'"/>
+        <mobingo-page v-if="route.name == 'Mobingo'" />
       </transition>
       <transition>
-        <rustcraft-page v-if="route.name == 'Rustcraft'"/>
+        <rustcraft-page v-if="route.name == 'Rustcraft'" />
       </transition>
-      <contact-me/>
+      <contact-me />
     </div>
   </div>
 </template>
@@ -37,25 +37,24 @@ import FlixrPage from "../components/project/FlixrPage.vue";
 import MobingoPage from "../components/project/MobingoPage.vue";
 import RustcraftPage from "../components/project/RustcraftPage.vue";
 
-const route = useRoute()
+const route = useRoute();
 const isHome = computed(() => route.path == "/");
 
 watch(route, () => {
   if (route.name != "Home") {
     window.scrollTo(0, 0);
   }
-})
+});
 </script>
 
 <style scoped lang="scss">
-
 .transition > div {
   transition: opacity 1s ease-in;
 }
 
 .v-enter-active,
 .v-leave-active {
-  transition: opacity .3s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .v-enter-from,

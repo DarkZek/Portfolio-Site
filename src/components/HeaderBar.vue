@@ -16,17 +16,26 @@
         class="socials row"
         :style="`animation-delay: -${animationProgress}s`"
       >
-        <a class="email" href="mailto:mashdowne@hotmail.co.nz" target="_blank">
+        <a
+          class="email"
+          href="mailto:mashdowne@hotmail.co.nz"
+          target="_blank"
+          aria-label="Email Address">
           <font-awesome-icon icon="fa-solid fa-envelope" />
         </a>
         <a
           class="linkedin"
           href="https://www.linkedin.com/in/marshall-scott-746989167/"
           target="_blank"
+          aria-label="LinkedIn Page"
         >
           <font-awesome-icon icon="fa-brands fa-linkedin-in" />
         </a>
-        <a class="github" href="https://github.com/darkzek/" target="_blank">
+        <a
+          class="github"
+          href="https://github.com/darkzek/"
+          target="_blank"
+          aria-label="Github Page">
           <font-awesome-icon icon="fa-brands fa-github-alt" />
         </a>
       </div>
