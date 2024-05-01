@@ -1,12 +1,16 @@
 <template>
-  <a class="title" @click="router.push('/')" @keydown.enter="router.push('/')" tabindex="0">
+  <a
+    class="title"
+    @click.prevent="router.push('/')"
+    @keydown.enter="router.push('/')"
+    tabindex="0"
+    href="/"
+    aria-label="Marshall Scott"
+  >
     <template v-for="(_, i) in 14" :key="i">
-      <span
-        :char="i"
-        :style="charStyle[i]"
-        v-if="splitText[i] != '\n'"
-        >{{ splitText[i] }}</span
-      >
+      <span :char="i" :style="charStyle[i]" v-if="splitText[i] != '\n'">{{
+        splitText[i]
+      }}</span>
       <br v-else />
     </template>
   </a>
@@ -14,7 +18,7 @@
 
 <script lang="ts" setup>
 import { computed, nextTick, ref, watch } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 const router = useRouter();
 
@@ -26,7 +30,7 @@ let props = defineProps<{
 let splitText = computed(() => props.text.split(""));
 
 // Static X, Static Y, Dynamic Y
-let offsets = ref(new Array(props.text.length).fill(0).map(() => [0,0,0]));
+let offsets = ref(new Array(props.text.length).fill(0).map(() => [0, 0, 0]));
 
 let moveVelocity = -1.5;
 
@@ -34,7 +38,7 @@ let moveVelocity = -1.5;
 let timeOffset = ref(0);
 
 setInterval(() => {
-    timeOffset.value += moveVelocity;
+  timeOffset.value += moveVelocity;
 }, 1000 / 30);
 
 let charStyle = computed(() => {
@@ -69,16 +73,15 @@ nextTick(() => {
 </script>
 
 <style scoped lang="scss">
-
 // Separate vertical offset for JS and CSS so there is no jarring teleporting when switching between the inital css animation, and the physics
 // based js animation.
 @property --js-vertical-offset {
-  syntax: '<length>';
+  syntax: "<length>";
   initial-value: 0px;
   inherits: true;
 }
 @property --css-vertical-offset {
-  syntax: '<length>';
+  syntax: "<length>";
   initial-value: 0px;
   inherits: false;
 }
@@ -115,7 +118,9 @@ nextTick(() => {
     opacity: 0;
     animation-fill-mode: forwards;
     white-space: pre;
-    background-position-y: calc(var(--css-vertical-offset) + var(--js-vertical-offset));
+    background-position-y: calc(
+      var(--css-vertical-offset) + var(--js-vertical-offset)
+    );
   }
 
   &:hover :deep(span) {
