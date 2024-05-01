@@ -17,9 +17,9 @@
     </div>
     <div class="text row demo-row">
       <div class="demo" style="--size: 300px">
-        <iframe src="https://play.charchingo.com" ref="iframe"></iframe>
+        <iframe src="https://play.rubysweeps.com" ref="iframe"></iframe>
         <img src="/img/iphone.png" />
-        <a class="title">play.charchingo.com</a>
+        <a class="title">play.rubysweeps.com</a>
         <div class="refresh" tabindex="0" @click="refresh"></div>
       </div>
       <div class="phone-text">

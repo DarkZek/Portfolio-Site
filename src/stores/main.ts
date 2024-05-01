@@ -43,7 +43,7 @@ export const useMainStore = defineStore("main", () => {
       id: "mobingo",
       name: "Charchingo",
       image: "/content/mobingo/Cover.webp",
-      url: "https://play.charchingo.com",
+      url: "https://play.rubysweeps.com",
       url_tyle: "external",
       description:
         "Charchingo is an Online Bingo Hall made for Alabama customers by Ruby Play Network. It is a commercial level application developed for an in person bingo hall, High Rollers. It supports accepting <b>Payments</b> & <b>Cryptocurrencies</b>, faciliates the games, provides <b>rewards and jackpots</b>.",

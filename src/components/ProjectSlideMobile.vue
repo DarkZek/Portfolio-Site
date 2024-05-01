@@ -11,7 +11,7 @@
       class="overlay"
     >
       <div v-if="paused || loading" class="paused">
-        <sync-icon v-if="loading" :size="48" />
+        <loading-icon v-if="loading" style="width: 64px" />
         <pause-icon v-else :size="48" />
       </div>
     </div>
@@ -21,7 +21,7 @@
 <script lang="ts" setup>
 import { ref, watch } from "vue";
 import PauseIcon from "vue-material-design-icons/Pause.vue";
-import SyncIcon from "vue-material-design-icons/Sync.vue";
+import LoadingIcon from "./LoadingIcon.vue";
 
 let displayed = ref(false);
 let paused = ref(true);
@@ -64,14 +64,8 @@ video {
   border-radius: 10px;
 }
 
-.v-enter-active,
-.v-leave-active {
-  transition: opacity 0.5s ease;
-}
-
-.v-enter-from,
-.v-leave-to {
-  opacity: 0;
+.inner {
+  display: flex;
 }
 
 .overlay {
@@ -83,13 +77,6 @@ video {
   border-radius: 10px;
   overflow: hidden;
   cursor: pointer;
-
-  .progress {
-    background-color: rgba(0, 0, 0, 0.3);
-    height: 4px;
-    position: absolute;
-    bottom: 0px;
-  }
 
   .paused {
     position: absolute;
@@ -117,5 +104,6 @@ video {
 img {
   width: 100%;
   border-radius: 10px;
+  display: flex;
 }
 </style>
