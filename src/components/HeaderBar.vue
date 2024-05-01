@@ -9,7 +9,7 @@
         >
           <map-marker-icon />
 
-          <span>Christchurch, New Zealand</span>
+          <span class="city">Christchurch, New Zealand</span>
         </div>
       </div>
       <div
@@ -151,7 +151,7 @@ onUnmounted(() => {
     margin-top: -4px;
   }
 
-  a {
+  .city {
     font-size: 24px;
   }
 }
