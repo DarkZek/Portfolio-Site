@@ -16,7 +16,7 @@
           <slot name="title" v-if="animateInEffectShown">
             <div class="row title">
               <img :src="props.logoImg" />
-              <a>{{ props.title }}</a>
+              <span>{{ props.title }}</span>
             </div>
           </slot>
         </div>

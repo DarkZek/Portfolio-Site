@@ -5,7 +5,7 @@
         <video src="/img/flixr.webm" disableRemotePlayback muted ref="video"></video>
       </div>
       <div class="title">
-        <a>Flixrapp</a>
+        <span>Flixrapp</span>
       </div>
     </div>
   </div>

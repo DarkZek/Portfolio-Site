@@ -5,7 +5,7 @@
         <video src="/img/charchingo.webm" disableRemotePlayback muted ref="video"></video>
       </div>
       <div class="title">
-        <a>Mobingo</a>
+        <span>Mobingo</span>
       </div>
     </div>
   </div>

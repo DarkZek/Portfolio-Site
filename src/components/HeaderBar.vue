@@ -9,7 +9,7 @@
         >
           <map-marker-icon />
 
-          <a>Christchurch, New Zealand</a>
+          <span>Christchurch, New Zealand</span>
         </div>
       </div>
       <div

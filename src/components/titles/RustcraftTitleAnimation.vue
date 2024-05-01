@@ -15,7 +15,7 @@
       </div>
       <div class="title">
         <div class="hiding">
-          <a>RustCraft</a>
+          <span>RustCraft</span>
         </div>
       </div>
     </div>
@@ -43,7 +43,7 @@
     animation-fill-mode: forwards;
     height: 58px;
 
-    a {
+    span {
       position: absolute;
       right: 0px;
     }
