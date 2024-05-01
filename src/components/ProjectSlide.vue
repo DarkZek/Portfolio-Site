@@ -1,46 +1,58 @@
 <template>
   <div
     class="parent"
-    :style="`aspect-ratio: ${videoAspect}; opacity: ${loaded ? 1 : 0}`"
+    @click="pause"
     ref="parentDom"
-    @click="pauseCommand = !pauseCommand"
   >
-    <img :src="coverUrl" v-if="!displayed" />
-    <div :id="uniqueId" class="inner" :style="innerStyle"></div>
+    <div class="inner" :style="loading ? 'visibility: invisible; position: absolute' : undefined">
+      <video :src="props.url" muted ref="blurVideoObj" class="blur" />
+      <video :src="props.url" @loadeddata="startPlaying" muted ref="videoObj" />
+    </div>
+    <img :src="coverUrl" v-if="loading" />
     <div
       class="overlay"
-      :style="`width: ${parentWidth}px; height: ${
-        parentWidth / videoAspect
-      }px;`"
     >
-      <div class="progress" :style="`width: ${progress * 100}%;`"></div>
-      <div v-if="paused" class="paused">
-        <pause-icon :size="48" />
-      </div>
-      <div v-if="!displayed" class="paused" @click.stop="displayed = true">
-        <pause-icon :size="48" />
+      <div v-if="paused || loading" class="paused">
+        <sync-icon v-if="loading" :size="48" />
+        <pause-icon v-else :size="48" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, nextTick, computed, watch } from "vue";
-import * as p5 from "p5";
+import { ref, watch } from "vue";
 import PauseIcon from "vue-material-design-icons/Pause.vue";
+import SyncIcon from "vue-material-design-icons/Sync.vue";
 
-let uniqueId = Math.random().toString().substring(2);
-
-let displayed = ref(false);
-let loaded = ref(false);
+let paused = ref(true);
+let videoObj = ref<HTMLVideoElement>();
+let blurVideoObj = ref<HTMLVideoElement>()
+let loading = ref(true);
+let parentDom = ref<HTMLElement>();
 
 let props = defineProps<{
   url: string;
   coverUrl: string;
 }>();
 
-let parentWidth = ref(229);
-let parentDom = ref<HTMLElement>();
+watch(paused, (val) => {
+  if (val) {
+    videoObj.value?.pause();
+    blurVideoObj.value?.pause();
+  } else {
+    videoObj.value?.play();
+    blurVideoObj.value?.play();
+  }
+})
+
+function startPlaying() {
+  loading.value = false;
+}
+
+function pause() {
+  paused.value = !paused.value;
+}
 
 let visible = ref(false);
 
@@ -55,140 +67,32 @@ function onScroll() {
   if (visible.value != isVisible) {
     visible.value = isVisible;
 
-    // If it has just become visible again, start the draw loop
-    if (visible.value && p5Instance) {
-      p5Instance.loop();
-    }
+    paused.value = !visible.value;
   }
 }
-
-nextTick(() => {
-  new ResizeObserver((e) => {
-    parentWidth.value = e[0].target.clientWidth;
-  }).observe(parentDom.value!);
-  onScroll();
-});
-
-let pauseCommand = ref(false);
-let paused = ref(false);
-
-let vid: any;
-
-let padding = 80;
-let doublePadding = padding * 2;
-
-let videoPadding = 80;
-let videoAspect = 1920 / 1080;
-let progress = ref(0);
-
-let p5Instance: any;
-
-let innerStyle = computed(() => {
-  return `margin-top: -${padding}px; margin-left: -${padding}px;`;
-});
-watch(displayed, () => {
-
-  if (!displayed.value) {
-    return;
-  }
-
-  setTimeout(() => {
-    let currentWidth = parentWidth.value;
-    p5Instance = new p5((p: any) => {
-      p.setup = () => {
-        p.createCanvas(
-          parentWidth.value + doublePadding,
-          parentWidth.value / videoAspect + doublePadding
-        );
-
-        vid = p.createVideo(props.url, () => {
-          vid.elt.style.top = `${videoPadding}px`;
-          vid.elt.style.left = `${videoPadding}px`;
-          loaded.value = true;
-        });
-        vid.volume(0);
-        vid.loop();
-        vid.size(parentWidth.value, parentWidth.value / videoAspect);
-
-        // If not visible dont start draw loop
-        if (!visible.value) {
-          p.noLoop();
-        }
-      };
-      p.draw = () => {
-        p.clear();
-
-        if (currentWidth != parentWidth.value) {
-          currentWidth = parentWidth.value;
-          p.resizeCanvas(
-            parentWidth.value + doublePadding,
-            parentWidth.value / videoAspect + doublePadding
-          );
-          vid.size(parentWidth.value, parentWidth.value / videoAspect);
-        }
-
-        let img;
-        try {
-          img = vid.get();
-        } catch (e) {
-          return;
-        }
-        p.image(img, padding, padding); // redraws the video frame by frame in
-
-        p.drawingContext.filter = "contrast(180%) blur(48px)";
-        p.image(img, padding, padding); // redraws the video frame by frame in
-
-        progress.value = vid.elt.currentTime / vid.elt.duration;
-
-        if (pauseCommand.value != paused.value) {
-          paused.value = pauseCommand.value;
-          if (paused.value) {
-            vid.pause();
-          } else {
-            vid.play();
-          }
-        }
-
-        // Continue drawing
-        if (!visible.value) {
-          p.noLoop();
-        }
-      };
-    }, uniqueId);
-  }, 200);
-});
-
-displayed.value = true;
 </script>
 
 <style lang="scss" scoped>
 video {
-  width: 800px;
+  width: 100%;
+  border-radius: 10px;
 }
 
-.inner {
-  width: 900px;
-  height: 500px;
-  position: absolute;
+.v-enter-active,
+.v-leave-active {
+  transition: opacity 0.5s ease;
+}
 
-  :deep(canvas) {
-    transform: scaleX(0.95) scaleY(0.9);
-    opacity: 0.8;
-  }
-
-  :deep(video) {
-    position: absolute;
-    border-radius: 10px;
-    overflow: hidden;
-    transition: opacity 0.4s ease-in;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
+.v-enter-from,
+.v-leave-to {
+  opacity: 0;
 }
 
 .overlay {
   position: absolute;
   width: 100%;
   height: 100%;
+  top: 0px;
   transition: opacity 0.4s ease-in;
   border-radius: 10px;
   overflow: hidden;
@@ -222,13 +126,15 @@ video {
   max-width: 800px;
   max-height: 100%;
   width: 100%;
-  flex-grow: 1;
-  transition: opacity 0.2s ease-in;
 }
 
 img {
-  height: 100%;
+  width: 100%;
   border-radius: 10px;
+}
+
+.blur {
   position: absolute;
+  filter: blur(24px) contrast(180%);
 }
 </style>
