@@ -29,7 +29,7 @@
 import HeaderBar from "../components/HeaderBar.vue";
 import AboutMe from "../components/AboutMe.vue";
 import ProjectList from "../components/ProjectList.vue";
-import ProjectCarousel from "../components/ProjectCarousel.vue";
+import ProjectCarousel from "../components/ProjectCarousel2.vue";
 import ContactMe from "../components/ContactMe.vue";
 import { computed, watch } from "vue";
 import { useRoute } from "vue-router";

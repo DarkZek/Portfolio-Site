@@ -53,7 +53,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onUnmounted } from "vue";
+import { computed } from "vue";
 import { nextTick, ref } from "vue";
 
 let tiles = ref([
