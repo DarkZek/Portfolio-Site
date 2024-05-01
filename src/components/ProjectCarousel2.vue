@@ -1,13 +1,21 @@
 <template>
-  <div class="carousel"
-      ref="carousel">
-      <div class="padding" ref="paddingLeft" />
+  <div class="carousel" ref="carousel">
     <div
+      class="padding"
+      ref="paddingLeft"
+      :style="`width: ${paddingLeftPx}px`"
+    />
+    <a
       class="images"
       v-for="i in displayTiles.entries()"
       :key="i[0]"
+      :style="`width: ${tileSize}px`"
+      :href="i[1].url"
+      target="_blank"
     >
-      <div class="background-tile" :style="`background: ${i[1].color}`"></div>
+      <div>
+        <div class="background-tile" :style="`background: ${i[1].color}`"></div>
+      </div>
       <div class="tile" :style="`background-image: url(${i[1].img})`"></div>
       <div class="tile-content">
         <h3>
@@ -17,13 +25,17 @@
           {{ i[1].description }}
         </p>
       </div>
-    </div>
-    <div class="padding" ref="paddingRight" />
+    </a>
+    <div
+      class="padding"
+      ref="paddingRight"
+      :style="`width: ${paddingRightPx}px`"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, nextTick } from "vue";
+import { computed, nextTick, watch } from "vue";
 import { ref } from "vue";
 
 let tiles = ref([
@@ -74,38 +86,73 @@ const carousel = ref<HTMLElement>();
 const paddingLeft = ref<HTMLElement>();
 const paddingRight = ref<HTMLElement>();
 
+const windowSize = 5;
+const tileSize = 500;
+const padding = 2000000;
+const center = ref(padding + (windowSize / 2) * tileSize);
+
+const scrollX = ref(center.value);
+const windowOffset = computed(() => {
+  return Math.round((scrollX.value - center.value) / (tileSize * windowSize));
+});
+const paddingLeftPx = computed(
+  () => padding + tileSize * windowSize * windowOffset.value
+);
+const paddingRightPx = computed(
+  () => padding - tileSize * windowSize * windowOffset.value
+);
+
 nextTick(() => {
-  carousel.value?.scrollTo(2000000, 0);
-})
+  carousel.value?.addEventListener(
+    "scroll",
+    () => {
+      scrollX.value = carousel.value!.scrollLeft;
+    },
+    { passive: true }
+  );
+});
+
+nextTick(() => {
+  carousel.value?.scrollTo(center.value, 0);
+});
 
 // Display tiles 3x, one for the left of the screen, one displayed and one for the right - to provide infinite scrolling
 let displayTiles = computed(() => {
-  return [...tiles.value, ...tiles.value, ...tiles.value, ...tiles.value, ...tiles.value];
+  return [
+    ...tiles.value,
+    ...tiles.value,
+    ...tiles.value,
+    ...tiles.value,
+    ...tiles.value,
+  ];
 });
 </script>
 
 <style lang="scss" scoped>
 .carousel {
-  --width: min(400px, 90vw);
-
   margin-top: 80px;
   display: flex;
   flex-direction: row;
-  padding: 150px 0px;
+  padding: 100px 0px 0px 0px;
   width: 100vw;
-  height: 800px;
+  height: 650px;
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .images {
   display: flex;
   flex-direction: column;
-  width: 400px;
   flex-shrink: 0;
-  padding: 20px;
+  padding: 40px;
   scroll-snap-align: center;
+  scroll-snap-stop: always;
+  text-decoration: none;
 
   &::-webkit-scrollbar {
     display: none;
@@ -120,16 +167,12 @@ let displayTiles = computed(() => {
     background-size: cover;
   }
 
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
   .background-tile {
-    width: var(--width);
+    width: 100%;
     aspect-ratio: 5/3;
-    flex-shrink: 0;
     border-radius: 20px;
-    filter: blur(60px);
+    filter: blur(50px);
+    opacity: 0.5;
     background-position: center;
     background-size: cover;
     z-index: 0;
@@ -137,16 +180,9 @@ let displayTiles = computed(() => {
   }
 }
 
-.content {
-  height: 200px;
+.tile-content {
   border-radius: 20px;
-  align-self: center;
-  overflow-x: scroll;
-  margin-top: 15px;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: nowrap;
-  width: 100vw;
+  padding-top: 20px;
 
   &::-webkit-scrollbar {
     display: none;
@@ -162,10 +198,8 @@ let displayTiles = computed(() => {
     position: absolute;
   }
 
-  .tile-content {
-    width: var(--width);
-    flex-shrink: 0;
-    margin: 20px;
+  p {
+    color: var(--color-text) !important;
   }
 }
 
@@ -192,8 +226,6 @@ let displayTiles = computed(() => {
 }
 
 .padding {
-  width: 2000000px;
   flex-shrink: 0;
 }
-
 </style>
