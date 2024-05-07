@@ -198,6 +198,7 @@ function showUnderlines() {
     background-position: center;
     filter: blur(3px);
     pointer-events: none;
+    transition: opacity 0.6s ease-out;
   }
 
   .graphics {
@@ -212,7 +213,7 @@ function showUnderlines() {
   color: white;
   margin: auto;
   padding: 30px 40px 30px 40px;
-  max-width: 800px;
+  max-width: min(70vw, 1000px);
   margin-top: 80px;
   min-width: min(400px, 100vw);
   cursor: pointer;
@@ -270,7 +271,7 @@ function showUnderlines() {
 }
 
 .graphics {
-  max-width: 800px;
+  max-width: min(70vw, 1000px);
   margin: auto;
   justify-content: center;
   gap: 40px;

@@ -10,6 +10,7 @@
         @playing="startPlaying"
         autoplay
         muted
+        loop
         ref="videoObj"
       />
     </div>

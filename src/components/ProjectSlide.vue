@@ -4,8 +4,8 @@
       class="inner"
       :style="loading ? 'visibility: invisible; position: absolute' : undefined"
     >
-      <video :src="props.url" muted ref="blurVideoObj" class="blur" />
-      <video :src="props.url" @loadeddata="startPlaying" muted ref="videoObj" />
+      <video :src="props.url" muted ref="blurVideoObj" class="blur" loop />
+      <video :src="props.url" @loadeddata="startPlaying" muted ref="videoObj" loop />
     </div>
     <img :src="coverUrl" v-if="loading" :alt="props.alt" />
     <div class="overlay">
@@ -114,7 +114,7 @@ video {
 }
 
 .parent {
-  max-width: 800px;
+  max-width: 900px;
   max-height: 100%;
   width: 100%;
 }
