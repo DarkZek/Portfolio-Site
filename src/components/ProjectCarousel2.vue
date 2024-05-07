@@ -1,36 +1,40 @@
 <template>
-  <div class="carousel" ref="carousel">
-    <div
-      class="padding"
-      ref="paddingLeft"
-      :style="`width: ${paddingLeftPx}px`"
-    />
-    <a
-      class="images"
-      v-for="i in displayTiles.entries()"
-      :key="i[0]"
-      :style="`width: ${tileSize}px`"
-      :href="i[1].url"
-      target="_blank"
-    >
-      <div>
-        <div class="background-tile" :style="`background: ${i[1].color}`"></div>
-      </div>
-      <div class="tile" :style="`background-image: url(${i[1].img})`"></div>
-      <div class="tile-content">
-        <h3>
-          <b>{{ i[1].title }}</b>
-        </h3>
-        <p>
-          {{ i[1].description }}
-        </p>
-      </div>
-    </a>
-    <div
-      class="padding"
-      ref="paddingRight"
-      :style="`width: ${paddingRightPx}px`"
-    />
+  <div class="parent">
+    <font-awesome-icon icon="fa-solid fa-chevron-left" class="left navigate" @click.prevent="carousel?.scrollBy({ left: -tileSize, behavior: 'smooth' })" />
+    <font-awesome-icon icon="fa-solid fa-chevron-right" class="right navigate" @click.prevent="carousel?.scrollBy({ left: tileSize, behavior: 'smooth' })" />
+    <div class="carousel" ref="carousel">
+      <div
+        class="padding"
+        ref="paddingLeft"
+        :style="`width: ${paddingLeftPx}px`"
+      />
+      <a
+        class="images"
+        v-for="i in displayTiles.entries()"
+        :key="i[0]"
+        :style="`width: ${tileSize}px`"
+        :href="i[1].url"
+        target="_blank"
+      >
+        <div>
+          <div class="background-tile" :style="`background: ${i[1].color}`"></div>
+        </div>
+        <div class="tile" :style="`background-image: url(${i[1].img})`"></div>
+        <div class="tile-content">
+          <h3>
+            <b>{{ i[1].title }}</b>
+          </h3>
+          <p>
+            {{ i[1].description }}
+          </p>
+        </div>
+      </a>
+      <div
+        class="padding"
+        ref="paddingRight"
+        :style="`width: ${paddingRightPx}px`"
+      />
+    </div>
   </div>
 </template>
 
@@ -145,6 +149,7 @@ let displayTiles = computed(() => {
   overflow-x: scroll;
   scroll-snap-type: x mandatory;
   -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
 
   &::-webkit-scrollbar {
     display: none;
@@ -154,6 +159,9 @@ let displayTiles = computed(() => {
 @media screen and (max-width: 800px) {
   .images {
     padding: 15px !important;
+  }
+  .navigate {
+    display: none;
   }
 }
 
@@ -239,5 +247,41 @@ let displayTiles = computed(() => {
 
 .padding {
   flex-shrink: 0;
+}
+
+.parent:hover .navigate {
+  opacity: 1;
+}
+
+.navigate {
+
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 40px;
+  height: 40px;
+  text-align: center;
+  padding: 20px;
+  border-radius: 100%;
+  bottom: 0px;
+  top: 0px;
+  margin: auto;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    background-color: rgba(100, 50, 20, 0.5);
+    color: white;
+  }
+
+  &.left {
+    left: 50px;
+  }
+
+  &.right {
+    right: 50px;
+  }
 }
 </style>
