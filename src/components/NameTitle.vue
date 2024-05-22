@@ -64,12 +64,6 @@ nextTick(() => {
 </script>
 
 <style scoped lang="scss">
-@property --css-vertical-offset {
-  syntax: "<length>";
-  initial-value: 0px;
-  inherits: false;
-}
-
 .title {
   display: block;
   cursor: pointer;
