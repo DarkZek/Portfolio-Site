@@ -25,22 +25,22 @@
     margin-right: 6%;
     background-color: var(--icon-off-color);
     border-radius: 10px;
-    animation: diodeIcon 1s infinite;
+    animation: diodeIcon 0.5s infinite;
   }
 }
 
 .d1 {
-    --icon-on-color: red;
+    --icon-on-color: rgb(180, 74, 74);
 }
 
 .d2 {
-    --icon-on-color: green;
-    animation-delay: 0.33s !important;
+    --icon-on-color: rgb(96, 176, 96);
+    animation-delay: 0.16s !important;
 }
 
 .d3 {
-    --icon-on-color: blue;
-    animation-delay: 0.66s !important;
+    --icon-on-color: rgb(85, 85, 182);
+    animation-delay: 0.33s !important;
 }
 
 @keyframes diodeIcon {

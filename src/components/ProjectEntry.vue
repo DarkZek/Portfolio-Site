@@ -33,31 +33,42 @@
           <p v-html="props.description"></p>
         </div>
       </div>
-      <div class="graphics">
+      <div class="graphics" v-if="!isMobile()">
         <project-slide
           :url="props.videoUrl"
           :cover-url="props.coverUrl"
           :alt="`${props.title} Cover Image`"
         ></project-slide>
       </div>
+      <div class="graphics mobile" v-else>
+        <project-slide-mobile
+          :url="props.videoUrl"
+          :cover-url="props.coverUrl"
+          :alt="`${props.title} Cover Image`"
+        ></project-slide-mobile>
+      </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { nextTick, ref } from "vue";
+import { computed, nextTick, ref } from "vue";
 import { useRouter } from "vue-router";
-import { isMobile } from "../composables/isMobile";
 import { defineAsyncComponent } from "vue";
 import ProjectSlideLoading from "./ProjectSlideLoading.vue";
+import { isMobile } from '../composables/isMobile'
 
 const ProjectSlide = defineAsyncComponent({
   loader: () => {
-    if (window.innerWidth > 758) {
-      return import("./ProjectSlide.vue");
-    } else {
-      return import("./ProjectSlideMobile.vue");
-    }
+    return import("./ProjectSlide.vue")
+  },
+  loadingComponent: ProjectSlideLoading,
+  delay: 0,
+});
+
+const ProjectSlideMobile = defineAsyncComponent({
+  loader: () => {
+    return import("./ProjectSlideMobile.vue")
   },
   loadingComponent: ProjectSlideLoading,
   delay: 0,
@@ -276,7 +287,12 @@ function showUnderlines() {
   justify-content: center;
   gap: 40px;
   width: 100%;
-  padding: 0px 40px;
+  padding: 10px 40px 0px 40px;
+
+  &.mobile {
+    padding: 10px 20px 0px 20px;
+    max-width: 100vw;
+  }
 
   > * {
     display: block;

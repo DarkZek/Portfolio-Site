@@ -32,7 +32,7 @@ function tryPlayAnimation() {
 }
 
 // Play when passed bottom 1/3 of screen
-document.addEventListener('scroll', tryPlayAnimation);
+document.addEventListener('scroll', tryPlayAnimation, { passive: true });
 
 </script>
 
