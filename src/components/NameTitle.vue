@@ -29,22 +29,13 @@ let props = defineProps<{
 
 let splitText = computed(() => props.text.split(""));
 
-// Static X, Static Y, Dynamic Y
-let offsets = ref(new Array(props.text.length).fill(0).map(() => [0, 0, 0]));
-
-let moveVelocity = -1.5;
-
-// How much we will scroll the background this frame
-let timeOffset = ref(0);
-
-setInterval(() => {
-  timeOffset.value += moveVelocity;
-}, 1000 / 30);
+// X positions of letters to align them to background
+let offsets = ref(new Array(props.text.length).fill(0).map(() => 0));
 
 let charStyle = computed(() => {
-  return offsets.value.map((offset, index) => {
+  return offsets.value.map((offset) => {
     return `
-      background-position-x: ${-offset[0]}px;
+      background-position-x: ${-offset}px;
       font-size: ${props.fontSize ?? 60}px;`;
   });
 });
@@ -53,7 +44,7 @@ function updateHorizontalOffset() {
   for (let i = 0; i < props.text.length; i++) {
     let object = document.querySelector(`span[char="${i}"]`) as any;
     if (object) {
-      offsets.value[i][0] = object.offsetLeft;
+      offsets.value[i] = object.offsetLeft;
     }
   }
 }
