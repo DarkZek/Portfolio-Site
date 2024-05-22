@@ -64,54 +64,34 @@ nextTick(() => {
 </script>
 
 <style scoped lang="scss">
-// Separate vertical offset for JS and CSS so there is no jarring teleporting when switching between the inital css animation, and the physics
-// based js animation.
-@property --gradual-vertical-offset {
-  syntax: "<length>";
-  initial-value: 0px;
-  inherits: true;
-}
 @property --css-vertical-offset {
   syntax: "<length>";
   initial-value: 0px;
   inherits: false;
 }
 
-@keyframes gradualScrollUp {
-  0% {
-    --gradual-vertical-offset: 0px;
-  }
-  100% {
-    --gradual-vertical-offset: 4800px; // Image height
-  }
-}
-
 .title {
   display: block;
   cursor: pointer;
-  animation: gradualScrollUp 100s linear infinite;
 
   &:deep(span) {
     color: transparent;
     position: unset;
     animation: topAnimation 1s ease-out;
     animation-timing-function: cubic-bezier(0.47, -0.08, 0.13, 0.99);
-    background-image: url(/img/background_tiled.jpg);
+    background-image: url(/img/name_background.webp);
     background-repeat: repeat-y;
-    background-size: 1000px;
+    background-size: 500px;
     font-weight: 600;
     background-clip: text;
     -webkit-background-clip: text;
     color: rgba(0, 0, 0, 0.2);
     font-family: "Poppins", sans-serif;
     display: inline-block;
-    filter: saturate(0.9);
+    filter: saturate(1.1);
     opacity: 0;
     animation-fill-mode: forwards;
     white-space: pre;
-    background-position-y: calc(
-      var(--css-vertical-offset) + var(--gradual-vertical-offset)
-    );
   }
 
   &:hover :deep(span) {
@@ -138,12 +118,12 @@ nextTick(() => {
 @keyframes topAnimation {
   0% {
     transform: translateY(-100px) translatez(0);
-    --css-vertical-offset: 100px;
+    background-position-y: 0px;
     opacity: 0;
   }
   100% {
     transform: translateY(0px) translatez(0);
-    --css-vertical-offset: 0px;
+    background-position-y: -100px;
     opacity: 1;
   }
 }
