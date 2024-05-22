@@ -66,7 +66,7 @@ nextTick(() => {
 <style scoped lang="scss">
 // Separate vertical offset for JS and CSS so there is no jarring teleporting when switching between the inital css animation, and the physics
 // based js animation.
-@property --js-vertical-offset {
+@property --gradual-vertical-offset {
   syntax: "<length>";
   initial-value: 0px;
   inherits: true;
@@ -79,10 +79,10 @@ nextTick(() => {
 
 @keyframes gradualScrollUp {
   0% {
-    --js-vertical-offset: 0px;
+    --gradual-vertical-offset: 0px;
   }
   100% {
-    --js-vertical-offset: 4800px; // Image height
+    --gradual-vertical-offset: 4800px; // Image height
   }
 }
 
@@ -110,7 +110,7 @@ nextTick(() => {
     animation-fill-mode: forwards;
     white-space: pre;
     background-position-y: calc(
-      var(--css-vertical-offset) + var(--js-vertical-offset)
+      var(--css-vertical-offset) + var(--gradual-vertical-offset)
     );
   }
 
@@ -137,12 +137,12 @@ nextTick(() => {
 
 @keyframes topAnimation {
   0% {
-    transform: translateY(-100px);
+    transform: translateY(-100px) translatez(0);
     --css-vertical-offset: 100px;
     opacity: 0;
   }
   100% {
-    transform: translateY(0px);
+    transform: translateY(0px) translatez(0);
     --css-vertical-offset: 0px;
     opacity: 1;
   }
