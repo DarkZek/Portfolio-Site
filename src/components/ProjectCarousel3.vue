@@ -1,9 +1,10 @@
 <template>
   <div class="parent">
-    <font-awesome-icon icon="fa-solid fa-chevron-left" class="left navigate" @click.prevent="carousel!.scrollBy({ left: -tileSize, behavior: 'smooth' })" />
+    <font-awesome-icon icon="fa-solid fa-chevron-left" class="left navigate" @click.prevent="carousel?.scrollBy({ left: -tileSize, behavior: 'smooth' })" />
     <font-awesome-icon icon="fa-solid fa-chevron-right" class="right navigate" @click.prevent="carousel?.scrollBy({ left: tileSize, behavior: 'smooth' })" />
     <div class="carousel">
       <a
+        ref="carousel"
         class="images"
         v-for="i in tiles.entries()"
         :key="i[0]"
@@ -31,6 +32,8 @@
 <script lang="ts" setup>
 import { computed, nextTick, onUnmounted, watch } from "vue";
 import { ref } from "vue";
+
+const carousel = ref<HTMLElement>();
 
 let tiles = ref([
   {
@@ -75,6 +78,8 @@ let tiles = ref([
     url: "https://darkzek.github.io/UDC-Christmas-Event/Website/index.html",
   },
 ]);
+
+const tileSize = 600;
 </script>
 
 <style lang="scss" scoped>

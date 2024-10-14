@@ -6,7 +6,13 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "checkJs": false
+    "checkJs": false,
+    // workaround for https://github.com/vuejs/tsconfig/issues/6
+    "preserveValueImports": false,
+    "importsNotUsedAsValues": "remove",
+    "verbatimModuleSyntax": true,
+    "jsx": "preserve",
+    "jsxImportSource": "vue"
   },
 
   "references": [

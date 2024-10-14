@@ -25,7 +25,7 @@ import { SnakeGame } from "../utils/snake";
 import { isMobile } from "../composables/isMobile";
 
 let gameObj = ref<HTMLCanvasElement>();
-let gameParent = ref<Element>();
+let gameParent = ref<HTMLElement>();
 
 let size = 600;
 let playing = true;
@@ -68,8 +68,8 @@ function gameSetup() {
 
     gameObj.value.height = size;
     gameObj.value.width = size;
-    gameParent.value.style.height = size + 'px';
-    gameParent.value.style.width = size + 'px';
+    gameParent.value!.style.height = size + 'px';
+    gameParent.value!.style.width = size + 'px';
   }
 
   watch(gameParent, () => {
@@ -88,8 +88,8 @@ function gameSetup() {
 
     setInterval(() => {
       if (ctx != null && playing) {
-        game.tick();
-        game.draw(ctx, size);
+        game!.tick();
+        game!.draw(ctx, size);
       }
     }, 150);
   });
